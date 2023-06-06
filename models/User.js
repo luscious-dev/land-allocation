@@ -3,8 +3,6 @@ const bcrypt = require("bcrypt");
 const { getCurrentDate } = require("../utils/dateUtils");
 
 module.exports = class User {
-  constructor() {}
-
   // Create - C
   async create(data) {
     const { FirstName, MiddleName, LastName, DOB, Email, Phone, Password } =
