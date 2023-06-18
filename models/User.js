@@ -1,6 +1,6 @@
 const { sql, conn } = require("../db");
 const bcrypt = require("bcrypt");
-const { getCurrentDate } = require("../utils/dateUtils");
+const { getCurrentDate, spitDate } = require("../utils/dateUtils");
 
 module.exports = class User {
   // Create - C
@@ -16,7 +16,7 @@ module.exports = class User {
       .input("FirstName", sql.VarChar(50), FirstName)
       .input("MiddleName", sql.VarChar(50), MiddleName)
       .input("LastName", sql.VarChar(50), LastName)
-      .input("DOB", sql.Date, DOB)
+      .input("DOB", sql.Date, spitDate(DOB))
       .input("Email", sql.VarChar(50), Email)
       .input("Role", sql.VarChar(20), "user")
       .input("Phone", sql.VarChar(20), Phone)

@@ -1,27 +1,101 @@
+// Libraries
 const express = require("express");
-const User = require("./models/User");
-const { spitDate } = require("./utils/dateUtils");
+const cookieParser = require("cookie-parser");
 
+// Routes
+const userRoute = require("./routes/userRoutes");
+const landRoute = require("./routes/landRoutes");
+const landImageRoute = require("./routes/landImageRoutes");
+const certificateRoute = require("./routes/certifcateRoutes");
+const allocatedRoute = require("./routes/allocatedRoutes");
+
+const AppError = require("./utils/appError");
 const app = express();
 
-app.get("/", async function (req, res, next) {
-  // const user = await new User().deleteOne(5, { out: true });
-  // const user = await new User().readOne(5);
-  // let oldUser = await new User().readOne(3);
-  // const user = await new User().updateOne(3, oldUser.LastChanged, {
-  //   FirstName: "Salim",
-  // });
-  const user = await new User().readConditional("FirstName = 'Salim'");
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-  console.log(user);
-
-  res.send("This is the home page");
-});
-
-// WHAT WE WANT
-
-// SECURITY
+app.use("/api/v1/user", userRoute);
+app.use("/api/v1/land", landRoute);
+app.use("/api/v1/land-image", landImageRoute);
+app.use("/api/v1/certificate-of-ownership", certificateRoute);
+app.use("/api/v1/allocated-to", allocatedRoute);
 
 // ERROR HANDLING
+function handleTypeErrorDB(err) {
+  return new AppError("Invalid input type", 400);
+}
+
+function handleMissingValueDB(err) {
+  const errMessage = err.message;
+  const regex = /'([^']+)'/;
+  const matches = errMessage.match(regex);
+  return new AppError(`${matches[0]} cannot be NULL`, 400);
+}
+
+function handleDuplicateErrorDB(err) {
+  const errMessage = err.originalError.message;
+  const matches = errMessage.match(/\((.*?)\)/);
+  console.log(matches);
+  return new AppError(
+    `'${matches[1]}' already exists. Use a different one!`,
+    400
+  );
+}
+
+const handleJWTError = () =>
+  new AppError("Invalid token. Please log in again!", 401);
+const handleJWTExpiredError = () =>
+  new AppError("Token has expired. Please log in again!", 401);
+
+// Handle development errors
+function handleDevelopmentError(err, req, res) {
+  // console.log(err);
+  if (req.originalUrl.startsWith("/api")) {
+    return res.status(err.statusCode).json({
+      status: err.status,
+      message: err.message,
+      error: err,
+    });
+  }
+  // Render pages
+}
+
+// Handle production errors
+function handleProductionError(err, req, res) {
+  if (req.originalUrl.startsWith("/api")) {
+    if (err.isOperational) {
+      return res.status(err.statusCode).json({
+        status: err.status,
+        message: err.message,
+      });
+    } else {
+      return res.status(err.statusCode).json({
+        status: err.status,
+        message: "Something went wrong",
+      });
+    }
+  }
+
+  // Render pages
+}
+
+app.use((err, req, res, next) => {
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || "error";
+
+  if (process.env.NODE_ENV == "development") {
+    handleDevelopmentError(err, req, res);
+  } else {
+    if (err.number == 8114) err = handleTypeErrorDB(err);
+    if (err.number == 2627) err = handleDuplicateErrorDB(err);
+    if (err.number == 515) err = handleMissingValueDB(err);
+    if (err.name === "JsonWebTokenError") err = handleJWTError(err);
+    if (err.name === "TokenExpiredError") err = handleJWTExpiredError(err);
+
+    handleProductionError(err, req, res);
+  }
+});
 
 module.exports = app;

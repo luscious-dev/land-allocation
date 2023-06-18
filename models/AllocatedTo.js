@@ -10,9 +10,8 @@ module.exports = class Land {
       .request()
       .output("Id", undefined)
       .input("UserId", sql.Int, UserId)
-      .input("LandId", sql.VarChar(100), LandId)
+      .input("LandId", sql.Int, LandId)
       .input("DateAllocated", sql.Date, getCurrentDate())
-      .output("LastChanged", sql.VarBinary, undefined)
       .execute(`dbo.${process.env.UNIQUE_PREFIX}_AllocatedTo_Create`);
 
     return result.output;
@@ -52,17 +51,15 @@ module.exports = class Land {
   }
 
   // Update - U
-  async updateOne(Id, LastChanged, data) {
+  async updateOne(Id, LastChanged = null, data) {
     await conn.connect();
 
     await conn
       .request()
       .input("Id", Id)
       .input("UserId", sql.Int, data.UserId)
-      .input("LandId", sql.VarChar(100), data.LandId)
+      .input("LandId", sql.Int, data.LandId)
       .input("DateAllocated", sql.Date, getCurrentDate())
-      .input("LastChanged", sql.VarBinary, LastChanged)
-      .output("NewLastChanged", sql.VarBinary, undefined)
       .execute(`dbo.${process.env.UNIQUE_PREFIX}_AllocatedTo_Update`);
 
     const updatedLand = await this.readOne(Id);
@@ -72,9 +69,7 @@ module.exports = class Land {
   // Delete - D
   async deleteOne(Id, options = {}) {
     await conn.connect();
-
     const oldData = await this.readOne(Id);
-
     const result = await conn
       .request()
       .input("Id", Id)

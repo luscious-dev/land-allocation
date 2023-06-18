@@ -6,6 +6,7 @@ module.exports = class Land {
   async create(data) {
     const { AddedBy, Location, State, City, LGA, Size, LandBoundaries, Price } =
       data;
+
     await conn.connect();
     const result = await conn
       .request()
@@ -16,7 +17,11 @@ module.exports = class Land {
       .input("City", sql.VarChar(10), City)
       .input("LGA", sql.VarChar(50), LGA)
       .input("Size", sql.Decimal, Size)
-      .input("LandBoundaries", sql.Geometry, LandBoundaries)
+      .input(
+        "LandBoundaries",
+        sql.NVarChar(500),
+        JSON.stringify(LandBoundaries)
+      )
       .input("Price", sql.Money, Price)
       .input("Allocated", sql.Bit, 0)
       .input("DateCreated", sql.Date, getCurrentDate())
@@ -71,11 +76,15 @@ module.exports = class Land {
       .input("City", sql.VarChar(10), data.City)
       .input("LGA", sql.VarChar(50), data.LGA)
       .input("Size", sql.Decimal, data.Size)
-      .input("LandBoundaries", sql.Geometry, data.LandBoundaries)
+      .input(
+        "LandBoundaries",
+        sql.NVarChar(500),
+        JSON.stringify(data.LandBoundaries)
+      )
       .input("Price", sql.Money, data.Price)
       .input("Allocated", sql.Bit, 0)
       .input("DateCreated", sql.Date, getCurrentDate())
-      .input("LastChanged", sql.VarBinary, LastChanged)
+      .input("LastChanged", sql.VarBinary, Buffer.from(LastChanged))
       .output("NewLastChanged", sql.VarBinary, undefined)
       .execute(`dbo.${process.env.UNIQUE_PREFIX}_Land_Update`);
 

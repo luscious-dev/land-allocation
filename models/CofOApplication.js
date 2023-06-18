@@ -10,7 +10,7 @@ module.exports = class Land {
       PurposeOfLandUse,
       EvidenceOfLandUse,
       ApplicationFee,
-      ApplicationDate,
+      PassportPhoto,
       NIN,
     } = data;
     await conn.connect();
@@ -22,11 +22,11 @@ module.exports = class Land {
       .input("PurposeOfLandUse", sql.VarChar(20), PurposeOfLandUse)
       .input("EvidenceOfLandUse", sql.VarChar(20), EvidenceOfLandUse)
       .input("ApplicationFee", sql.Money, ApplicationFee)
-      .input("ApplicationDate", sql.Date, ApplicationDate)
-      .input("PassportPhoto", sql.Geometry, PassportPhoto)
+      .input("ApplicationDate", sql.Date, getCurrentDate())
+      // Change this
+      .input("PassportPhoto", sql.VarChar(20), PassportPhoto)
       .input("NIN", sql.Char(11), NIN)
       .input("Approved", sql.Bit, 0)
-      .input("DateCreated", sql.Date, getCurrentDate())
       .output("LastChanged", sql.VarBinary, undefined)
       .execute(`dbo.${process.env.UNIQUE_PREFIX}_CofOApplication_Create`);
 
@@ -80,11 +80,10 @@ module.exports = class Land {
       .input("EvidenceOfLandUse", sql.VarChar(20), data.EvidenceOfLandUse)
       .input("ApplicationFee", sql.Money, data.ApplicationFee)
       .input("ApplicationDate", sql.Date, data.ApplicationDate)
-      .input("PassportPhoto", sql.Geometry, data.PassportPhoto)
+      .input("PassportPhoto", sql.VarChar(20), data.PassportPhoto)
       .input("NIN", sql.Char(11), data.NIN)
       .input("Approved", sql.Bit, 0)
-      .input("DateCreated", sql.Date, undefined)
-      .input("LastChanged", sql.VarBinary, LastChanged)
+      .input("LastChanged", sql.VarBinary, Buffer.from(LastChanged))
       .output("NewLastChanged", sql.VarBinary, undefined)
       .execute(`dbo.${process.env.UNIQUE_PREFIX}_CofOApplication_Update`);
 
