@@ -1,0 +1,129 @@
+header
+  .top-header
+    .container
+      .row.justify-content-between
+        .col-xl-6.col-md-7.col-sm-12
+          .header-address
+            a(href='#')
+              i.la.la-phone-square
+              span (647) 346-0855
+            a(href='#')
+              i.la.la-map-marker
+              span CF Fairview Mall, Toronto, ON
+        .col-xl-3.col-md-5.col-sm-12
+          .header-social
+            a(href='#')
+              i.fa.fa-facebook
+            a(href='#')
+              i.fa.fa-twitter
+            a(href='#')
+              i.fa.fa-instagram
+            a(href='#')
+              i.fa.fa-linkedin
+  .header
+    .container
+      .row
+        .col-xl-12
+          nav.navbar.navbar-expand-lg.navbar-light
+            a.navbar-brand(href='index.html')
+              img(src='/img/logo.png' alt='')
+            button.menu-button(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent')
+              span.icon-spar
+              span.icon-spar
+              span.icon-spar
+            #navbarSupportedContent.navbar-collapse
+              ul.navbar-nav.mr-auto
+                li.nav-item.dropdown.active
+                  a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown')
+                    | Home
+                  .dropdown-menu.animated
+                    a.dropdown-item.active(href='index.html') White Menu with Center Search
+                    a.dropdown-item(href='02_Home.html') Image Menu with Center Search 2
+                    a.dropdown-item(href='03_Home.html') Map with Center Search
+                    a.dropdown-item(href='04_Home.html') Geo SVG Map
+                    a.dropdown-item(href='05_Home.html') Slider Header
+                    a.dropdown-item(href='06_Home.html') Image Header with Description
+                    a.dropdown-item(href='07_Home_Categories_and_Advanced_Search.html') More Search Features
+                li.nav-item.dropdown
+                  a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown')
+                    | Features
+                  .dropdown-menu.animated
+                    a.dropdown-item(href='17_Features_Example_Alt_Titlebar.html') Features Example
+                    a.dropdown-item(href='18_Half_Map.html') Half Map
+                li.nav-item.dropdown
+                  a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown')
+                    | Listing
+                  .dropdown-menu.animated
+                    a.dropdown-item(href='21_List_Layout_With_Map.html') List Layout with Map
+                    a.dropdown-item(href='22_List_Layout_With_Sidebar.html') List Layout with Sidebar
+                    a.dropdown-item(href='11_Agent_Profile.html') Agent Profile
+                    a.dropdown-item(href='24_Property_Single.html') Property Single
+                li.nav-item.dropdown
+                  a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown')
+                    | Pages
+                  .dropdown-menu.animated
+                    a.dropdown-item(href='12_Blog_Grid.html') Blog Grid
+                    a.dropdown-item(href='13_Blog_Standart.html') Blog Standard
+                    a.dropdown-item(href='14_Blog_Open.html') Blog Open
+                    a.dropdown-item(href='10_About.html') About
+                    a.dropdown-item(href='15_Contact.html') Contact
+                    a.dropdown-item(href='09_404.html') 404
+              .d-inline.my-2.my-lg-0
+                ul.navbar-nav
+                  li.nav-item.signin-btn
+                    a.nav-link(href='#')
+                      i.la.la-sign-in
+                      span
+                        b.signin-op Sign in
+                        |  or 
+                        b.reg-op Register
+                  li.nav-item.submit-btn
+                    a.my-2.my-sm-0.nav-link.sbmt-btn(href='#')
+                      i.icon-plus
+                      span Submit Listing
+              a.close-menu(href='#' title='')
+                i.la.la-close
+// header end
+#sign-popup.popup
+  h3 Sign In to your Account
+  .popup-form
+    form
+      .form-field
+        input(type='text' name='username' placeholder='Username')
+      .form-field
+        input(type='text' name='password' placeholder='Password')
+      .form-cp
+        .form-field
+          .input-field
+            input#cc1(type='checkbox' name='ccc')
+            label(for='cc1')
+              span
+              small Remember me
+        a(href='#' title='') Forgot Password?
+      // form-cp end
+      button.btn2(type='submit') Sign In
+    a.fb-btn(href='#' title='')
+      i.fa.fa-facebook
+      | Sign In With Facebook
+// popup end
+#register-popup.popup
+  h3 Register
+  .popup-form
+    form
+      .form-field
+        input(type='text' name='username' placeholder='Username')
+      .form-field
+        input(type='text' name='email' placeholder='Email')
+      .form-field
+        input(type='text' name='password' placeholder='Password')
+      .form-cp
+        .form-field
+          .input-field
+            input#cc2(type='checkbox' name='ccc')
+            label(for='cc2')
+              span
+              small I agree with terms
+        a.signin-op(href='#' title='') Have an account?
+      // form-cp end
+      button.btn2(type='submit') Register
+// popup end
