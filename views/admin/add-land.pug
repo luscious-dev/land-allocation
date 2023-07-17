@@ -1,0 +1,179 @@
+extends base
+
+block content
+    .dashboard
+        .container-fluid
+            .content-area
+                .dashboard-content
+                    .dashboard-header.clearfix
+                        .row
+                            .col-md-6.col-sm-12
+                                h4 Submit Property
+                            .col-md-6.col-sm-12
+                                .breadcrumb-nav
+                                    ul
+                                        li
+                                            a(href='../index-2.html') Index
+                                        li
+                                            a(href='dashboard.html') Dashboard
+                                        li.active Submit Property
+                    .row
+                        .column.col-lg-12
+                            .properties-box
+                                .inner-container
+                                    .property-submit-form
+                                        form(method='post' action='http://expert-themes.com/html/willies/admin/index.html')
+                                            .title
+                                                h3 Basic Info
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Land Name
+                                                    input(type='text' name='LandName' placeholder='Property Title' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Zonining Regulation
+                                                    select.custom-select-box(name="ZoningReg")
+                                                        option(value="") -- Select --
+                                                        option(value="Residential") Residential
+                                                        option(value="Commercial") Commercial
+                                                        option(value="Industrial") Industrial
+                                                        option(value="Apartments") Apartments
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Topography
+                                                    select.custom-select-box(name="Topography")
+                                                        
+                                                        option(value="Plain") Plain
+                                                        option(value="Hilly") Hilly
+                                                        option(value="Rocky") Rocky
+                                                        option(value="Swampy") Swampy
+                                                        option(value="Sandy") Sandy
+                                                
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .range-slider-one.clearfix
+                                                        label Area
+                                                        input(type='number' name='Size' placeholder='SqFt' required='')
+
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .range-slider-one.clearfix
+                                                        label Land Shape
+                                                        input(type='text' name='LandBoundaries' placeholder='Shape' required='')
+
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .range-slider-one.clearfix
+                                                        label Price
+                                                        input(type='number' name='Price' placeholder='₦' required='')
+                                                
+                                            .title
+                                                h3 Address
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Location
+                                                    input(type='text' name='Location' placeholder='Address' required='')
+
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label State
+                                                    select.custom-select-box(name="State")
+                                                        option(value="") -- Select --
+                                                        option(value="") New York
+                                                        option(value="") Los Angeles
+                                                        option(value="") Chicago
+                                                        option(value="") Houston
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label City
+                                                    input(type='text' name='City' placeholder='City' required='')
+
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label LGA
+                                                    input(type='text' name='LGA' placeholder='Local Government Area' required='')
+
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .range-slider-one.clearfix
+                                                        label Longitude
+                                                        input(type='number' step="0.000001" name='Lng' placeholder='Lng' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .range-slider-one.clearfix
+                                                        label Latitude
+                                                        input(type='number' step="0.000001" name='Lat' placeholder='Lat' required='')
+                                            .title
+                                                h3 Land Gallery
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-12
+                                                    #myDropZone.dropzone.dropzone-design
+                                                        .dz-default.dz-message
+                                                            span Drop files here to upload
+                                            .title
+                                                h3 Detailed Information
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-12
+                                                    textarea(name='Description' placeholder='Land Information')
+                                            .title
+                                                h3 Features (optional)
+                                            .row
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-1(type='checkbox' name='shipping-option')
+                                                        label(for='service-1') Accessibility
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-2(type='checkbox' name='shipping-option')
+                                                        label(for='service-2') Near Shops
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-3(type='checkbox' name='shipping-option')
+                                                        label(for='service-3') Near Hospital
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-4(type='checkbox' name='shipping-option')
+                                                        label(for='service-4') Has Electricity
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-5(type='checkbox' name='shipping-option')
+                                                        label(for='service-5') Has Water
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-6(type='checkbox' name='shipping-option')
+                                                        label(for='service-6') Is Fenced
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-7(type='checkbox' name='shipping-option')
+                                                        label(for='service-7') Is Cleared
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-8(type='checkbox' name='shipping-option')
+                                                        label(for='service-8') Is Popular
+                                                
+                                            .title
+                                                h3 Contact Info
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Name
+                                                    input(type='text' name='Name' placeholder='Name' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Email
+                                                    input(type='email' name='Email' placeholder='Email' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Phone
+                                                    input(type='text' name='Phone' placeholder='Phone' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    button.theme-btn.btn-style-one#create-land(type='submit')  Submit Property
+                p.copyright-text
+                    | © 2018 
+                    a(href='#') Expert Themes
+                    |  All right reserved.

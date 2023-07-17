@@ -63,6 +63,7 @@ module.exports = (err, req, res, next) => {
   err.status = err.status || "error";
 
   if (process.env.NODE_ENV == "development") {
+    console.log(err);
     handleDevelopmentError(err, req, res);
   } else {
     if (err.number == 8114) err = handleTypeErrorDB(err);

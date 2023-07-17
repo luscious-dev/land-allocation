@@ -1,0 +1,41 @@
+doctype html
+html(lang='en')
+    // Mirrored from expert-themes.com/html/willies/admin/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 11 Dec 2018 11:39:08 GMT
+    head
+        meta(charset='utf-8')
+        title Mama Lands | #{title}
+        // Stylesheets
+        link(href='/css/bootstrap.min.css' rel='stylesheet')
+        link(href='/css/admin/style.css' rel='stylesheet')
+        link(href='/css/admin/responsive.css' rel='stylesheet')
+        link(rel='shortcut icon' href='images/favicon.png' type='image/x-icon')
+        link(rel='icon' href='images/favicon.png' type='image/x-icon')
+        // Responsive
+        meta(http-equiv='X-UA-Compatible' content='IE=edge')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        //if lt IE 9
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js')
+        //if lt IE 9
+            script(src='js/respond.js')
+    body
+        .page-wrapper
+            // Preloader
+            .preloader
+            // Header Span
+            span.header-span
+            
+            
+            include _header
+
+            block content
+            
+        script(src='/js/vendor/jquery.js')
+        script(src='/js/external/popper.min.js')
+        script(src='/js/external/bootstrap.min.js')
+        script(src='/js/vendor/jquery-ui.js')
+        script(src='/js/vendor/wow.min.js')
+        script(src='/js/vendor/dropzone.js')
+        script(src='/js/vendor/appear.js')
+        script(src='/js/admin/script.js')
+        script(src='/js/bundle.js')
+    // Mirrored from expert-themes.com/html/willies/admin/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 11 Dec 2018 11:39:13 GMT

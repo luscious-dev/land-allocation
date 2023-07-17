@@ -9,6 +9,7 @@ const landRoute = require("./routes/landRoutes");
 const landImageRoute = require("./routes/landImageRoutes");
 const certificateRoute = require("./routes/certifcateRoutes");
 const allocatedRoute = require("./routes/allocatedRoutes");
+const purchaseRoute = require("./routes/purchaseRoutes");
 const viewRoute = require("./routes/viewRoutes");
 
 // Controllers
@@ -29,8 +30,12 @@ app.use("/api/v1/land", landRoute);
 app.use("/api/v1/land-image", landImageRoute);
 app.use("/api/v1/certificate-of-ownership", certificateRoute);
 app.use("/api/v1/allocated-to", allocatedRoute);
+app.use("/api/v1/purchase", purchaseRoute);
 app.use("/", viewRoute);
 
+app.get("*", (req, res, next) => {
+  res.render("404");
+});
 // ERROR HANDLING
 app.use(errorController);
 

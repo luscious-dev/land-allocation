@@ -1,0 +1,75 @@
+extends base
+
+block content
+    .dashboard
+        .container-fluid
+            .content-area
+                .dashboard-content
+                    .dashboard-header.clearfix
+                        .row
+                            .col-md-6.col-sm-12
+                                h4 Hi , John
+                            .col-md-6.col-sm-12
+                                .breadcrumb-nav
+                                    ul
+                                        li
+                                            a(href='../index-2.html') Index
+                                        li.active Dashboard
+                    
+                    .row
+                        .col-lg-3.col-md-6.col-sm-6
+                            .ui-item.bg-info
+                                .left
+                                    h4= data.cofoCount || 0
+                                    p CofO Applied
+                                .right
+                                    i.la.la-file
+                        .col-lg-3.col-md-6.col-sm-6
+                            .ui-item.bg-success
+                                .left
+                                    h4= data.cofoApprovedCount || 0
+                                    p CofO Given
+                                .right
+                                    i.la.la-file-text
+                        .col-lg-3.col-md-6.col-sm-6
+                            .ui-item.bg-warning
+                                .left
+                                    h4= data.cofoPendingCount || 0
+                                    p CofO Pending
+                                .right
+                                    i.la.la-hourglass-half
+
+                        .col-lg-3.col-md-6.col-sm-6
+                            .ui-item.bg-danger
+                                .left
+                                    h4= data.cofoDeletedCount || 0
+                                    p CofO Application Rejected
+                                .right
+                                    i.la.la-times-circle
+
+                        .col-lg-3.col-md-6.col-sm-6
+                            .ui-item.bg-info
+                                .left
+                                    h4= data.landCount || 0
+                                    p All Lands
+                                .right
+                                    i.la.la-tree
+                        .col-lg-3.col-md-6.col-sm-6
+                            .ui-item.bg-dark
+                                .left
+                                    h4= data.availableLandCount || 0
+                                    p Lands Available
+                                .right
+                                    i.la.la-check-circle
+                        .col-lg-3.col-md-6.col-sm-6
+                            .ui-item.bg-warning
+                                .left
+                                    h4= data.unavailableLandCount || 0
+                                    p Lands Unavailable
+                                .right
+                                    i.la.la-times-circle
+                    
+                p.copyright-text
+                    | © 2018 
+                    a(href='#') Expert Themes
+                    |  All right reserved.

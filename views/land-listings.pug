@@ -1,5 +1,75 @@
 extends base
 
+mixin landItem1(land)
+    .col-lg-6.col-md-6
+        .card
+            a(href=`/land/${land.Slug}` title='')
+                .img-block
+                    .overlay
+                    img.img-fluid(src=`/img/listing/${land.image}` alt='')
+                    .rate-info
+                        h5 &#x20A6;#{land.Price.toLocaleString()}
+                        span For Rent
+            .card-body
+                a(href='24_Property_Single.html' title='')
+                    h3 #{land.LandName}
+                    p
+                        i.la.la-map-marker
+                        | #{land.Location}
+                ul
+
+                    li Area #{land.Size} Sq Ft
+            .card-footer
+                a.pull-left(href='#')
+                    i.la.la-heart-o
+                a.pull-right(href='#')
+                    - sqlDate = new Date(land.DateCreated)
+                    - currentDate = new Date()
+                    - currentDate.setHours(0,0,0,0)
+                    - sqlDate.setHours(0,0,0,0)
+                    - timeDiff = currentDate.getTime() - sqlDate.getTime()
+                    - daysAgo = Math.floor(timeDiff/(24 * 60 * 60 * 1000))
+                    i.la.la-calendar-check-o
+                    |  #{daysAgo} Days Ago
+            a.ext-link(href=`/land/${land.Slug}` title='')
+
+mixin landItem2(land)
+    .card
+        a(href=`/land/${land.Slug}` title='')
+            .img-block
+                .overlay
+                img.img-fluid(src=`/img/listing/${land.image}` alt='')
+                .rate-info
+                    h5 $#{land.Price.toLocaleString()}
+                    span= land.Allocated ? "Unvavailable":"Available"
+        .card_bod_full
+            .card-body
+                a(href='24_Property_Single.html' title='')
+                    h3 #{land.LandName}
+                    p
+                        i.la.la-map-marker
+                        | #{land.Location}
+                ul
+                    li Area #{land.Size} Sq Ft
+            .card-footer
+                .crd-links
+                    a.pull-left(href='#')
+                        i.la.la-heart-o
+                    a.plf(href='#')
+                        - sqlDate = new Date(land.DateCreated)
+                        - currentDate = new Date()
+                        - currentDate.setHours(0,0,0,0)
+                        - sqlDate.setHours(0,0,0,0)
+                        - timeDiff = currentDate.getTime() - sqlDate.getTime()
+                        - daysAgo = Math.floor(timeDiff/(24 * 60 * 60 * 1000))
+                        i.la.la-calendar-check-o
+                        |  #{daysAgo} Days Ago
+                // crd-links end
+                a.btn-default(href=`/land/${land.Slug}` title='') View Details
+        // card_bod_full end
+        a.ext-link(href=`/land/${land.Slug}` title='')
+        // card end
+
 block content
     section.pager-sec.bfr
         .container
@@ -43,465 +113,15 @@ block content
                                     #grid-view-tab1.tab-pane.fade(role='tabpanel' aria-labelledby='grid-view-tab1')
                                         .list_products
                                             .row
-                                                .col-lg-6.col-md-6
-                                                    .card
-                                                        a(href='24_Property_Single.html' title='')
-                                                            .img-block
-                                                                .overlay
-                                                                img.img-fluid(src='/img/listing/1.jpg' alt='')
-                                                                .rate-info
-                                                                    h5 $550.000
-                                                                    span For Rent
-                                                        .card-body
-                                                            a(href='24_Property_Single.html' title='')
-                                                                h3 Traditional Apartments
-                                                                p
-                                                                    i.la.la-map-marker
-                                                                    | 212 5th Ave, New York
-                                                            ul
-                                                                li 3 Bathrooms
-                                                                li 2 Beds
-                                                                li Area 555 Sq Ft
-                                                        .card-footer
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.pull-right(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        a.ext-link(href='24_Property_Single.html' title='')
-                                                .col-lg-6.col-md-6
-                                                    .card
-                                                        a(href='24_Property_Single.html' title='')
-                                                            .img-block
-                                                                .overlay
-                                                                img.img-fluid(src='/img/listing/1.jpg' alt='')
-                                                                .rate-info
-                                                                    h5 $550.000
-                                                                    span For Rent
-                                                        .card-body
-                                                            a(href='24_Property_Single.html' title='')
-                                                                h3 Traditional Apartments
-                                                                p
-                                                                    i.la.la-map-marker
-                                                                    | 212 5th Ave, New York
-                                                            ul
-                                                                li 3 Bathrooms
-                                                                li 2 Beds
-                                                                li Area 555 Sq Ft
-                                                        .card-footer
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.pull-right(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        a.ext-link(href='24_Property_Single.html' title='')
-                                                .col-lg-6.col-md-6
-                                                    .card
-                                                        a(href='24_Property_Single.html' title='')
-                                                            .img-block
-                                                                .overlay
-                                                                img.img-fluid(src='/img/listing/1.jpg' alt='')
-                                                                .rate-info
-                                                                    h5 $550.000
-                                                                    span For Rent
-                                                        .card-body
-                                                            a(href='24_Property_Single.html' title='')
-                                                                h3 Traditional Apartments
-                                                                p
-                                                                    i.la.la-map-marker
-                                                                    | 212 5th Ave, New York
-                                                            ul
-                                                                li 3 Bathrooms
-                                                                li 2 Beds
-                                                                li Area 555 Sq Ft
-                                                        .card-footer
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.pull-right(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        a.ext-link(href='24_Property_Single.html' title='')
-                                                .col-lg-6.col-md-6
-                                                    .card
-                                                        a(href='24_Property_Single.html' title='')
-                                                            .img-block
-                                                                .overlay
-                                                                img.img-fluid(src='/img/listing/1.jpg' alt='')
-                                                                .rate-info
-                                                                    h5 $550.000
-                                                                    span For Rent
-                                                        .card-body
-                                                            a(href='24_Property_Single.html' title='')
-                                                                h3 Traditional Apartments
-                                                                p
-                                                                    i.la.la-map-marker
-                                                                    | 212 5th Ave, New York
-                                                            ul
-                                                                li 3 Bathrooms
-                                                                li 2 Beds
-                                                                li Area 555 Sq Ft
-                                                        .card-footer
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.pull-right(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        a.ext-link(href='24_Property_Single.html' title='')
-                                                .col-lg-6.col-md-6
-                                                    .card
-                                                        a(href='24_Property_Single.html' title='')
-                                                            .img-block
-                                                                .overlay
-                                                                img.img-fluid(src='/img/listing/1.jpg' alt='')
-                                                                .rate-info
-                                                                    h5 $550.000
-                                                                    span For Rent
-                                                        .card-body
-                                                            a(href='24_Property_Single.html' title='')
-                                                                h3 Traditional Apartments
-                                                                p
-                                                                    i.la.la-map-marker
-                                                                    | 212 5th Ave, New York
-                                                            ul
-                                                                li 3 Bathrooms
-                                                                li 2 Beds
-                                                                li Area 555 Sq Ft
-                                                        .card-footer
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.pull-right(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        a.ext-link(href='24_Property_Single.html' title='')
-                                                .col-lg-6.col-md-6
-                                                    .card
-                                                        a(href='24_Property_Single.html' title='')
-                                                            .img-block
-                                                                .overlay
-                                                                img.img-fluid(src='/img/listing/1.jpg' alt='')
-                                                                .rate-info
-                                                                    h5 $550.000
-                                                                    span For Rent
-                                                        .card-body
-                                                            a(href='24_Property_Single.html' title='')
-                                                                h3 Traditional Apartments
-                                                                p
-                                                                    i.la.la-map-marker
-                                                                    | 212 5th Ave, New York
-                                                            ul
-                                                                li 3 Bathrooms
-                                                                li 2 Beds
-                                                                li Area 555 Sq Ft
-                                                        .card-footer
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.pull-right(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        a.ext-link(href='24_Property_Single.html' title='')
-                                                .col-lg-6.col-md-6
-                                                    .card
-                                                        a(href='24_Property_Single.html' title='')
-                                                            .img-block
-                                                                .overlay
-                                                                img.img-fluid(src='/img/listing/1.jpg' alt='')
-                                                                .rate-info
-                                                                    h5 $550.000
-                                                                    span For Rent
-                                                        .card-body
-                                                            a(href='24_Property_Single.html' title='')
-                                                                h3 Traditional Apartments
-                                                                p
-                                                                    i.la.la-map-marker
-                                                                    | 212 5th Ave, New York
-                                                            ul
-                                                                li 3 Bathrooms
-                                                                li 2 Beds
-                                                                li Area 555 Sq Ft
-                                                        .card-footer
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.pull-right(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        a.ext-link(href='24_Property_Single.html' title='')
-                                                .col-lg-6.col-md-6
-                                                    .card
-                                                        a(href='24_Property_Single.html' title='')
-                                                            .img-block
-                                                                .overlay
-                                                                img.img-fluid(src='/img/listing/1.jpg' alt='')
-                                                                .rate-info
-                                                                    h5 $550.000
-                                                                    span For Rent
-                                                        .card-body
-                                                            a(href='24_Property_Single.html' title='')
-                                                                h3 Traditional Apartments
-                                                                p
-                                                                    i.la.la-map-marker
-                                                                    | 212 5th Ave, New York
-                                                            ul
-                                                                li 3 Bathrooms
-                                                                li 2 Beds
-                                                                li Area 555 Sq Ft
-                                                        .card-footer
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.pull-right(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        a.ext-link(href='24_Property_Single.html' title='')
+                                                each land of lands
+                                                    +landItem1(land)
+
                                         // list_products end
                                     #grid-view-tab2.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='grid-view-tab2')
                                         .list-products
-                                            .card
-                                                a(href='24_Property_Single.html' title='')
-                                                    .img-block
-                                                        .overlay
-                                                        img.img-fluid(src='/img/listing/1.jpg' alt='')
-                                                        .rate-info
-                                                            h5 $550.000
-                                                            span For Rent
-                                                .card_bod_full
-                                                    .card-body
-                                                        a(href='24_Property_Single.html' title='')
-                                                            h3 Traditional Apartments
-                                                            p
-                                                                i.la.la-map-marker
-                                                                | 212 5th Ave, New York
-                                                        ul
-                                                            li 3 Bathrooms
-                                                            li 2 Beds
-                                                            li Area 555 Sq Ft
-                                                    .card-footer
-                                                        .crd-links
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.plf(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        // crd-links end
-                                                        a.btn-default(href='24_Property_Single.html' title='') View Details
-                                                // card_bod_full end
-                                                a.ext-link(href='24_Property_Single.html' title='')
-                                            // card end
-                                            .card
-                                                a(href='24_Property_Single.html' title='')
-                                                    .img-block
-                                                        .overlay
-                                                        img.img-fluid(src='/img/listing/2.jpg' alt='')
-                                                        .rate-info
-                                                            h5 $550.000
-                                                            span For Rent
-                                                .card_bod_full
-                                                    .card-body
-                                                        a(href='24_Property_Single.html' title='')
-                                                            h3 Traditional Apartments
-                                                            p
-                                                                i.la.la-map-marker
-                                                                | 212 5th Ave, New York
-                                                        ul
-                                                            li 3 Bathrooms
-                                                            li 2 Beds
-                                                            li Area 555 Sq Ft
-                                                    .card-footer
-                                                        .crd-links
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.plf(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        // crd-links end
-                                                        a.btn-default(href='24_Property_Single.html' title='') View Details
-                                                // card_bod_full end
-                                                a.ext-link(href='24_Property_Single.html' title='')
-                                            // card end
-                                            .card
-                                                a(href='24_Property_Single.html' title='')
-                                                    .img-block
-                                                        .overlay
-                                                        img.img-fluid(src='/img/listing/3.jpg' alt='')
-                                                        .rate-info
-                                                            h5 $550.000
-                                                            span For Rent
-                                                .card_bod_full
-                                                    .card-body
-                                                        a(href='24_Property_Single.html' title='')
-                                                            h3 Traditional Apartments
-                                                            p
-                                                                i.la.la-map-marker
-                                                                | 212 5th Ave, New York
-                                                        ul
-                                                            li 3 Bathrooms
-                                                            li 2 Beds
-                                                            li Area 555 Sq Ft
-                                                    .card-footer
-                                                        .crd-links
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.plf(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        // crd-links end
-                                                        a.btn-default(href='24_Property_Single.html' title='') View Details
-                                                // card_bod_full end
-                                                a.ext-link(href='24_Property_Single.html' title='')
-                                            // card end
-                                            .card
-                                                a(href='24_Property_Single.html' title='')
-                                                    .img-block
-                                                        .overlay
-                                                        img.img-fluid(src='/img/listing/4.jpg' alt='')
-                                                        .rate-info
-                                                            h5 $550.000
-                                                            span For Rent
-                                                .card_bod_full
-                                                    .card-body
-                                                        a(href='24_Property_Single.html' title='')
-                                                            h3 Traditional Apartments
-                                                            p
-                                                                i.la.la-map-marker
-                                                                | 212 5th Ave, New York
-                                                        ul
-                                                            li 3 Bathrooms
-                                                            li 2 Beds
-                                                            li Area 555 Sq Ft
-                                                    .card-footer
-                                                        .crd-links
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.plf(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        // crd-links end
-                                                        a.btn-default(href='24_Property_Single.html' title='') View Details
-                                                // card_bod_full end
-                                                a.ext-link(href='24_Property_Single.html' title='')
-                                            // card end
-                                            .card
-                                                a(href='24_Property_Single.html' title='')
-                                                    .img-block
-                                                        .overlay
-                                                        img.img-fluid(src='/img/listing/5.jpg' alt='')
-                                                        .rate-info
-                                                            h5 $550.000
-                                                            span For Rent
-                                                .card_bod_full
-                                                    .card-body
-                                                        a(href='24_Property_Single.html' title='')
-                                                            h3 Traditional Apartments
-                                                            p
-                                                                i.la.la-map-marker
-                                                                | 212 5th Ave, New York
-                                                        ul
-                                                            li 3 Bathrooms
-                                                            li 2 Beds
-                                                            li Area 555 Sq Ft
-                                                    .card-footer
-                                                        .crd-links
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.plf(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        // crd-links end
-                                                        a.btn-default(href='24_Property_Single.html' title='') View Details
-                                                // card_bod_full end
-                                                a.ext-link(href='24_Property_Single.html' title='')
-                                            // card end
-                                            .card
-                                                a(href='24_Property_Single.html' title='')
-                                                    .img-block
-                                                        .overlay
-                                                        img.img-fluid(src='/img/listing/6.jpg' alt='')
-                                                        .rate-info
-                                                            h5 $550.000
-                                                            span For Rent
-                                                .card_bod_full
-                                                    .card-body
-                                                        a(href='24_Property_Single.html' title='')
-                                                            h3 Traditional Apartments
-                                                            p
-                                                                i.la.la-map-marker
-                                                                | 212 5th Ave, New York
-                                                        ul
-                                                            li 3 Bathrooms
-                                                            li 2 Beds
-                                                            li Area 555 Sq Ft
-                                                    .card-footer
-                                                        .crd-links
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.plf(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        // crd-links end
-                                                        a.btn-default(href='24_Property_Single.html' title='') View Details
-                                                // card_bod_full end
-                                                a.ext-link(href='24_Property_Single.html' title='')
-                                            // card end
-                                            .card
-                                                a(href='24_Property_Single.html' title='')
-                                                    .img-block
-                                                        .overlay
-                                                        img.img-fluid(src='/img/listing/7.jpg' alt='')
-                                                        .rate-info
-                                                            h5 $550.000
-                                                            span For Rent
-                                                .card_bod_full
-                                                    .card-body
-                                                        a(href='24_Property_Single.html' title='')
-                                                            h3 Traditional Apartments
-                                                            p
-                                                                i.la.la-map-marker
-                                                                | 212 5th Ave, New York
-                                                        ul
-                                                            li 3 Bathrooms
-                                                            li 2 Beds
-                                                            li Area 555 Sq Ft
-                                                    .card-footer
-                                                        .crd-links
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.plf(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        // crd-links end
-                                                        a.btn-default(href='24_Property_Single.html' title='') View Details
-                                                // card_bod_full end
-                                                a.ext-link(href='24_Property_Single.html' title='')
-                                            // card end
-                                            .card
-                                                a(href='24_Property_Single.html' title='')
-                                                    .img-block
-                                                        .overlay
-                                                        img.img-fluid(src='/img/listing/8.jpg' alt='')
-                                                        .rate-info
-                                                            h5 $550.000
-                                                            span For Rent
-                                                .card_bod_full
-                                                    .card-body
-                                                        a(href='24_Property_Single.html' title='')
-                                                            h3 Traditional Apartments
-                                                            p
-                                                                i.la.la-map-marker
-                                                                | 212 5th Ave, New York
-                                                        ul
-                                                            li 3 Bathrooms
-                                                            li 2 Beds
-                                                            li Area 555 Sq Ft
-                                                    .card-footer
-                                                        .crd-links
-                                                            a.pull-left(href='#')
-                                                                i.la.la-heart-o
-                                                            a.plf(href='#')
-                                                                i.la.la-calendar-check-o
-                                                                |  25 Days Ago
-                                                        // crd-links end
-                                                        a.btn-default(href='24_Property_Single.html' title='') View Details
-                                                // card_bod_full end
-                                                a.ext-link(href='24_Property_Single.html' title='')
-                                            // card end
+                                            each land of lands
+                                                +landItem2(land)
+                                            
                                             // list-products end
                                             // tab-content end
                                             nav(aria-label='Page navigation example')
@@ -519,205 +139,32 @@ block content
                                             // listing-directs end
                     .col-lg-4
                         .sidebar.layout2
-                            .widget.widget-property-search
-                                h3.widget-title Property Search
-                                form.row.banner-search(action='#')
-                                    .form_field
-                                        input.form-control(type='text' placeholder='Enter Address, City or State')
-                                    .form_field
-                                        .form-group
-                                            .drop-menu
-                                                .select
-                                                    span Any type
-                                                    i.fa.fa-angle-down
-                                                input(type='hidden' name='gender')
-                                                ul.dropeddown
-                                                    li For Sale
-                                                    li For Rent
-                                    .form_field
-                                        .form-group
-                                            .drop-menu
-                                                .select
-                                                    span Min Price
-                                                input(type='hidden' name='gender')
-                                                ul.dropeddown
-                                                    li 300$
-                                                    li 400$
-                                                    li 500$
-                                                    li 200$
-                                                    li 600$
-                                    .form_field
-                                        .form-group
-                                            .drop-menu
-                                                .select
-                                                    span Max Price
-                                                input(type='hidden' name='gender')
-                                                ul.dropeddown
-                                                    li 2000
-                                                    li 3000
-                                                    li 4000
-                                                    li 5000
-                                                    li 6000
-                                    .form_field
-                                        .form-group
-                                            .drop-menu
-                                                .select
-                                                    span Badrooms
-                                                input(type='hidden' name='gender')
-                                                ul.dropeddown
-                                                    li 1
-                                                    li 2
-                                                    li 3
-                                                    li 4
-                                                    li 5
-                                    .form_field
-                                        h4 More Features
-                                        ul
-                                            li.input-field
-                                                input#c1(type='checkbox' name='cc')
-                                                label(for='c1')
-                                                    span
-                                                    small Parking
-                                            li.input-field
-                                                input#c2(type='checkbox' name='cc')
-                                                label(for='c2')
-                                                    span
-                                                    small Air Conditioner
-                                            li.input-field
-                                                input#c3(type='checkbox' name='cc')
-                                                label(for='c3')
-                                                    span
-                                                    small Washing Machine
-                                            li.input-field
-                                                input#c4(type='checkbox' name='cc')
-                                                label(for='c4')
-                                                    span
-                                                    small Heating
-                                        ul
-                                            li.input-field
-                                                input#c5(type='checkbox' name='cc')
-                                                label(for='c5')
-                                                    span
-                                                    small Gym
-                                            li.input-field
-                                                input#c6(type='checkbox' name='cc')
-                                                label(for='c6')
-                                                    span
-                                                    small Wireless Internet
-                                            li.input-field
-                                                input#c7(type='checkbox' name='cc')
-                                                label(for='c7')
-                                                    span
-                                                    small Elevator
-                                            li.input-field
-                                                input#c8(type='checkbox' name='cc')
-                                                label(for='c8')
-                                                    span
-                                                    small Swimming Pool
-                                    .form_field
-                                        a.btn.btn-outline-primary(href='#')
-                                            span Search
-                            // widget-property-search end
-                            .widget.widget-featured-property
-                                h3.widget-title Featured Property
-                                .card
-                                    a(href='24_Property_Single.html' title='')
-                                        .img-block
-                                            .overlay
-                                            img.img-fluid(src='/img/listing/1.jpg' alt='')
-                                            .rate-info
-                                                h5 $550.000
-                                                span For Rent
-                                    .card-body
-                                        a(href='24_Property_Single.html' title='')
-                                            h3 Traditional Apartments
-                                            p
-                                                i.la.la-map-marker
-                                                | 212 5th Ave, New York
-                            // widget-featured-property end
-                            .widget.widget-catgs
-                                h3.widget-title Categories
-                                ul
-                                    li
-                                        a(href='#' title='')
-                                            i.la.la-angle-right
-                                            span House
-                                        span 7
-                                    li
-                                        a(href='#' title='')
-                                            i.la.la-angle-right
-                                            span Condo
-                                        span 15
-                                    li
-                                        a(href='#' title='')
-                                            i.la.la-angle-right
-                                            span Townhouse
-                                        span 4
-                                    li
-                                        a(href='#' title='')
-                                            i.la.la-angle-right
-                                            span Coop
-                                        span 1
-                            // widget-catgs end
                             .widget.widget-posts
                                 h3.widget-title Popular Posts
                                 ul
-                                    li
-                                        .wd-posts
-                                            .ps-img
-                                                a(href='14_Blog_Open.html' title='')
-                                                    img(src='/img/resources/p-img1.png' alt='')
-                                            // ps-img end
-                                            .ps-info
-                                                h3
-                                                    a(href='14_Blog_Open.html' title='') Traditional Apartments
-                                                strong $125.700
-                                                span
-                                                    i.la.la-map-marker
-                                                    | 212 5th Ave, New York
-                                            // ps-info end
-                                            // wd-posts end
-                                    li
-                                        .wd-posts
-                                            .ps-img
-                                                a(href='14_Blog_Open.html' title='')
-                                                    img(src='/img/resources/p-img2.png' alt='')
-                                            // ps-img end
-                                            .ps-info
-                                                h3
-                                                    a(href='14_Blog_Open.html' title='') Luxury Home
-                                                strong $125.700
-                                                span
-                                                    i.la.la-map-marker
-                                                    | 212 5th Ave, New York
-                                            // ps-info end
-                                            // wd-posts end
-                                    li
-                                        .wd-posts
-                                            .ps-img
-                                                a(href='14_Blog_Open.html' title='')
-                                                    img(src='/img/resources/p-img3.png' alt='')
-                                            // ps-img end
-                                            .ps-info
-                                                h3
-                                                    a(href='14_Blog_Open.html' title='') Real Estate Industry
-                                                strong $125.700
-                                                span
-                                                    i.la.la-map-marker
-                                                    | 212 5th Ave, New York
-                                            // ps-info end
-                                            // wd-posts end
-                                            // widget-posts end
-                                            // sidebar end
-                                            // listing-main-sec-details end
-    // listing-main-sec end
-    a(href='#' title='')
-        section.cta.section-padding
-            .container
-                .row
-                    .col-xl-12
-                        .cta-text
-                            h2 Discover a home you&apos;ll love to stay
+                                    each land of popularLands
+                                        li
+                                            .wd-posts
+                                                .ps-img
+                                                    a(href=`/land/${land.Slug}` title='')
+                                                        img(src='/img/resources/p-img2.png' alt='')
+                                                // ps-img end
+                                                .ps-info
+                                                    h3
+                                                        a(href=`/land/${land.Slug}` title='') #{land.LandName}
+                                                    strong $#{land.Price.toLocaleString()}
+                                                    span
+                                                        i.la.la-map-marker
+                                                        | #{land.Location}
+                                                // ps-info end
+                                                // wd-posts end
+                                    
+    section.cta.section-padding
+        .container
+            .row
+                .col-xl-12
+                    .cta-text
+                        h2 Discover a home you&apos;ll love to stay
     section.bottom.section-padding
         .container
             .row

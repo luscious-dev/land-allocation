@@ -1,0 +1,64 @@
+// Main Header
+header.main-header
+    .main-box.clearfix
+        // Logo Box
+        .logo-box
+            .logo
+                a(href='../index-2.html')
+                    img(src='images/logo-small.png' alt='' title='')
+        // Upper Right
+        .upper-right
+            ul.clearfix
+                li.dropdown.option-box
+                    a.dropdown-toggle(data-toggle='dropdown' aria-expanded='false')
+                        img.thumb(src='/img/resource/thumb-1.jpg' alt='avatar')
+                        | My Account
+                    .dropdown-menu
+                        a.dropdown-item(href='/dashboard') Dashboard
+                        a.dropdown-item(href='/profile') My profile
+                        a.dropdown-item(href='javascript:void(0)') Log out
+                li.submit-property
+                    a.theme-btn.btn-style-one(href='/add-land')
+                        | Add Land 
+                        i.pe-7s-up-arrow
+                li.nav-toggler
+                    button.toggler-btn.nav-btn
+                        span.bar.bar-one
+                        span.bar.bar-two
+                        span.bar.bar-three
+    // End Header Lower
+    // End Main Header
+
+// Hidden Bar
+section.hidden-bar
+    .dashboard-inner
+        .cross-icon
+            span.pe-7s-close-circle
+        ul.navigation
+            li( class=`${page == "dashboard" ? 'active':''}`)
+                a(href='/dashboard')
+                    i.pe-7s-graph1
+                    |  Dashboard
+            li( class=`${page == "lands" ? 'active':''}`)
+                a(href='/lands')
+                    i.pe-7s-world
+                    |  Lands 
+                    span.tag 6
+            li( class=`${page == "my lands" ? 'active':''}`)
+                a(href='/my-lands')
+                    i.pe-7s-home
+                    | My Lands
+            li( class=`${page == "cofo" ? 'active':''}`)
+                a(href='my-properties.html')
+                    i.pe-7s-note
+                    | CofO Applications
+            li( class=`${page == "profile" ? 'active':''}`)
+                a(href='/profile')
+                    i.pe-7s-user
+                    | My Profile
+            
+            li
+                a(href='javascript:void(0)')
+                    i.pe-7s-back-2
+                    | Logout
+    // End Hidden Bar

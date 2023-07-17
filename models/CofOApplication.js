@@ -1,7 +1,7 @@
 const { sql, conn } = require("../db");
 const { getCurrentDate } = require("../utils/dateUtils");
 
-module.exports = class Land {
+module.exports = class CofOApplication {
   // Create - C
   async create(data) {
     const {
@@ -83,6 +83,7 @@ module.exports = class Land {
       .input("PassportPhoto", sql.VarChar(20), data.PassportPhoto)
       .input("NIN", sql.Char(11), data.NIN)
       .input("Approved", sql.Bit, 0)
+      .input("DelFag", sql.Bit, data.DelFlag)
       .input("LastChanged", sql.VarBinary, Buffer.from(LastChanged))
       .output("NewLastChanged", sql.VarBinary, undefined)
       .execute(`dbo.${process.env.UNIQUE_PREFIX}_CofOApplication_Update`);

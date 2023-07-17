@@ -1,0 +1,77 @@
+extends base
+
+mixin landItems(land)
+    .property-block
+        .inner-box.clearfix
+            .image-box
+                figure.image
+                    img(src='/img/resource/property-1.jpg' alt='')
+            .content-box
+                h3= land.LandName
+                .location
+                    i.la.la-map-marker
+                    |  #{land.Location}
+                ul.property-info.clearfix
+                    li
+                        i.flaticon-dimension
+                        |  #{land.Size} Sq-Ft
+                    li
+                        i.la.la-road
+                        |  #{land.ZoningReg}
+                    li
+                        i.la.la-map
+                        |  #{land.Topography}
+                    
+                .price &#x20A6; #{land.Price.toLocaleString()}
+            .option-box
+                - date = new Date(land.DateCreated)
+                - formatted = date.toLocaleDateString().replaceAll("/",".")
+                .expire-date= formatted
+                ul.action-list
+                    - if(!land.Allocated)
+                        li
+                            a(href=`/edit-land/${land.Slug}`)
+                                i.la.la-edit
+                                |  Edit
+                    li
+                        a(href='#')
+                            i.la.la-eye-slash
+                            |  Hide
+                    - if(!land.Allocated)
+                        li
+                            a(href='#')
+                                i.la.la-trash-o
+                                |  Delete
+
+block content
+    .dashboard
+        .container-fluid
+            .content-area
+                .dashboard-content
+                    .dashboard-header.clearfix
+                        .row
+                            .col-md-6.col-sm-12
+                                h4 My Properties
+                            .col-md-6.col-sm-12
+                                .breadcrumb-nav
+                                    ul
+                                        li
+                                            a(href='../index-2.html') Index
+                                        li
+                                            a(href='dashboard.html') Dashboard
+                                        li.active Properties
+                    .row
+                        .column.col-lg-12
+                            .properties-box
+                                .title
+                                    h3 My Lands List
+                                .inner-container
+                                    // Property Block
+                                    each land of lands
+                                        +landItems(land)
+
+                                    
+                p.copyright-text
+                    | © 2018 
+                    a(href='#') Expert Themes
+                    |  All right reserved.

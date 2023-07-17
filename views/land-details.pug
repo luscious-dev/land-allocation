@@ -1,70 +1,24 @@
 extends base
 
+
 block content
-    section.form_sec
-        h3.vis-hid Invisible
-        .container
-            form.row.banner-search(action='#')
-                .form_field.addres
-                    input.form-control(type='text' placeholder='Enter Address, City or State')
-                .form_field.tpmax
-                    .form-group
-                        .drop-menu
-                            .select
-                                span Any type
-                                i.fa.fa-angle-down
-                            input(type='hidden' name='gender')
-                            ul.dropeddown
-                                li For Sale
-                                li For Rent
-                .form_field.tpmax
-                    .form-group
-                        .drop-menu
-                            .select
-                                span Min Price
-                                i.fa.fa-angle-down
-                            input(type='hidden' name='gender')
-                            ul.dropeddown
-                                li 300$
-                                li 400$
-                                li 500$
-                                li 200$
-                                li 600$
-                .form_field.tpmax
-                    .form-group
-                        .drop-menu
-                            .select
-                                span Max Price
-                                i.fa.fa-angle-down
-                            input(type='hidden' name='gender')
-                            ul.dropeddown
-                                li 2000
-                                li 3000
-                                li 4000
-                                li 5000
-                                li 6000
-                .form_field.srch-btn
-                    a.btn.btn-outline-primary(href='#')
-                        i.la.la-search
-        // form_sec end
+
     section.property-single-pg
         .container
             .property-hd-sec
                 .card
                     .card-body
                         a(href='#')
-                            h3 Traditional Apartments
+                            h3 #{land.LandName}
                             p
                                 i.la.la-map-marker
-                                | 212 5th Ave, New York
+                                | #{land.Location}
                         ul
-                            li 3 Bathrooms
-                            li 2 Beds
-                            li Area 555 Sq Ft
+                            li Area #{land.Size} Sq Ft
                     // card-body end
                     .rate-info
-                        h5 $550.000
-                        span For Rent
+                        h5 &#x20A6;#{land.Price.toLocaleString()}
+                        span= land.Allocated ? "Unvavailable":"Available"
                     // rate-info end
                     // card end
                     // -property-hd-sec end
@@ -75,454 +29,84 @@ block content
                             .property-imgs
                                 .property-main-img
                                     .property-img
-                                        img(src='/img/resources/blog-img.jpg' alt='')
+                                        img(src=`/img/listing/${land.image}` alt='')
                                     // property-img end
-                                    .property-img
-                                        img(src='/img/resources/blog-img2.jpg' alt='')
-                                    // property-img end
-                                    .property-img
-                                        img(src='/img/resources/blog-img3.jpg' alt='')
-                                    // property-img end
-                                    .property-img
-                                        img(src='/img/resources/blog-img4.jpg' alt='')
-                                    // property-img end
-                                    .property-img
-                                        img(src='/img/resources/blog-img5.jpg' alt='')
-                                    // property-img end
-                                    // property-main-img end
-                                .property-thumb-imgs
-                                    .row.thumb-carous
-                                        .col-lg-4.col-md-4.col-sm-4.col-4.thumb-img
-                                            .property-img
-                                                img(src='/img/resources/blog-img.jpg' alt='')
-                                            // property-img end
-                                        .col-lg-4.col-md-4.col-sm-4.col-4.thumb-img
-                                            .property-img
-                                                img(src='/img/resources/blog-img2.jpg' alt='')
-                                            // property-img end
-                                        .col-lg-4.col-md-4.col-sm-4.col-4.thumb-img
-                                            .property-img
-                                                img(src='/img/resources/blog-img3.jpg' alt='')
-                                            // property-img end
-                                        .col-lg-4.col-md-4.col-sm-4.col-4.thumb-img
-                                            .property-img
-                                                img(src='/img/resources/blog-img4.jpg' alt='')
-                                            // property-img end
-                                        .col-lg-4.col-md-4.col-sm-4.col-4.thumb-img
-                                            .property-img
-                                                img(src='/img/resources/blog-img5.jpg' alt='')
-                                            // property-img end
-                                            // property-thumb-imgs end
-                                            // property-imgs end
+
+
                             .descp-text
                                 h3 Description
                                 p
-                                    | Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequa ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat cons equat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himen aeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue.
+                                    | #{land.Description}
                             // descp-text end
                             .details-info
                                 h3 Detail
                                 ul
                                     li
-                                        h4 Construction Tyoe:
-                                        span Condo
-                                    li
-                                        h4 Year Built:
-                                        span 2012
-                                    li
-                                        h4 Units in Building: 
-                                        span 87
-                                    li
-                                        h4 Bathrooms:
-                                        span 5
-                                    li
-                                        h4 Badrooms:
-                                        span 7
-                                    li
-                                        h4 Flooring:
-                                        span 555 Sq Ft
+                                        h4 Size:
+                                        span &nbsp;#{land.Size} Sq Ft
+
                                     li
                                         h4 Amenities:
-                                        span Elevator
+                                        span &nbsp;#{land.hasElectricity ? "Electricity |" : ''} #{land.hasWater ? "Water" : ''}
                                     li
-                                        h4 Cooling:
-                                        span Central Cooling
+                                        h4 Topography:
+                                        span &nbsp;#{land.Topography}
                                     li
-                                        h4 Other Features:
-                                        span Fireplace
+                                        h4 Zoning Regulation:
+                                        span &nbsp;#{land.ZoningReg}
+
                             // details-info end
                             .features-dv
                                 h3 Features
                                 form.form_field
                                     ul
                                         li.input-field
-                                            input#c1(type='checkbox' name='cc')
+                                            input#c1(type='checkbox'  name='cc' checked=land.isFenced)
                                             label(for='c1')
                                                 span
-                                                small Parking
+                                                small Fenced
                                         li.input-field
-                                            input#c2(type='checkbox' name='cc' checked='')
+                                            input#c1(type='checkbox' name='cc' checked=land.isCleared)
+                                            label(for='c1')
+                                                span
+                                                small Cleared
+                                        li.input-field
+                                            input#c1(type='checkbox' name='cc' checked=land.nearShops)
+                                            label(for='c1')
+                                                span
+                                                small Shops
+                                        li.input-field
+                                            input#c2(type='checkbox' name='cc' checked=land.nearHospital)
                                             label(for='c2')
                                                 span
-                                                small Gym
+                                                small Hospitals
                                         li.input-field
-                                            input#c3(type='checkbox' name='cc')
+                                            input#c3(type='checkbox' name='cc' checked=land.nearSchool)
                                             label(for='c3')
                                                 span
-                                                small Heating
-                                        li.input-field
-                                            input#c4(type='checkbox' name='cc' checked='')
-                                            label(for='c4')
-                                                span
-                                                small Air Conditioner
+                                                small Schools
+
                                         li.input-field
                                             input#c5(type='checkbox' name='cc' checked='')
                                             label(for='c5')
                                                 span
-                                                small Wireless Internet
-                                        li.input-field
-                                            input#c6(type='checkbox' name='cc')
-                                            label(for='c6')
-                                                span
-                                                small Swimming Pool
+                                                small Market
+
                             // features-dv end
-                            .floorplan
-                                h3 floorplan
-                                img(src='/img/resources/prop-map.png' alt='')
-                            // floorplan end
+
+                            .map-dv
+                                h3 Land Shape
+                                svg#map(style="height:600px;" data-land-bounds=land.LandBoundaries)
+
+
                             .map-dv
                                 h3 Location
                                 #map-container.fullwidth-home-map
                                     #map(data-map-zoom='9')
                             // map-dv end
-                            .nearby-locts
-                                h3 What&apos;s Nearby?
-                                span
-                                    | Powered by 
-                                    img(src='/img/ylog.png' alt='')
-                                .widget-posts
-                                    ul
-                                        li
-                                            .wd-posts
-                                                .ps-img
-                                                    img(src='/img/resources/p-img1.png' alt='')
-                                                // ps-img end
-                                                .ps-info
-                                                    h3
-                                                        a(href='#' title='') The Museum of Modern Art
-                                                    span
-                                                        i.la.la-map-marker
-                                                        | 212 5th Ave, New York
-                                                // ps-info end
-                                                // wd-posts end
-                                                ul.star-rating
-                                                    li
-                                                        span.la.la-star
-                                                    li
-                                                        span.la.la-star
-                                                    li
-                                                        span.la.la-star
-                                                    li
-                                                        span.la.la-star
-                                                    li
-                                                        span.la.la-star
-                                                // star-rating end
-                                        li
-                                            .wd-posts
-                                                .ps-img
-                                                    img(src='/img/resources/p-img2.png' alt='')
-                                                // ps-img end
-                                                .ps-info
-                                                    h3
-                                                        a(href='#' title='') Joe&apos;s Shanghai
-                                                    span
-                                                        i.la.la-map-marker
-                                                        | 212 5th Ave, New York
-                                                // ps-info end
-                                                // wd-posts end
-                                                ul.star-rating
-                                                    li
-                                                        span.la.la-star
-                                                    li
-                                                        span.la.la-star
-                                                    li
-                                                        span.la.la-star
-                                                    li
-                                                        span.la.la-star
-                                                    li
-                                                        span.la.la-star
-                                                // star-rating end
-                                        li
-                                            .wd-posts
-                                                .ps-img
-                                                    img(src='/img/resources/p-img3.png' alt='')
-                                                // ps-img end
-                                                .ps-info
-                                                    h3
-                                                        a(href='#' title='') Apple Fifth Avenue
-                                                    span
-                                                        i.la.la-map-marker
-                                                        | 212 5th Ave, New York
-                                                // ps-info end
-                                                // wd-posts end
-                                                ul.star-rating
-                                                    li
-                                                        span.la.la-star
-                                                    li
-                                                        span.la.la-star
-                                                    li
-                                                        span.la.la-star
-                                                    li
-                                                        span.la.la-star
-                                                    li
-                                                        span.la.la-star
-                                                // star-rating end
-                                                // nearby-locts end
-                                                .comments-dv
-                                                    h3 3 Reviews
-                                                    .comment-section
-                                                        ul
-                                                            li
-                                                                .cm-info-sec
-                                                                    .cm-img
-                                                                        img(src='/img/resources/cm-img.png' alt='')
-                                                                    // author-img end
-                                                                    .cm-info
-                                                                        h3 Kritsofer Nolan
-                                                                        h4 April 25, 2018
-                                                                    ul.rating-lst
-                                                                        li
-                                                                            span.la.la-star
-                                                                        li
-                                                                            span.la.la-star
-                                                                        li
-                                                                            span.la.la-star
-                                                                        li
-                                                                            span.la.la-star
-                                                                        li
-                                                                            span.la.la-star
-                                                                    // rating-lst end
-                                                                    // cm-info-sec end
-                                                                    p
-                                                                        | Nam placerat facilisis placerat. Morbi elit nibh, auctor sit amet sodales id, porttitor eu quam. Aenean dui libero, laoreet quis con sequat vitae, posuere ut sapien. Etiam pharetra nulla vel diam eleifend, eu placerat nunc molestie.
-                                                                    a.cm-reply(href='#' title='') Reply
-                                                            li
-                                                                .cm-info-sec
-                                                                    .cm-img
-                                                                        img(src='/img/resources/cm-img.png' alt='')
-                                                                    // author-img end
-                                                                    .cm-info
-                                                                        h3 Kritsofer Nolan
-                                                                        h4 April 25, 2018
-                                                                    ul.rating-lst
-                                                                        li
-                                                                            span.la.la-star
-                                                                        li
-                                                                            span.la.la-star
-                                                                        li
-                                                                            span.la.la-star
-                                                                        li
-                                                                            span.la.la-star
-                                                                        li
-                                                                            span.la.la-star
-                                                                    // rating-lst end
-                                                                    // cm-info-sec end
-                                                                    p
-                                                                        | Nam placerat facilisis placerat. Morbi elit nibh, auctor sit amet sodales id, porttitor eu quam. Aenean dui libero, laoreet quis con sequat vitae, posuere ut sapien. Etiam pharetra nulla vel diam eleifend, eu placerat nunc molestie.
-                                                                    a.cm-reply(href='#' title='') Reply
-                                                            li
-                                                                .cm-info-sec
-                                                                    .cm-img
-                                                                        img(src='/img/resources/cm-img.png' alt='')
-                                                                    // author-img end
-                                                                    .cm-info
-                                                                        h3 Kritsofer Nolan
-                                                                        h4 April 25, 2018
-                                                                    ul.rating-lst
-                                                                        li
-                                                                            span.la.la-star
-                                                                        li
-                                                                            span.la.la-star
-                                                                        li
-                                                                            span.la.la-star
-                                                                        li
-                                                                            span.la.la-star
-                                                                        li
-                                                                            span.la.la-star
-                                                                    // rating-lst end
-                                                                    // cm-info-sec end
-                                                                    p
-                                                                        | Nam placerat facilisis placerat. Morbi elit nibh, auctor sit amet sodales id, porttitor eu quam. Aenean dui libero, laoreet quis con sequat vitae, posuere ut sapien. Etiam pharetra nulla vel diam eleifend, eu placerat nunc molestie.
-                                                                    a.cm-reply(href='#' title='') Reply
-                                                    .review-hd
-                                                        .rev-hd
-                                                            h3 Write a Review
-                                                            ul.rating-lst
-                                                                li
-                                                                    span.la.la-star
-                                                                li
-                                                                    span.la.la-star
-                                                                li
-                                                                    span.la.la-star
-                                                                li
-                                                                    span.la.la-star
-                                                                li
-                                                                    span.la.la-star
-                                                            // rating-lst end
-                                                            // rev-hd end
-                                                            .post-comment-sec
-                                                                form
-                                                                    .row
-                                                                        .col-lg-4.col-md-4.pl-0
-                                                                            .form-field
-                                                                                input(type='text' name='name' placeholder='Your Name')
-                                                                            // form-field end
-                                                                        .col-lg-4.col-md-4
-                                                                            .form-field
-                                                                                input(type='text' name='email' placeholder='Your Email')
-                                                                            // form-field end
-                                                                        .col-lg-4.col-md-4.pr-0
-                                                                            .form-field
-                                                                                input(type='text' name='phone' placeholder='Your Phone')
-                                                                            // form-field end
-                                                                        .col-lg-12.pl-0.pr-0
-                                                                            .form-field
-                                                                                textarea(name='message' placeholder='Your Message')
-                                                                            // form-field end
-                                                                        .col-lg-12.pl-0.pr-0
-                                                                            button.btn-default(type='submit') Post Review
-                                                            // post-comment-sec end
-                                                            // review-hd end
-                                                            // comments-dv end
-                                                            .similar-listings-posts
-                                                                h3 Similar Listings
-                                                                .list-products
-                                                                    .card
-                                                                        a(href='24_Property_Single.html' title='')
-                                                                            .img-block
-                                                                                .overlay
-                                                                                img.img-fluid(src='/img/listing/1.jpg' alt='')
-                                                                                .rate-info
-                                                                                    h5 $550.000
-                                                                                    span For Rent
-                                                                        .card_bod_full
-                                                                            .card-body
-                                                                                a(href='24_Property_Single.html' title='')
-                                                                                    h3 Traditional Apartments
-                                                                                    p
-                                                                                        i.la.la-map-marker
-                                                                                        | 212 5th Ave, New York
-                                                                                ul
-                                                                                    li 3 Bathrooms
-                                                                                    li 2 Beds
-                                                                                    li Area 555 Sq Ft
-                                                                            .card-footer
-                                                                                .crd-links
-                                                                                    a.pull-left(href='#')
-                                                                                        i.la.la-heart-o
-                                                                                    a.plf(href='#')
-                                                                                        i.la.la-calendar-check-o
-                                                                                        |  25 Days Ago
-                                                                                // crd-links end
-                                                                                a.btn-default(href='24_Property_Single.html' title='') View Details
-                                                                        // card_bod_full end
-                                                                        a.ext-link(href='24_Property_Single.html' title='')
-                                                                    // card end
-                                                                    .card
-                                                                        a(href='24_Property_Single.html' title='')
-                                                                            .img-block
-                                                                                .overlay
-                                                                                img.img-fluid(src='/img/listing/2.jpg' alt='')
-                                                                                .rate-info
-                                                                                    h5 $550.000
-                                                                                    span For Rent
-                                                                        .card_bod_full
-                                                                            .card-body
-                                                                                a(href='24_Property_Single.html' title='')
-                                                                                    h3 Traditional Apartments
-                                                                                    p
-                                                                                        i.la.la-map-marker
-                                                                                        | 212 5th Ave, New York
-                                                                                ul
-                                                                                    li 3 Bathrooms
-                                                                                    li 2 Beds
-                                                                                    li Area 555 Sq Ft
-                                                                            .card-footer
-                                                                                .crd-links
-                                                                                    a.pull-left(href='#')
-                                                                                        i.la.la-heart-o
-                                                                                    a.plf(href='#')
-                                                                                        i.la.la-calendar-check-o
-                                                                                        |  25 Days Ago
-                                                                                // crd-links end
-                                                                                a.btn-default(href='24_Property_Single.html' title='') View Details
-                                                                        // card_bod_full end
-                                                                        a.ext-link(href='24_Property_Single.html' title='')
-                                                                    // card end
-                                                                    .card
-                                                                        a(href='24_Property_Single.html' title='')
-                                                                            .img-block
-                                                                                .overlay
-                                                                                img.img-fluid(src='/img/listing/3.jpg' alt='')
-                                                                                .rate-info
-                                                                                    h5 $550.000
-                                                                                    span For Rent
-                                                                        .card_bod_full
-                                                                            .card-body
-                                                                                a(href='24_Property_Single.html' title='')
-                                                                                    h3 Traditional Apartments
-                                                                                    p
-                                                                                        i.la.la-map-marker
-                                                                                        | 212 5th Ave, New York
-                                                                                ul
-                                                                                    li 3 Bathrooms
-                                                                                    li 2 Beds
-                                                                                    li Area 555 Sq Ft
-                                                                            .card-footer
-                                                                                .crd-links
-                                                                                    a.pull-left(href='#')
-                                                                                        i.la.la-heart-o
-                                                                                    a.plf(href='#')
-                                                                                        i.la.la-calendar-check-o
-                                                                                        |  25 Days Ago
-                                                                                // crd-links end
-                                                                                a.btn-default(href='24_Property_Single.html' title='') View Details
-                                                                        // card_bod_full end
-                                                                        a.ext-link(href='24_Property_Single.html' title='')
-                                                                    // card end
-                                                                    .card
-                                                                        a(href='24_Property_Single.html' title='')
-                                                                            .img-block
-                                                                                .overlay
-                                                                                img.img-fluid(src='/img/listing/4.jpg' alt='')
-                                                                                .rate-info
-                                                                                    h5 $550.000
-                                                                                    span For Rent
-                                                                        .card_bod_full
-                                                                            .card-body
-                                                                                a(href='24_Property_Single.html' title='')
-                                                                                    h3 Traditional Apartments
-                                                                                    p
-                                                                                        i.la.la-map-marker
-                                                                                        | 212 5th Ave, New York
-                                                                                ul
-                                                                                    li 3 Bathrooms
-                                                                                    li 2 Beds
-                                                                                    li Area 555 Sq Ft
-                                                                            .card-footer
-                                                                                .crd-links
-                                                                                    a.pull-left(href='#')
-                                                                                        i.la.la-heart-o
-                                                                                    a.plf(href='#')
-                                                                                        i.la.la-calendar-check-o
-                                                                                        |  25 Days Ago
-                                                                                // crd-links end
-                                                                                a.btn-default(href='24_Property_Single.html' title='') View Details
-                                                                        // card_bod_full end
-                                                                        a.ext-link(href='24_Property_Single.html' title='')
-                                                                    // card end
-                                                                    // list-products end
-                                                                    // similar-listings-posts end
-                                                                    // property-pg-left end
+                            
+                                                    
+                                                            
                     .col-lg-4.pr-0
                         .sidebar.layout2
                             .widget.widget-form
@@ -535,147 +119,93 @@ block content
                                         span
                                             i.la.la-phone
                                             | +1 212-925-3797
-                                // contct-info end
-                                .post-comment-sec
-                                    form
-                                        .form-field
-                                            input(type='text' name='name' placeholder='Your Name')
-                                        // form-field end
-                                        .form-field
-                                            input(type='text' name='email' placeholder='Your Email')
-                                        // form-field end
-                                        .form-field
-                                            input(type='text' name='phone' placeholder='Your Phone')
-                                        // form-field end
-                                        .form-field
-                                            textarea(name='message' placeholder='Your Message')
-                                        // form-field end
-                                        button.btn2(type='submit') Contact
-                                // post-comment-sec end
-                                // widget-form end
-                            .widget.widget-catgs
-                                h3.widget-title Categories
-                                ul
-                                    li
-                                        a(href='#' title='')
-                                            i.la.la-angle-right
-                                            span House
-                                        span 7
-                                    li
-                                        a(href='#' title='')
-                                            i.la.la-angle-right
-                                            span Condo
-                                        span 15
-                                    li
-                                        a(href='#' title='')
-                                            i.la.la-angle-right
-                                            span Townhouse
-                                        span 4
-                                    li
-                                        a(href='#' title='')
-                                            i.la.la-angle-right
-                                            span Coop
-                                        span 1
-                            // widget-catgs end
+                                - if(user)
+                                    // contct-info end
+                                    - if(!land.Allocated)
+                                        .post-comment-sec
+                                            form
+                                                button.btn2(type='submit' data-land-id=land.Id data-last-changed=JSON.stringify(land.LastChanged)) Purchase
+                                        // post-comment-sec end
+                                        // widget-form end
+                                    - else
+                                        .post-comment-sec
+                                            form
+                                                button.btn2(type='submit' disabled=true) Land is Allocated
+                                - else
+                                    span Login to purchase a land
+
                             .widget.widget-posts
                                 h3.widget-title Popular Listings
                                 ul
-                                    li
-                                        .wd-posts
-                                            .ps-img
-                                                a(href='14_Blog_Open.html' title='')
-                                                    img(src='/img/resources/p-img1.png' alt='')
-                                            // ps-img end
-                                            .ps-info
-                                                h3
-                                                    a(href='14_Blog_Open.html' title='') Traditional Apartments
-                                                strong $125.700
-                                                span
-                                                    i.la.la-map-marker
-                                                    | 212 5th Ave, New York
-                                            // ps-info end
-                                            // wd-posts end
-                                    li
-                                        .wd-posts
-                                            .ps-img
-                                                a(href='14_Blog_Open.html' title='')
-                                                    img(src='/img/resources/p-img2.png' alt='')
-                                            // ps-img end
-                                            .ps-info
-                                                h3
-                                                    a(href='14_Blog_Open.html' title='') Traditional Apartments
-                                                strong $125.700
-                                                span
-                                                    i.la.la-map-marker
-                                                    | 212 5th Ave, New York
-                                            // ps-info end
-                                            // wd-posts end
-                                    li
-                                        .wd-posts
-                                            .ps-img
-                                                a(href='14_Blog_Open.html' title='')
-                                                    img(src='/img/resources/p-img3.png' alt='')
-                                            // ps-img end
-                                            .ps-info
-                                                h3
-                                                    a(href='14_Blog_Open.html' title='') Traditional Apartments
-                                                strong $125.700
-                                                span
-                                                    i.la.la-map-marker
-                                                    | 212 5th Ave, New York
-                                            // ps-info end
-                                            // wd-posts end
-                                            // widget-posts end
-                            .widget.widget-calculator
-                                h3.widget-title Mortgage Calculator
-                                form
-                                    ul
+                                    each land2 of popularLands
                                         li
-                                            i $
-                                            input(type='number' name='amount' placeholder='Total Amount')
-                                        li
-                                            i $
-                                            input(type='number' name='amount' placeholder='Down Payment')
-                                        li
-                                            i $
-                                            input(type='number' name='amount' placeholder='Interest Rate')
-                                        li
-                                            i $
-                                            input(type='number' name='amount' placeholder='Monthly Repayments')
-                                        li
-                                            button.btn2(type='submit') Calculate
-                            // widget-calculator end
+                                            .wd-posts
+                                                .ps-img
+                                                    a(href=`/land/${land2.Slug}` title='')
+                                                        img(src='/img/resources/p-img2.png' alt='')
+                                                // ps-img end
+                                                .ps-info
+                                                    h3
+                                                        a(href=`/land/${land2.Slug}` title='') #{land2.LandName}
+                                                    strong &#x20A6;#{land2.Price.toLocaleString()}
+                                                    span
+                                                        i.la.la-map-marker
+                                                        | #{land2.Location}
+                                                // ps-info end
+                                                // wd-posts end
+                                    
+
                             // sidebar end
                             // property-single-page-content end
-        // property-single-pg end
-        a(href='#' title='')
-            section.cta.section-padding
-                .container
-                    .row
-                        .col-xl-12
-                            .cta-text
-                                h2 Discover a home you&apos;ll love to stay
-        section.bottom.section-padding
-            .container
-                .row
-                    .col-xl-4.col-sm-6.col-md-4
-                        .bottom-logo
-                            img.img-fluid(src='/img/logo.png' alt='')
-                    .col-xl-3.col-sm-6.col-md-3
-                        .bottom-list
-                            h3 Helpful Links
-                            ul
-                                li
-                                    a(href='18_Half_Map.html' title='') Half Map
-                                li
-                                    a(href='#' title='') Register
-                                li
-                                    a(href='#' title='') Pricing
-                                li
-                                    a(href='#' title='') Add Listing
-                        // bottom-list end
-                    .col-xl-5.col-sm-12.col-md-5.pl-0
-                        .bottom-desc
-                            h3 Aditional Information
-                            p
-                                | Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos.
+                            // property-single-pg end
+                            a(href='#' title='')
+    section.cta.section-padding
+        .container
+            .row
+                .col-xl-12
+                    .cta-text
+                        h2 Discover a land you&apos;ll love to own
+    section.bottom.section-padding
+        .container
+            .row
+                .col-xl-4.col-sm-6.col-md-4
+                    .bottom-logo
+                        img.img-fluid(src='/img/logo.png' alt='')
+                .col-xl-3.col-sm-6.col-md-3
+                    .bottom-list
+                        h3 Helpful Links
+                        ul
+                            li
+                                a(href='18_Half_Map.html' title='') Half Map
+                            li
+                                a(href='#' title='') Register
+                            li
+                                a(href='#' title='') Pricing
+                            li
+                                a(href='#' title='') Add Listing
+                    // bottom-list end
+                .col-xl-5.col-sm-12.col-md-5.pl-0
+                    .bottom-desc
+                        h3 Aditional Information
+                        p
+                            | Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos.
+
+block scripts
+    //- If svg stops working kill this
+    script(src='/js/jquery-3.3.1.min.js')
+    
+    script(src='/js/modernizr-3.6.0.min.js')
+    script(src='/js/bootstrap.min.js')
+    script(src='/js/html5lightbox.js')
+    script(src='/js/lib/slick/slick.js')
+    script(src='/js/scripts.js')
+    script(src='/js/d3.min.js')
+    script(src='/js/land-shape.js')
+    
+    script(src='/js/bundle.js')
+
+    // Maps
+    //- script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDVwc4veKudU0qjYrLrrQXacCkDkcy3AeQ')
+    //- script(src='/js/map-cluster/infobox.min.js')
+    //- script(src='/js/map-cluster/markerclusterer.js')
+    //- script(src='/js/map-cluster/map2.js')

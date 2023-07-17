@@ -25,7 +25,7 @@ header
       .row
         .col-xl-12
           nav.navbar.navbar-expand-lg.navbar-light
-            a.navbar-brand(href='index.html')
+            a.navbar-brand(href='/')
               img(src='/img/logo.png' alt='')
             button.menu-button(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent')
               span.icon-spar
@@ -33,54 +33,40 @@ header
               span.icon-spar
             #navbarSupportedContent.navbar-collapse
               ul.navbar-nav.mr-auto
-                li.nav-item.dropdown.active
-                  a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown')
+                li(class=`nav-item ${page=="home" ? 'active':''}` )
+                  a.nav-link(href='/')
                     | Home
-                  .dropdown-menu.animated
-                    a.dropdown-item.active(href='index.html') White Menu with Center Search
-                    a.dropdown-item(href='02_Home.html') Image Menu with Center Search 2
-                    a.dropdown-item(href='03_Home.html') Map with Center Search
-                    a.dropdown-item(href='04_Home.html') Geo SVG Map
-                    a.dropdown-item(href='05_Home.html') Slider Header
-                    a.dropdown-item(href='06_Home.html') Image Header with Description
-                    a.dropdown-item(href='07_Home_Categories_and_Advanced_Search.html') More Search Features
-                li.nav-item.dropdown
-                  a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown')
-                    | Features
-                  .dropdown-menu.animated
-                    a.dropdown-item(href='17_Features_Example_Alt_Titlebar.html') Features Example
-                    a.dropdown-item(href='18_Half_Map.html') Half Map
-                li.nav-item.dropdown
-                  a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown')
+                  
+                li(class=`nav-item ${page=="listing" ? 'active':''}` )
+                  a.nav-link(href='/land-listing')
                     | Listing
-                  .dropdown-menu.animated
-                    a.dropdown-item(href='21_List_Layout_With_Map.html') List Layout with Map
-                    a.dropdown-item(href='22_List_Layout_With_Sidebar.html') List Layout with Sidebar
-                    a.dropdown-item(href='11_Agent_Profile.html') Agent Profile
-                    a.dropdown-item(href='24_Property_Single.html') Property Single
-                li.nav-item.dropdown
-                  a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown')
-                    | Pages
-                  .dropdown-menu.animated
-                    a.dropdown-item(href='12_Blog_Grid.html') Blog Grid
-                    a.dropdown-item(href='13_Blog_Standart.html') Blog Standard
-                    a.dropdown-item(href='14_Blog_Open.html') Blog Open
-                    a.dropdown-item(href='10_About.html') About
-                    a.dropdown-item(href='15_Contact.html') Contact
-                    a.dropdown-item(href='09_404.html') 404
+        
+                li(class=`nav-item ${page=="about" ? 'active':''}` )
+                  a.nav-link(href='/about')
+                    | About
+                  
               .d-inline.my-2.my-lg-0
                 ul.navbar-nav
-                  li.nav-item.signin-btn
-                    a.nav-link(href='#')
-                      i.la.la-sign-in
-                      span
-                        b.signin-op Sign in
-                        |  or 
-                        b.reg-op Register
+                  - if(!user)
+                      li.nav-item.signin-btn
+                        a.nav-link(href='#')
+                          i.la.la-sign-in
+                          span
+                            b.signin-op &nbsp;Sign in
+                            |  or 
+                            b.reg-op Register
+                  - else
+                      li.nav-item
+                        a.nav-link#log-out(href='#')
+                          i.la.la-sign-in
+                          span
+                            b &nbsp;Logout
+                            //- |  or 
+                            //- b.reg-op Register
                   li.nav-item.submit-btn
-                    a.my-2.my-sm-0.nav-link.sbmt-btn(href='#')
+                    a.my-2.my-sm-0.nav-link.sbmt-btn(href='/dashboard')
                       i.icon-plus
-                      span Submit Listing
+                      span Dashboard
               a.close-menu(href='#' title='')
                 i.la.la-close
 // header end
@@ -91,7 +77,7 @@ header
       .form-field
         input(type='text' name='username' placeholder='Username')
       .form-field
-        input(type='text' name='password' placeholder='Password')
+        input(type='password' name='password' placeholder='Password')
       .form-cp
         .form-field
           .input-field
@@ -101,10 +87,10 @@ header
               small Remember me
         a(href='#' title='') Forgot Password?
       // form-cp end
-      button.btn2(type='submit') Sign In
-    a.fb-btn(href='#' title='')
-      i.fa.fa-facebook
-      | Sign In With Facebook
+      button.btn2#sign-in Sign In
+    //- a.fb-btn(href='#' title='')
+    //-   i.fa.fa-facebook
+    //-   | Sign In With Facebook
 // popup end
 #register-popup.popup
   h3 Register

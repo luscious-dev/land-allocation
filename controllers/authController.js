@@ -46,7 +46,7 @@ exports.login = catchAsync(async (req, res, next) => {
   const userList = await new User().readConditional(
     `Email = '${req.body.Email}'`
   );
-  if (!userList) {
+  if (userList.length == 0) {
     return new next(new AppError("Incorrect username or password", 401));
   }
   const user = userList[0];
@@ -67,6 +67,17 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 });
 
+// Logout
+exports.logout = (req, res, next) => {
+  res.cookie("jwt", "loggedout", {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+  res.status(200).json({
+    status: "success",
+  });
+};
+
 // Protect
 exports.protect = catchAsync(async (req, res, next) => {
   // Check if there is cookie
@@ -86,6 +97,30 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   req.user = user;
   next();
+});
+
+// Check if logged in
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
+  try {
+    // Check if there is cookie
+    if (!req.cookies.jwt) {
+      return next();
+    }
+
+    // Check if the user exists
+    const decoded = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET);
+    const user = await new User().readOne(decoded.Id);
+
+    if (!user) {
+      return next();
+    }
+
+    res.locals.user = user;
+    req.user = user;
+    return next();
+  } catch (err) {
+    return next();
+  }
 });
 
 // Restrict

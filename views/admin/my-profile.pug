@@ -1,0 +1,118 @@
+extends base
+
+block content
+    .dashboard
+        .container-fluid
+            .content-area
+                .dashboard-content
+                    .dashboard-header.clearfix
+                        .row
+                            .col-md-6.col-sm-12
+                                h4 Submit Property
+                            .col-md-6.col-sm-12
+                                .breadcrumb-nav
+                                    ul
+                                        li
+                                            a(href='../index-2.html') Index
+                                        li
+                                            a(href='dashboard.html') Dashboard
+                                        li.active Submit Property
+                    .row
+                        .column.col-lg-12
+                            .properties-box
+                                .inner-container
+                                    .title
+                                        h3 Profile Details
+                                    .profile-form
+                                        .row
+                                            .col-lg-4.col-md-12.col-sm-12
+                                                // Edit profile photo
+                                                .edit-profile-photo
+                                                    img(src='/img/resource/avatar.jpg' alt='profile-photo')
+                                                    .change-photo-btn
+                                                        .photoUpload
+                                                            span
+                                                                i.la.la-cloud-upload
+                                                            input.upload(type='file')
+                                            .col-lg-8.col-md-12.col-sm-12
+                                                form(method='post' action='http://expert-themes.com/html/willies/admin/index.html')
+                                                    .row
+                                                        // Form Group
+                                                        .form-group.col-lg-6.col-md-6.col-sm-12
+                                                            label Your Name
+                                                            input(type='text' name='name' placeholder='John Doe' required='')
+                                                        // Form Group
+                                                        .form-group.col-lg-6.col-md-6.col-sm-12
+                                                            label Your Title
+                                                            input(type='text' name='title' placeholder='Your Title' required='')
+                                                        // Form Group
+                                                        .form-group.col-lg-6.col-md-6.col-sm-12
+                                                            label Phone #
+                                                            input(type='text' name='phone' placeholder='Phone' required='')
+                                                        // Form Group
+                                                        .form-group.col-lg-6.col-md-6.col-sm-12
+                                                            label Your Email
+                                                            input(type='email' name='email' placeholder='Your Email' required='')
+                                                        // Form Group
+                                                        .form-group.col-lg-12.col-md-12.col-sm-12
+                                                            label About You
+                                                            textarea(name='about-you' placeholder='Personal Info')
+                                                        // Form Group
+                                                        .form-group.text-right.col-lg-12.col-md-12.col-sm-12
+                                                            button.theme-btn.btn-style-one(type='submit') Update Profile
+                        .column.col-lg-6.col-md-12
+                            .properties-box
+                                .inner-container
+                                    .title
+                                        h3 Change Password
+                                    .profile-form
+                                        form(method='post' action='http://expert-themes.com/html/willies/admin/index.html')
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-12
+                                                    label Current Password
+                                                    input(type='text' name='name' placeholder='Current Password' required='')
+                                                // Form Group
+                                                .form-group.col-lg-12
+                                                    label New Password
+                                                    input(type='text' name='title' placeholder='New Password' required='')
+                                                // Form Group
+                                                .form-group.col-lg-12
+                                                    label Confirm New Password
+                                                    input(type='text' name='phone' placeholder='Confirm New Password' required='')
+                                                // Form Group
+                                                .form-group.col-lg-12
+                                                    button.theme-btn.btn-style-one(type='submit') Update Password
+                        .column.col-lg-6.col-md-12
+                            .properties-box
+                                .inner-container
+                                    .title
+                                        h3 Socials Links
+                                    .profile-form
+                                        form(method='post' action='http://expert-themes.com/html/willies/admin/index.html')
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-12
+                                                    label
+                                                        i.la.la-facebook
+                                                        | Facebook
+                                                    input(type='text' name='name' placeholder='Facebook' required='')
+                                                // Form Group
+                                                .form-group.col-lg-12
+                                                    label
+                                                        i.la.la-twitter
+                                                        | Twitter
+                                                    input(type='text' name='name' placeholder='Twitter' required='')
+                                                // Form Group
+                                                .form-group.col-lg-12
+                                                    label
+                                                        i.la.la-instagram
+                                                        | Instagram
+                                                    input(type='text' name='name' placeholder='Instagram' required='')
+                                                // Form Group
+                                                .form-group.col-lg-12
+                                                    button.theme-btn.btn-style-one(type='submit') Save Changes
+                p.copyright-text
+                    | © 2018 
+                    a(href='#') Expert Themes
+                    |  All right reserved.

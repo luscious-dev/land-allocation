@@ -1,0 +1,208 @@
+extends base
+
+block content
+    .dashboard
+        .container-fluid
+            .content-area
+                .dashboard-content
+                    .dashboard-header.clearfix
+                        .row
+                            .col-md-6.col-sm-12
+                                h4 Submit Property
+                            .col-md-6.col-sm-12
+                                .breadcrumb-nav
+                                    ul
+                                        li
+                                            a(href='../index-2.html') Index
+                                        li
+                                            a(href='dashboard.html') Dashboard
+                                        li.active Submit Property
+                    .row
+                        .column.col-lg-12
+                            .properties-box
+                                .inner-container
+                                    .property-submit-form
+                                        form(method='post' action='http://expert-themes.com/html/willies/admin/index.html')
+                                            .title
+                                                h3 Basic Info
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Property Title
+                                                    input(type='text' name='text' placeholder='Property Title' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Property Type
+                                                    select.custom-select-box
+                                                        option Property Type
+                                                        option Residential
+                                                        option Commercial
+                                                        option Industrial
+                                                        option Apartments
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label country
+                                                    select.custom-select-box
+                                                        option Country
+                                                        option California
+                                                        option Florida
+                                                        option Georgia
+                                                        option New York
+                                                        option Texas
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Status
+                                                    select.custom-select-box
+                                                        option Rent
+                                                        option Sale
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .range-slider-one.clearfix
+                                                        label Area
+                                                        input(type='text' name='text' placeholder='SqFt' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .range-slider-one.clearfix
+                                                        label Kitchen
+                                                        select.custom-select-box
+                                                            option Kitchen
+                                                            option 01 Kitchen
+                                                            option 02 Kitchen
+                                                            option 03 Kitchen
+                                                            option 04 Kitchen
+                                                            option 05 Kitchen
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .range-slider-one.clearfix
+                                                        label Bed Room
+                                                        select.custom-select-box
+                                                            option Bed Room
+                                                            option 01 Bed Room
+                                                            option 02 Bed Room
+                                                            option 03 Bed Room
+                                                            option 04 Bed Room
+                                                            option 05 Bed Room
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .range-slider-one.clearfix
+                                                        label Bathroom
+                                                        select.custom-select-box
+                                                            option Bathroom
+                                                            option 01 Bathroom
+                                                            option 02 Bathroom
+                                                            option 03 Bathroom
+                                                            option 04 Bathroom
+                                                            option 05 Bathroom
+                                            .title
+                                                h3 Address
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Address
+                                                    input(type='text' name='text' placeholder='Property Title' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label State
+                                                    select.custom-select-box
+                                                        option State
+                                                        option New York
+                                                        option Los Angeles
+                                                        option Chicago
+                                                        option Houston
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Postal Code
+                                                    input(type='text' name='text' placeholder='Location' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Status
+                                                    select.custom-select-box
+                                                        option Rent
+                                                        option Sale
+                                            .title
+                                                h3 Property Gallery
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-12
+                                                    #myDropZone.dropzone.dropzone-design
+                                                        .dz-default.dz-message
+                                                            span Drop files here to upload
+                                            .title
+                                                h3 Detailed Information
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-12
+                                                    textarea(name='detail' placeholder='Detailed Information')
+                                            .title
+                                                h3 Features (optional)
+                                            .row
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-1(type='checkbox' name='shipping-option')
+                                                        label(for='service-1') Air Conditioning
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-2(type='checkbox' name='shipping-option')
+                                                        label(for='service-2') Alarm System
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-3(type='checkbox' name='shipping-option')
+                                                        label(for='service-3') Doorman
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-4(type='checkbox' name='shipping-option')
+                                                        label(for='service-4') Fireplace
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-5(type='checkbox' name='shipping-option')
+                                                        label(for='service-5') Garden
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-6(type='checkbox' name='shipping-option')
+                                                        label(for='service-6') Heating System
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-7(type='checkbox' name='shipping-option')
+                                                        label(for='service-7') High Ceiling
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-8(type='checkbox' name='shipping-option')
+                                                        label(for='service-8') Car Parking
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-9(type='checkbox' name='shipping-option')
+                                                        label(for='service-9') Swimming Pool
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-10(type='checkbox' name='shipping-option')
+                                                        label(for='service-10') Laundry Room
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-11(type='checkbox' name='shipping-option')
+                                                        label(for='service-11') Places to seat
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .check-box
+                                                        input#service-12(type='checkbox' name='shipping-option')
+                                                        label(for='service-12') Window Covering
+                                            .title
+                                                h3 Contact Info
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Name
+                                                    input(type='text' name='name' placeholder='Name' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Email
+                                                    input(type='email' name='email' placeholder='Email' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Phone
+                                                    input(type='text' name='phone' placeholder='Phone' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    button.theme-btn.btn-style-one(type='submit')  Submit Property
+                p.copyright-text
+                    | © 2018 
+                    a(href='#') Expert Themes
+                    |  All right reserved.
