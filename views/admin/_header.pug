@@ -14,7 +14,8 @@ header.main-header
                         img.thumb(src='/img/resource/thumb-1.jpg' alt='avatar')
                         | My Account
                     .dropdown-menu
-                        a.dropdown-item(href='/dashboard') Dashboard
+                        - if(user.role == "admin")
+                            a.dropdown-item(href='/dashboard') Dashboard
                         a.dropdown-item(href='/profile') My profile
                         a.dropdown-item(href='javascript:void(0)') Log out
                 li.submit-property
@@ -35,23 +36,26 @@ section.hidden-bar
         .cross-icon
             span.pe-7s-close-circle
         ul.navigation
-            li( class=`${page == "dashboard" ? 'active':''}`)
-                a(href='/dashboard')
-                    i.pe-7s-graph1
-                    |  Dashboard
-            li( class=`${page == "lands" ? 'active':''}`)
-                a(href='/lands')
-                    i.pe-7s-world
-                    |  Lands 
-                    span.tag 6
-            li( class=`${page == "my lands" ? 'active':''}`)
-                a(href='/my-lands')
-                    i.pe-7s-home
-                    | My Lands
-            li( class=`${page == "cofo" ? 'active':''}`)
-                a(href='my-properties.html')
-                    i.pe-7s-note
-                    | CofO Applications
+            - if(user.Role == "admin")
+                li( class=`${page == "dashboard" ? 'active':''}`)
+                    a(href='/dashboard')
+                        i.pe-7s-graph1
+                        |  Dashboard
+                li( class=`${page == "lands" ? 'active':''}`)
+                    a(href='/lands')
+                        i.pe-7s-world
+                        |  Lands 
+                        //- span.tag 6
+            - if(user.Role == "user")
+                li( class=`${page == "my lands" ? 'active':''}`)
+                    a(href='/my-lands')
+                        i.pe-7s-home
+                        | My Lands
+            - if(user.Role == "admin")
+                li( class=`${page == "cofo" ? 'active':''}`)
+                    a(href='/cofo-applications')
+                        i.pe-7s-note
+                        | CofO Applications
             li( class=`${page == "profile" ? 'active':''}`)
                 a(href='/profile')
                     i.pe-7s-user

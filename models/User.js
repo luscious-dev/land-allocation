@@ -5,8 +5,8 @@ const { getCurrentDate, spitDate } = require("../utils/dateUtils");
 module.exports = class User {
   // Create - C
   async create(data) {
-    const { FirstName, MiddleName, LastName, DOB, Email, Phone, Password } =
-      data;
+    let { FirstName, MiddleName, LastName, DOB, Email, Phone, Password } = data;
+    DOB = "12-03-2022";
     const hashedPassword = await bcrypt.hash(Password, 12);
 
     await conn.connect();

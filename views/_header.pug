@@ -63,10 +63,17 @@ header
                             b &nbsp;Logout
                             //- |  or 
                             //- b.reg-op Register
-                  li.nav-item.submit-btn
-                    a.my-2.my-sm-0.nav-link.sbmt-btn(href='/dashboard')
-                      i.icon-plus
-                      span Dashboard
+                  - if(user)
+                    - if(user.Role == "admin")
+                        li.nav-item.submit-btn
+                          a.my-2.my-sm-0.nav-link.sbmt-btn(href='/dashboard')
+                            i.icon-plus
+                            span Dashboard
+                    - else
+                        li.nav-item.submit-btn
+                          a.my-2.my-sm-0.nav-link.sbmt-btn(href='/profile')
+                            i.icon-plus
+                            span Profile
               a.close-menu(href='#' title='')
                 i.la.la-close
 // header end
@@ -97,11 +104,20 @@ header
   .popup-form
     form
       .form-field
-        input(type='text' name='username' placeholder='Username')
+        input(type='text' name='firstname' placeholder='First Name')
+      .form-field
+        input(type='text' name='lastname' placeholder='Last Name')
+      .form-field
+        input(type='text' name='middlename' placeholder='Middle Name')
       .form-field
         input(type='text' name='email' placeholder='Email')
       .form-field
-        input(type='text' name='password' placeholder='Password')
+        input(type='text' name='phone' placeholder='Phone Number')
+      .form-field
+        input#password(type='password' name='password' placeholder='Password')
+
+      .form-field
+        input#passwordConfirm(type='password' name='passwordConfirm' placeholder='Confirm Password')
       .form-cp
         .form-field
           .input-field
@@ -111,5 +127,5 @@ header
               small I agree with terms
         a.signin-op(href='#' title='') Have an account?
       // form-cp end
-      button.btn2(type='submit') Register
+      button.btn2#register(type='submit') Register
 // popup end

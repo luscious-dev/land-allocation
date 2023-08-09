@@ -9,7 +9,11 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // Create checkout session
 
 exports.createCheckoutSession = catchAsync(async (req, res, next) => {
-  const land = await new Land().readOne(req.params.landId);
+  const land = (
+    await new Land().readConditional(
+      `Id = ${req.params.landId} AND DelFlag = 0`
+    )
+  )[0];
 
   if (!land) return next(new AppError("No land with that ID", 404));
 
@@ -65,14 +69,18 @@ exports.createPurchaseCheckout = catchAsync(async (req, res, next) => {
 
   if (!LandId && !LastChanged) return next();
 
-  await new AllocatedTo().create({
-    UserId: req.user.Id,
-    LandId,
-  });
-
-  await new Land().updateOne(LandId, JSON.parse(LastChanged), {
-    Allocated: true,
-  });
+  const existingAllocation = await new AllocatedTo().readConditional(
+    `UserId = ${req.user.Id} AND LandId = ${LandId}`
+  );
+  if (existingAllocation.length == 0) {
+    await new AllocatedTo().create({
+      UserId: req.user.Id,
+      LandId,
+    });
+    await new Land().updateOne(LandId, JSON.parse(LastChanged), {
+      Allocated: true,
+    });
+  }
 
   res.redirect(req.originalUrl.split("?")[0]);
 });

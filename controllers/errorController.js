@@ -12,13 +12,20 @@ function handleMissingValueDB(err) {
 }
 
 function handleDuplicateErrorDB(err) {
-  const errMessage = err.originalError.message;
+  const errMessage = err.originaError.message;
   const matches = errMessage.match(/\((.*?)\)/);
   console.log(matches);
   return new AppError(
     `'${matches[1]}' already exists. Use a different one!`,
     400
   );
+}
+
+function handleTooLongErrorDB(err) {
+  const errMessage = err.message;
+  const matches = errMessage.match(/\(("(@?).*?")\)/);
+  console.log(matches);
+  return new AppError(`'${matches[1]}' is too long`, 400);
 }
 
 const handleJWTError = () =>
@@ -28,13 +35,15 @@ const handleJWTExpiredError = () =>
 
 // Handle development errors
 function handleDevelopmentError(err, req, res) {
-  console.log(err);
+  // console.log(err);
   if (req.originalUrl.startsWith("/api")) {
     return res.status(err.statusCode).json({
       status: err.status,
       message: err.message,
       error: err,
     });
+  } else {
+    return res.render("error", { err });
   }
   // Render pages
 }
@@ -53,6 +62,8 @@ function handleProductionError(err, req, res) {
         message: "Something went wrong",
       });
     }
+  } else {
+    return res.render("error", { err });
   }
 
   // Render pages
@@ -63,12 +74,22 @@ module.exports = (err, req, res, next) => {
   err.status = err.status || "error";
 
   if (process.env.NODE_ENV == "development") {
-    console.log(err);
+    if (err.number == 8114) err = handleTypeErrorDB(err);
+    if (err.number == 2627) err = handleDuplicateErrorDB(err);
+    if (err.number == 515) err = handleMissingValueDB(err);
+    if (err.number == 8016) err = handleTooLongErrorDB(err);
+    console.log("I am here");
+    console.dir(err);
+    if (err.name === "JsonWebTokenError") err = handleJWTError(err);
+    if (err.name === "TokenExpiredError") err = handleJWTExpiredError(err);
     handleDevelopmentError(err, req, res);
   } else {
     if (err.number == 8114) err = handleTypeErrorDB(err);
     if (err.number == 2627) err = handleDuplicateErrorDB(err);
     if (err.number == 515) err = handleMissingValueDB(err);
+    if (err.number == 8016) err = handleTooLongErrorDB(err);
+    console.log("I am here");
+    console.dir(err);
     if (err.name === "JsonWebTokenError") err = handleJWTError(err);
     if (err.name === "TokenExpiredError") err = handleJWTExpiredError(err);
 

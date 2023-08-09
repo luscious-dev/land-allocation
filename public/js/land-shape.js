@@ -2,15 +2,15 @@
 
 const map = document.getElementById("map");
 
-// const vertices = [
-//   [100, 100], // Vertex 1
-//   [400, 100], // Vertex 2
-//   [400, 400], // Vertex 3
-//   [200, 400], // Vertex 4
-//   [100, 200], // Vertex 5
-// ];
+const vertices = [
+  [100, 100], // Vertex 1
+  [400, 100], // Vertex 2
+  [400, 400], // Vertex 3
+  [200, 400], // Vertex 4
+  [100, 200], // Vertex 5
+];
 
-const vertices = JSON.parse(map.dataset.landBounds);
+// const vertices = JSON.parse(map.dataset.landBounds);
 console.log(vertices);
 
 // -----------------------

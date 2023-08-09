@@ -11,10 +11,24 @@ router.get("/", landController.getAll);
 // Danwake
 router.get("/:id", landController.getOne);
 
-router.post("/", landController.createOne);
+router.post(
+  "/",
+  authController.protect,
+  authController.restrict("admin"),
+  landController.uploadLandImages,
+  landController.resizeUploadedLandImage,
+  landController.createOne
+);
 
 router.delete("/:id", landController.deleteOne);
 
-router.patch("/:id", landController.updateOne);
+router.patch(
+  "/:id",
+  authController.protect,
+  authController.restrict("admin"),
+  landController.uploadLandImages,
+  landController.resizeUploadedLandImage,
+  landController.updateOne
+);
 
 module.exports = router;

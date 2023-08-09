@@ -1,5 +1,45 @@
 extends base
 
+mixin landItem(land)
+    .property-block
+        .inner-box.clearfix
+            .image-box
+                figure.image
+                    img(src=`/img/land/home/${land.Image}` alt='')
+            .content-box
+                h3= land.LandName
+                .location
+                    i.la.la-map-marker
+                    |  #{land.Location}
+                ul.property-info.clearfix
+                    li
+                        i.flaticon-dimension
+                        |  #{land.Size} Sq-Ft
+                    li
+                        i.la.la-road
+                        |  #{land.ZoningReg}
+                    li
+                        i.la.la-map
+                        |  #{land.Topography}
+                    
+                .price &#x20A6; #{land.Price.toLocaleString()}
+            .option-box
+                - date = new Date(land.DateCreated)
+                - formatted = date.toLocaleDateString().replaceAll("/",".")
+                .expire-date= formatted
+                ul.action-list
+                    - if(land.hasCofo)
+                        li
+                            a(href="javascript:void(0)")
+                                i.la.la-edit
+                                |  You have CofO
+                    
+                    - else
+                        li(data-land-id=land.Id)
+                            a(href=`/apply-cofo/${land.Slug}`)
+                                i.la.la-edit
+                                |  Apply for CofO
+
 block content
     .dashboard
         .container-fluid
@@ -13,9 +53,8 @@ block content
                                 .breadcrumb-nav
                                     ul
                                         li
-                                            a(href='../index-2.html') Index
-                                        li
-                                            a(href='dashboard.html') Dashboard
+                                            a(href='/') Index
+
                                         li.active Properties
                     .row
                         .column.col-lg-12
@@ -24,245 +63,11 @@ block content
                                     h3 My Properties List
                                 .inner-container
                                     // Property Block
-                                    .property-block
-                                        .inner-box.clearfix
-                                            .image-box
-                                                figure.image
-                                                    img(src='/img/resource/property-1.jpg' alt='')
-                                            .content-box
-                                                h3 Single House Near Orland Park.
-                                                .location
-                                                    i.la.la-map-marker
-                                                    |  Orland Park, IL 35785, Chicago, United State
-                                                ul.property-info.clearfix
-                                                    li
-                                                        i.flaticon-dimension
-                                                        |  356 Sq-Ft
-                                                    li
-                                                        i.flaticon-bed
-                                                        |  4 Bedrooms
-                                                    li
-                                                        i.flaticon-car
-                                                        |  2 Garage
-                                                    li
-                                                        i.flaticon-bathtub
-                                                        |  3 Bathroom
-                                                .price $ 13,65,000
-                                            .option-box
-                                                .expire-date 4.01.2018
-                                                ul.action-list
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-edit
-                                                            |  Edit
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-eye-slash
-                                                            |  Hide
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-trash-o
-                                                            |  Delete
-                                    // Property Block
-                                    .property-block
-                                        .inner-box.clearfix
-                                            .image-box
-                                                figure.image
-                                                    img(src='/img/resource/property-2.jpg' alt='')
-                                            .content-box
-                                                h3 Apartment Morden 1243, W No.
-                                                .location
-                                                    i.la.la-map-marker
-                                                    |  Orland Park, IL 35785, Chicago, United State
-                                                ul.property-info.clearfix
-                                                    li
-                                                        i.flaticon-dimension
-                                                        |  356 Sq-Ft
-                                                    li
-                                                        i.flaticon-bed
-                                                        |  4 Bedrooms
-                                                    li
-                                                        i.flaticon-car
-                                                        |  2 Garage
-                                                    li
-                                                        i.flaticon-bathtub
-                                                        |  3 Bathroom
-                                                .price $ 13,65,000
-                                            .option-box
-                                                .expire-date 4.01.2018
-                                                ul.action-list
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-edit
-                                                            |  Edit
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-eye-slash
-                                                            |  Hide
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-trash-o
-                                                            |  Delete
-                                    // Property Block
-                                    .property-block
-                                        .inner-box.clearfix
-                                            .image-box
-                                                figure.image
-                                                    img(src='/img/resource/property-3.jpg' alt='')
-                                            .content-box
-                                                h3 Great Home for Single fmaily.
-                                                .location
-                                                    i.la.la-map-marker
-                                                    |  Orland Park, IL 35785, Chicago, United State
-                                                ul.property-info.clearfix
-                                                    li
-                                                        i.flaticon-dimension
-                                                        |  356 Sq-Ft
-                                                    li
-                                                        i.flaticon-bed
-                                                        |  4 Bedrooms
-                                                    li
-                                                        i.flaticon-car
-                                                        |  2 Garage
-                                                    li
-                                                        i.flaticon-bathtub
-                                                        |  3 Bathroom
-                                                .price $ 13,65,000
-                                            .option-box
-                                                .expire-date 4.01.2018
-                                                ul.action-list
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-edit
-                                                            |  Edit
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-eye-slash
-                                                            |  Hide
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-trash-o
-                                                            |  Delete
-                                    // Property Block
-                                    .property-block
-                                        .inner-box.clearfix
-                                            .image-box
-                                                figure.image
-                                                    img(src='/img/resource/property-4.jpg' alt='')
-                                            .content-box
-                                                h3 Single House Near Orland Park.
-                                                .location
-                                                    i.la.la-map-marker
-                                                    |  Orland Park, IL 35785, Chicago, United State
-                                                ul.property-info.clearfix
-                                                    li
-                                                        i.flaticon-dimension
-                                                        |  356 Sq-Ft
-                                                    li
-                                                        i.flaticon-bed
-                                                        |  4 Bedrooms
-                                                    li
-                                                        i.flaticon-car
-                                                        |  2 Garage
-                                                    li
-                                                        i.flaticon-bathtub
-                                                        |  3 Bathroom
-                                                .price $ 13,65,000
-                                            .option-box
-                                                .expire-date 4.01.2018
-                                                ul.action-list
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-edit
-                                                            |  Edit
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-eye-slash
-                                                            |  Hide
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-trash-o
-                                                            |  Delete
-                                    // Property Block
-                                    .property-block
-                                        .inner-box.clearfix
-                                            .image-box
-                                                figure.image
-                                                    img(src='/img/resource/property-5.jpg' alt='')
-                                            .content-box
-                                                h3 Apartment Morden 1243, W No.
-                                                .location
-                                                    i.la.la-map-marker
-                                                    |  Orland Park, IL 35785, Chicago, United State
-                                                ul.property-info.clearfix
-                                                    li
-                                                        i.flaticon-dimension
-                                                        |  356 Sq-Ft
-                                                    li
-                                                        i.flaticon-bed
-                                                        |  4 Bedrooms
-                                                    li
-                                                        i.flaticon-car
-                                                        |  2 Garage
-                                                    li
-                                                        i.flaticon-bathtub
-                                                        |  3 Bathroom
-                                                .price $ 13,65,000
-                                            .option-box
-                                                .expire-date 4.01.2018
-                                                ul.action-list
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-edit
-                                                            |  Edit
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-eye-slash
-                                                            |  Hide
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-trash-o
-                                                            |  Delete
-                                    // Property Block
-                                    .property-block
-                                        .inner-box.clearfix
-                                            .image-box
-                                                figure.image
-                                                    img(src='/img/resource/property-6.jpg' alt='')
-                                            .content-box
-                                                h3 Great Home for Single fmaily.
-                                                .location
-                                                    i.la.la-map-marker
-                                                    |  Orland Park, IL 35785, Chicago, United State
-                                                ul.property-info.clearfix
-                                                    li
-                                                        i.flaticon-dimension
-                                                        |  356 Sq-Ft
-                                                    li
-                                                        i.flaticon-bed
-                                                        |  4 Bedrooms
-                                                    li
-                                                        i.flaticon-car
-                                                        |  2 Garage
-                                                    li
-                                                        i.flaticon-bathtub
-                                                        |  3 Bathroom
-                                                .price $ 13,65,000
-                                            .option-box
-                                                .expire-date 4.01.2018
-                                                ul.action-list
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-edit
-                                                            |  Edit
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-eye-slash
-                                                            |  Hide
-                                                    li
-                                                        a(href='#')
-                                                            i.la.la-trash-o
-                                                            |  Delete
+                                    - if(myLands.length == 0)
+                                        h2.title You have been allocate no lands
+                                    each land of myLands
+                                        +landItem(land)
+                                    
                 p.copyright-text
                     | © 2018 
                     a(href='#') Expert Themes

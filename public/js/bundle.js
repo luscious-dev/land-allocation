@@ -117,27 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"alerts.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.showAlert = void 0;
-var hideAlert = function hideAlert() {
-  var el = document.querySelector(".alert");
-  if (el) {
-    el.parentElement.removeChild(el);
-  }
-};
-var showAlert = function showAlert(type, message) {
-  hideAlert();
-  var markup = "\n      <div class=\"alert alert--".concat(type, "\">\n        <span class=\"alert__icon\">").concat(type == "success" ? "&#10003;" : "&#x2717;", "</span>\n        <p>").concat(message, "</p>\n      </div>    \n    ");
-  document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
-  window.setTimeout(hideAlert, 5000);
-};
-exports.showAlert = showAlert;
-},{}],"../../node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
+})({"../../node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5441,13 +5421,33 @@ exports.isCancel = isCancel;
 exports.CanceledError = CanceledError;
 exports.AxiosError = AxiosError;
 exports.Axios = Axios;
-},{"./lib/axios.js":"../../node_modules/axios/lib/axios.js"}],"login.js":[function(require,module,exports) {
+},{"./lib/axios.js":"../../node_modules/axios/lib/axios.js"}],"alerts.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.logout = exports.login = void 0;
+exports.showAlert = void 0;
+var hideAlert = function hideAlert() {
+  var el = document.querySelector(".alert");
+  if (el) {
+    el.parentElement.removeChild(el);
+  }
+};
+var showAlert = function showAlert(type, message) {
+  hideAlert();
+  var markup = "\n      <div class=\"alert alert--".concat(type, "\">\n        <span class=\"alert__icon\">").concat(type == "success" ? "&#10003;" : "&#x2717;", "</span>\n        <p>").concat(message, "</p>\n      </div>    \n    ");
+  document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
+  window.setTimeout(hideAlert, 5000);
+};
+exports.showAlert = showAlert;
+},{}],"login.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.signUp = exports.logout = exports.login = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 var _alerts = require("./alerts");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -5467,7 +5467,7 @@ var login = function login(email, password) {
 exports.login = login;
 var logout = function logout() {
   _axios.default.get("/api/v1/user/logout").then(function (res) {
-    (0, _alerts.showAlert)("success", "Logged out successfuly!");
+    (0, _alerts.showAlert)("success", "Logged out successfully!");
     setTimeout(function () {
       location.reload();
     }, 1500);
@@ -5476,6 +5476,17 @@ var logout = function logout() {
   });
 };
 exports.logout = logout;
+var signUp = function signUp(data) {
+  _axios.default.post("/api/v1/user/signup", data).then(function (res) {
+    (0, _alerts.showAlert)("success", "Sign up successfull");
+    setTimeout(function () {
+      location.reload();
+    }, 1500);
+  }).catch(function (err) {
+    (0, _alerts.showAlert)("failure", err.response.data.message);
+  });
+};
+exports.signUp = signUp;
 },{"axios":"../../node_modules/axios/index.js","./alerts":"alerts.js"}],"stripe.js":[function(require,module,exports) {
 "use strict";
 
@@ -5536,6 +5547,62 @@ var buyLand = /*#__PURE__*/function () {
   };
 }();
 exports.buyLand = buyLand;
+},{"axios":"../../node_modules/axios/index.js","./alerts":"alerts.js"}],"land.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateLand = exports.deleteLand = exports.applyForCofo = exports.addLand = void 0;
+var _axios = _interopRequireDefault(require("axios"));
+var _alerts = require("./alerts");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var addLand = function addLand(data) {
+  _axios.default.post("/api/v1/land", data).then(function (res) {
+    (0, _alerts.showAlert)("success", "Land Added Successfully!");
+    setTimeout(function () {
+      location.assign("/lands");
+    }, 1500);
+  }).catch(function (err) {
+    (0, _alerts.showAlert)("failure", err.response.data.message);
+  });
+};
+exports.addLand = addLand;
+var updateLand = function updateLand(id, data) {
+  _axios.default.patch("/api/v1/land/".concat(id), data).then(function (res) {
+    (0, _alerts.showAlert)("success", "Land Updated Successfully!");
+    console.log("Land Added 1");
+    setTimeout(function () {
+      location.assign("/lands");
+    }, 1500);
+  }).catch(function (err) {
+    (0, _alerts.showAlert)("failure", err.response.data.message);
+  });
+};
+exports.updateLand = updateLand;
+var deleteLand = function deleteLand(id, domItem) {
+  _axios.default.delete("/api/v1/land/".concat(id)).then(function (res) {
+    (0, _alerts.showAlert)("success", "Land deleted successfully!");
+    console.log("Land deleted");
+    domItem.remove();
+  }).catch(function (err) {
+    (0, _alerts.showAlert)("failure", err.response.data.message);
+  });
+};
+exports.deleteLand = deleteLand;
+var applyForCofo = function applyForCofo(data) {
+  _axios.default.post("/api/v1/certificate-of-ownership/", data).then(function (res) {
+    console.log(res);
+    (0, _alerts.showAlert)("success", "Application sent successfully!");
+    setTimeout(function () {
+      location.assign("/my-lands");
+    }, 1500);
+  }).catch(function (err) {
+    console.log(err);
+    (0, _alerts.showAlert)("failure", err.response.data.message);
+  });
+};
+exports.applyForCofo = applyForCofo;
 },{"axios":"../../node_modules/axios/index.js","./alerts":"alerts.js"}],"../../node_modules/just-extend/index.esm.js":[function(require,module,exports) {
 "use strict";
 
@@ -7651,9 +7718,9 @@ function $3ed269f2f0fb224b$var$__guardMethod__(obj, methodName, transform) {
 },{"just-extend":"../../node_modules/just-extend/index.esm.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
-var _alerts = require("./alerts");
 var _login = require("./login");
 var _stripe = require("./stripe");
+var _land = require("./land");
 var _dropzone = _interopRequireDefault(require("dropzone"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -7668,6 +7735,7 @@ var email = document.querySelector("[name=username]");
 var password = document.querySelector("[name=password]");
 var signInBtn = document.querySelector("#sign-in");
 var logoutBtn = document.querySelector("#log-out");
+var signupBtn = document.querySelector("#register");
 var purchaseLandBtn = document.querySelector(".post-comment-sec .btn2");
 if (signInPopup) {
   signInBtn.addEventListener("click", function (e) {
@@ -7682,7 +7750,6 @@ if (logoutBtn) {
   });
 }
 if (purchaseLandBtn) {
-  console.log("In here!!!!!!!!!");
   purchaseLandBtn.addEventListener("click", /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
       var landId, LastChanged;
@@ -7707,41 +7774,105 @@ if (purchaseLandBtn) {
     };
   }());
 }
+if (signupBtn) {
+  signupBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    var firstName = document.querySelector("[name=firstname]");
+    var lastName = document.querySelector("[name=lastname]");
+    var middleName = document.querySelector("[name=middlename]");
+    var phone = document.querySelector("[name=phone]");
+    var email = document.querySelector("[name=email]");
+    var password = document.querySelector("#password");
+    var passwordConfirm = document.querySelector("#passwordConfirm");
+    var isValid = true;
+    if (firstName.value.trim() == "") {
+      firstName.setAttribute("style", "border: 1px solid red;");
+      isValid = false;
+      setTimeout(function () {
+        firstName.removeAttribute("style");
+      }, 2000);
+    }
+    if (lastName.value.trim() == "") {
+      lastName.setAttribute("style", "border: 1px solid red;");
+      isValid = false;
+      setTimeout(function () {
+        lastName.removeAttribute("style");
+      }, 2000);
+    }
+    if (email.value.trim() == "") {
+      email.setAttribute("style", "border: 1px solid red;");
+      isValid = false;
+      setTimeout(function () {
+        email.removeAttribute("style");
+      }, 2000);
+    }
+    if (phone.value.trim() == "") {
+      phone.setAttribute("style", "border: 1px solid red;");
+      isValid = false;
+      setTimeout(function () {
+        phone.removeAttribute("style");
+      }, 2000);
+    }
+    if (password.value.trim() == "") {
+      password.setAttribute("style", "border: 1px solid red;");
+      isValid = false;
+      setTimeout(function () {
+        password.removeAttribute("style");
+      }, 2000);
+    }
+    if (passwordConfirm.value.trim() == "") {
+      passwordConfirm.setAttribute("style", "border: 1px solid red;");
+      isValid = false;
+      setTimeout(function () {
+        passwordConfirm.removeAttribute("style");
+      }, 2000);
+    }
+    if (isValid) {
+      (0, _login.signUp)({
+        FirstName: firstName.value,
+        LastName: lastName.value,
+        MiddleName: middleName.value,
+        Email: email.value,
+        Phone: phone.value,
+        Password: password.value,
+        PasswordConfirm: password.value
+      });
+    }
+  });
+}
 var createLandBtn = document.querySelector("#create-land");
-var LandName = document.querySelector("[name=LandName]");
-var ZoningReg = document.querySelector("[name=ZoningReg]");
-var Topography = document.querySelector("[name=Topography]");
-var Size = document.querySelector("[name=Size]");
-var LandBoundaries = document.querySelector("[name=LandBoundaries]");
-var Price = document.querySelector("[name=Price]");
-var Location = document.querySelector("[name=Location]");
-var State = document.querySelector("[name=State]");
-var City = document.querySelector("[name=City]");
-var LGA = document.querySelector("[name=LGA]");
-var Lng = document.querySelector("[name=Lng]");
-var Lat = document.querySelector("[name=Lat]");
-var Description = document.querySelector("[name=Description]");
-var fields = ["LandName", "ZoningReg", "Topography", "Size", "LandBoundaries", "Price", "Location", "State", "City", "LGA", "Lng", "Lat", "Description"];
+var updateLandBtn = document.querySelector("#update-land");
+var fields = ["LandName", "ZoningReg", "Topography", "Size", "LandBoundaries", "Price", "Location", "State", "City", "LGA", "Lng", "Lat", "Description", "Accessibility", "nearShops", "nearHospital", "hasElectricity", "hasWater", "isFenced", "isCleared", "isPopular"];
+var checkboxFields = ["Accessibility", "nearShops", "nearHospital", "hasElectricity", "hasWater", "isFenced", "isCleared", "isPopular"];
 function validateForm() {
   var valid = true;
   var _iterator = _createForOfIteratorHelper(fields),
     _step;
   try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+    var _loop = function _loop() {
       var field = _step.value;
-      console.log(field);
       var element = document.querySelector("[name=".concat(field, "]"));
       if (element) {
         if (element.value.trim() == "") {
           var selectViz = element.parentElement.querySelector(".ui-selectmenu-button");
           if (selectViz) {
             selectViz.classList.add("error");
+            setTimeout(function () {
+              selectViz.classList.remove("error");
+            }, 1500);
           } else {
             element.classList.add("error");
+            setTimeout(function () {
+              element.classList.remove("error");
+            }, 3000);
           }
+          console.log(element.value);
           valid = false;
         }
       }
+    };
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      _loop();
     }
   } catch (err) {
     _iterator.e(err);
@@ -7774,18 +7905,106 @@ if (createLandBtn) {
       try {
         for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
           var field = _step2.value;
-          createLandFormData.append(field, document.querySelector("[name=".concat(field, "]")).value);
+          if (checkboxFields.includes(field)) {
+            createLandFormData.set(field, !!document.querySelector("[name=".concat(field, "]")).checked);
+          } else {
+            createLandFormData.set(field, document.querySelector("[name=".concat(field, "]")).value);
+          }
         }
       } catch (err) {
         _iterator2.e(err);
       } finally {
         _iterator2.f();
       }
-      console.log(createLandFormData);
+      (0, _land.addLand)(createLandFormData);
+      console.log("Land Added 2");
     }
   });
 }
-},{"./alerts":"alerts.js","./login":"login.js","./stripe":"stripe.js","dropzone":"../../node_modules/dropzone/dist/dropzone.mjs"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+if (updateLandBtn) {
+  fields.push("LastChanged");
+  var updateLandFormData = new FormData();
+  // Initialize Dropzone
+  var myDropzone = new _dropzone.default("#myDropZone", {
+    autoProcessQueue: false,
+    // Disable automatic upload
+    dictDefaultMessage: "Drop files here or click to upload.",
+    paramName: "uploadedFiles",
+    url: "javascript:void(0)"
+  });
+
+  // Listen for the addedfile event
+  myDropzone.on("addedfile", function (file) {
+    // Add the file to the addArtformData object
+    updateLandFormData.append("uploadedFiles", file);
+  });
+  updateLandBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (validateForm()) {
+      var _iterator3 = _createForOfIteratorHelper(fields),
+        _step3;
+      try {
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          var field = _step3.value;
+          console.log(field);
+          if (checkboxFields.includes(field)) {
+            updateLandFormData.set(field, document.querySelector("[name=".concat(field, "]")).checked);
+          } else {
+            updateLandFormData.set(field, document.querySelector("[name=".concat(field, "]")).value);
+          }
+        }
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
+      var landId = updateLandBtn.dataset.landId;
+      (0, _land.updateLand)(landId, updateLandFormData);
+      console.log("Land Added 2");
+    }
+  });
+}
+var deleteLandButtons = document.querySelectorAll(".delete-land a");
+var _iterator4 = _createForOfIteratorHelper(deleteLandButtons),
+  _step4;
+try {
+  var _loop2 = function _loop2() {
+    var btn = _step4.value;
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      var landId = btn.closest(".delete-land").dataset.landId;
+      var propertyBlock = btn.closest(".property-block");
+      console.log("".concat(landId, " deleted"));
+      var choice = window.confirm("Do you really want to delete this land?");
+      if (choice) {
+        (0, _land.deleteLand)(landId, propertyBlock);
+      }
+    });
+  };
+  for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+    _loop2();
+  }
+} catch (err) {
+  _iterator4.e(err);
+} finally {
+  _iterator4.f();
+}
+var applyForCofoBtn = document.querySelector("#apply-cofo");
+if (applyForCofoBtn) {
+  applyForCofoBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    var cofoApplicationFormData = new FormData();
+    cofoApplicationFormData.set("passportPhoto", document.querySelector("#passport-photo").files[0]);
+    cofoApplicationFormData.set("evidenceOfLandUse", document.querySelector("#land-use").files[0]);
+    cofoApplicationFormData.set("buildingPlan", document.querySelector("#building-plan").files[0]);
+    cofoApplicationFormData.set("businessProposal", document.querySelector("#business-proposal").files[0]);
+    cofoApplicationFormData.set("affidavit", document.querySelector("#land-use").files[0]);
+    cofoApplicationFormData.set("siteLayout", document.querySelector("#site-layout").files[0]);
+    cofoApplicationFormData.set("LandId", applyForCofoBtn.dataset.landId);
+    (0, _land.applyForCofo)(cofoApplicationFormData);
+  });
+}
+},{"./login":"login.js","./stripe":"stripe.js","./land":"land.js","dropzone":"../../node_modules/dropzone/dist/dropzone.mjs"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -7810,7 +8029,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56268" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59097" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

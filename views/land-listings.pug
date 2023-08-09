@@ -6,7 +6,7 @@ mixin landItem1(land)
             a(href=`/land/${land.Slug}` title='')
                 .img-block
                     .overlay
-                    img.img-fluid(src=`/img/listing/${land.image}` alt='')
+                    img.img-fluid(src=`/img/land/home/${land.image}` alt='')
                     .rate-info
                         h5 &#x20A6;#{land.Price.toLocaleString()}
                         span For Rent
@@ -38,7 +38,7 @@ mixin landItem2(land)
         a(href=`/land/${land.Slug}` title='')
             .img-block
                 .overlay
-                img.img-fluid(src=`/img/listing/${land.image}` alt='')
+                img.img-fluid(src=`/img/land/home/${land.image}` alt='')
                 .rate-info
                     h5 $#{land.Price.toLocaleString()}
                     span= land.Allocated ? "Unvavailable":"Available"
@@ -147,7 +147,7 @@ block content
                                             .wd-posts
                                                 .ps-img
                                                     a(href=`/land/${land.Slug}` title='')
-                                                        img(src='/img/resources/p-img2.png' alt='')
+                                                        img(src=`/img/land/mini/${land.image}` alt='')
                                                 // ps-img end
                                                 .ps-info
                                                     h3

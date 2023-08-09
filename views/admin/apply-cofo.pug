@@ -1,0 +1,80 @@
+extends base
+
+block content
+    .dashboard
+        .container-fluid
+            .content-area
+                .dashboard-content
+                    .dashboard-header.clearfix
+                        .row
+                            .col-md-6.col-sm-12
+                                h4 Apply for CofO
+                            .col-md-6.col-sm-12
+                                .breadcrumb-nav
+                                    ul
+                                        li
+                                            a(href='../index-2.html') Index
+                                        li
+                                            a(href='dashboard.html') Dashboard
+                                        li.active Submit Property
+                    .row
+                        .column.col-lg-12
+                            .properties-box
+                                .inner-container
+                                    .property-submit-form
+                                        form(method='post' action='http://expert-themes.com/html/willies/admin/index.html')
+                                            .title
+                                                h3 Upload of information (Land use should be in line with the Zoning Regulation)
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Upload Passport Photo
+                                                    input#passport-photo(type="file", accept=".pdf, .jpg, .jpeg, .png, .gif", name="")
+                                                
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Upload Evidence of Land Use
+                                                    input#land-use(type="file", accept=".pdf, .jpg, .jpeg, .png, .gif", name="")
+
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Upload Proposed Building Plan
+                                                    input#building-plan(type="file", accept=".pdf, .jpg, .jpeg, .png, .gif", name="")
+
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Upload Business Proposal
+                                                    input#business-proposal(type="file", accept=".pdf, .jpg, .jpeg, .png, .gif", name="")
+
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Upload Affidavit of Land Use
+                                                    input#land-use(type="file", accept=".pdf, .jpg, .jpeg, .png, .gif", name="")
+
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Upload Site Layout
+                                                    input#site-layout(type="file", accept=".pdf, .jpg, .jpeg, .png, .gif", name="")
+
+                                            .title
+                                                h3 Contact Info
+                                            .row
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Name
+                                                    input(type='text' name='Name' placeholder='Name' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Email
+                                                    input(type='email' name='Email' placeholder='Email' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    label Phone
+                                                    input(type='text' name='Phone' placeholder='Phone' required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    button.theme-btn.btn-style-one#apply-cofo(type='submit' data-land-id=land.Id)  Apply For CofO
+                p.copyright-text
+                    | © 2018 
+                    a(href='#') Expert Themes
+                    |  All right reserved.

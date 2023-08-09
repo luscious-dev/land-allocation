@@ -5,7 +5,7 @@ mixin landItems(land)
         .inner-box.clearfix
             .image-box
                 figure.image
-                    img(src='/img/resource/property-1.jpg' alt='')
+                    img(src=`/img/land/home/${land.Image}` alt='')
             .content-box
                 h3= land.LandName
                 .location
@@ -33,12 +33,9 @@ mixin landItems(land)
                             a(href=`/edit-land/${land.Slug}`)
                                 i.la.la-edit
                                 |  Edit
-                    li
-                        a(href='#')
-                            i.la.la-eye-slash
-                            |  Hide
+                    
                     - if(!land.Allocated)
-                        li
+                        li.delete-land(data-land-id=land.Id)
                             a(href='#')
                                 i.la.la-trash-o
                                 |  Delete

@@ -1,15 +1,19 @@
 const Land = require("../models/Land");
 const LandImage = require("../models/LandImage");
 const CofOApplication = require("../models/CofOApplication");
+const AllocatedTo = require("../models/AllocatedTo");
 const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
 
 exports.getHome = catchAsync(async (req, res, next) => {
-  const lands = await new Land().readConditional("isPopular = 1");
+  const lands = await new Land().readConditional(
+    "isPopular = 1 AND DelFlag = 0"
+  );
   for (let land of lands) {
     const landImage = (
       await new LandImage().readConditional(`LandId = ${land.Id}`)
     )[0];
-    land.image = landImage.ImageName;
+    if (landImage) land.image = landImage.ImageName;
   }
   res.status(200).render("home", { lands, title: "Home", page: "home" });
 });
@@ -40,12 +44,12 @@ exports.getListings = catchAsync(async (req, res, next) => {
 });
 
 exports.getOneLand = catchAsync(async (req, res, next) => {
-  const lands = await new Land().readAll();
+  const lands = await new Land().readConditional(`DelFlag = 0`);
   for (let land of lands) {
     const landImage = (
       await new LandImage().readConditional(`LandId = ${land.Id}`)
     )[0];
-    land.image = landImage.ImageName;
+    if (landImage) land.image = landImage.ImageName;
   }
 
   const popularLands = lands.filter((land) => {
@@ -61,7 +65,7 @@ exports.getOneLand = catchAsync(async (req, res, next) => {
 });
 
 exports.getDashboard = catchAsync(async (req, res, next) => {
-  const landCount = (await new Land().readAll()).length;
+  const landCount = (await new Land().readConditional(`DelFlag = 0`)).length;
   const unavailableLandCount = (
     await new Land().readConditional("Allocated = 1")
   ).length;
@@ -87,7 +91,6 @@ exports.getDashboard = catchAsync(async (req, res, next) => {
     cofoCount,
     cofoPendingCount,
   };
-  console.log(data);
   res.status(200).render("admin/dashboard", {
     title: "Dashboard",
     page: "dashboard",
@@ -106,13 +109,12 @@ exports.addLand = (req, res, next) => {
 };
 
 exports.allLands = catchAsync(async (req, res, next) => {
-  const lands = await new Land().readAll();
-  console.log(lands);
+  const lands = await new Land().readConditional(`DelFlag = 0`);
   for (let land of lands) {
     const landImage = (
       await new LandImage().readConditional(`LandId = ${land.Id}`)
     )[0];
-    land.Image = landImage.ImageName;
+    if (landImage) land.Image = landImage.ImageName;
   }
   lands.sort((a, b) => {
     return a.Allocated - b.Allocated;
@@ -122,12 +124,74 @@ exports.allLands = catchAsync(async (req, res, next) => {
     .render("admin/lands", { title: "All Lands", page: "lands", lands });
 });
 
-exports.editLand = (req, res, next) => {
-  res.status(200).render("admin/edit-land", { title: "Edit Land" });
-};
+exports.editLand = catchAsync(async (req, res, next) => {
+  const land = (
+    await new Land().readConditional(
+      `DelFlag = 0 AND Slug = '${req.params.slug}'`
+    )
+  )[0];
 
-exports.myLands = (req, res, next) => {
+  const landImage = (
+    await new LandImage().readConditional(`LandId = ${land.Id}`)
+  )[0];
+  land.Image = landImage.ImageName;
+  res.status(200).render("admin/edit-land", { title: "Edit Land", land });
+});
+
+exports.myLands = async (req, res, next) => {
+  const myAllocations = await new AllocatedTo().readConditional(
+    `UserId = ${req.user.Id}`
+  );
+  const myLands = [];
+  for (let allocation of myAllocations) {
+    const land = await new Land().readOne(allocation.LandId);
+    land.hasCofo = false;
+
+    if (land) {
+      const landImage = (
+        await new LandImage().readConditional(`LandId = ${land.Id}`)
+      )[0];
+      const cofoApplication = await new CofOApplication().readConditional(
+        `UserId = ${req.user.Id} AND LandId = ${land.Id} AND Approved = 1`
+      );
+      if (cofoApplication.length > 0) land.hasCofo = true;
+      land.Image = landImage.ImageName;
+      // console.log(land);
+      myLands.push(land);
+    }
+  }
   res
     .status(200)
-    .render("admin/my-lands", { title: "My Lands", page: "my lands" });
+    .render("admin/my-lands", { title: "My Lands", page: "my lands", myLands });
+};
+
+exports.applyCofo = async (req, res, next) => {
+  const land = (
+    await new Land().readConditional(
+      `DelFlag = 0 AND Slug = '${req.params.slug}'`
+    )
+  )[0];
+  if (!land)
+    return next(new AppError("You don't have ownership of this land", 400));
+
+  // Check if user owns the land in the first place
+  const myAllocations = await new AllocatedTo().readConditional(
+    `UserId = ${req.user.Id} AND LandId = ${land.Id}`
+  );
+
+  if (myAllocations.length == 0)
+    return next(new AppError("You don't have ownership of this land", 400));
+
+  const existingApplication = (
+    await new CofOApplication().readConditional(
+      `UserId = ${req.user.Id} AND LandId = ${land.Id} AND Approved = 1`
+    )
+  )[0];
+
+  if (existingApplication)
+    return next(new AppError("You already have a CofO on this land", 400));
+
+  res
+    .status(200)
+    .render("admin/apply-cofo", { title: "CofO Application Form", land });
 };

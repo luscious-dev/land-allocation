@@ -13,10 +13,11 @@ block content
                                 .breadcrumb-nav
                                     ul
                                         li
-                                            a(href='../index-2.html') Index
-                                        li
-                                            a(href='dashboard.html') Dashboard
-                                        li.active Submit Property
+                                            a(href='/') Index
+                                        - if(user.role == "admin")
+                                            li
+                                                a(href='/dashboard') Dashboard
+                                        li.active Profile
                     .row
                         .column.col-lg-12
                             .properties-box
@@ -39,8 +40,16 @@ block content
                                                     .row
                                                         // Form Group
                                                         .form-group.col-lg-6.col-md-6.col-sm-12
-                                                            label Your Name
-                                                            input(type='text' name='name' placeholder='John Doe' required='')
+                                                            label Your First Name
+                                                            input(type='text' name='name' placeholder='John' value=user.FirstName required='')
+                                                        // Form Group
+                                                        .form-group.col-lg-6.col-md-6.col-sm-12
+                                                            label Your Middle Name
+                                                            input(type='text' name='name' placeholder='Landino' value=user.MiddleName required='')
+                                                        // Form Group
+                                                        .form-group.col-lg-6.col-md-6.col-sm-12
+                                                            label Your Last Name
+                                                            input(type='text' name='name' placeholder='Doe' value=user.LastName required='')
                                                         // Form Group
                                                         .form-group.col-lg-6.col-md-6.col-sm-12
                                                             label Your Title
@@ -48,15 +57,11 @@ block content
                                                         // Form Group
                                                         .form-group.col-lg-6.col-md-6.col-sm-12
                                                             label Phone #
-                                                            input(type='text' name='phone' placeholder='Phone' required='')
+                                                            input(type='text' name='phone' placeholder='Phone' value=user.Phone required='')
                                                         // Form Group
                                                         .form-group.col-lg-6.col-md-6.col-sm-12
                                                             label Your Email
-                                                            input(type='email' name='email' placeholder='Your Email' required='')
-                                                        // Form Group
-                                                        .form-group.col-lg-12.col-md-12.col-sm-12
-                                                            label About You
-                                                            textarea(name='about-you' placeholder='Personal Info')
+                                                            input(type='email' name='email' placeholder='Your Email' value=user.Email required='')
                                                         // Form Group
                                                         .form-group.text-right.col-lg-12.col-md-12.col-sm-12
                                                             button.theme-btn.btn-style-one(type='submit') Update Profile

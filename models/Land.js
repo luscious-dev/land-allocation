@@ -2,6 +2,11 @@ const { sql, conn } = require("../db");
 const { getCurrentDate } = require("../utils/dateUtils");
 const slugify = require("slugify");
 
+function stringToBoolean(value) {
+  if (value) return value.toLowerCase() === "true";
+  return undefined;
+}
+
 module.exports = class Land {
   // Create - C
   async create(data) {
@@ -39,15 +44,15 @@ module.exports = class Land {
       .input("Description", sql.VarChar, Description)
       .input("ZoningReg", sql.VarChar(50), ZoningReg)
       .input("Topography", sql.VarChar(20), Topography)
-      .input("Accessibilty", sql.Bit, Accessibility)
-      .input("nearShops", sql.Bit, nearShops)
-      .input("nearHospital", sql.Bit, nearHospital)
-      .input("nearSchool", sql.Bit, nearSchool)
-      .input("hasElectricity", sql.Bit, hasElectricity)
-      .input("hasWater", sql.Bit, hasWater)
-      .input("isFenced", sql.Bit, isFenced)
-      .input("isCleared", sql.Bit, isCleared)
-      .input("isPopular", sql.Bit, isPopular)
+      .input("Accessibility", sql.Bit, stringToBoolean(Accessibility))
+      .input("nearShops", sql.Bit, stringToBoolean(nearShops))
+      .input("nearHospital", sql.Bit, stringToBoolean(nearHospital))
+      // .input("nearSchool", sql.Bit, nearSchool)
+      .input("hasElectricity", sql.Bit, stringToBoolean(hasElectricity))
+      .input("hasWater", sql.Bit, stringToBoolean(hasWater))
+      .input("isFenced", sql.Bit, stringToBoolean(isFenced))
+      .input("isCleared", sql.Bit, stringToBoolean(isCleared))
+      .input("isPopular", sql.Bit, stringToBoolean(isPopular))
       .input("Lng", sql.Decimal(9, 6), Lng)
       .input("Lat", sql.Decimal(9, 6), Lat)
       .input(
@@ -111,7 +116,8 @@ module.exports = class Land {
   async updateOne(Id, LastChanged, data) {
     await conn.connect();
 
-    console.log(LastChanged);
+    console.log("From updateOne ----");
+    console.log(data);
     await conn
       .request()
       .input("Id", Id)
@@ -119,15 +125,15 @@ module.exports = class Land {
       .input("Description", sql.VarChar, data.Description)
       .input("ZoningReg", sql.VarChar(50), data.ZoningReg)
       .input("Topography", sql.VarChar(20), data.Topography)
-      .input("Accessibilty", sql.Bit, data.Accessibility)
-      .input("nearShops", sql.Bit, data.nearShops)
-      .input("nearHospital", sql.Bit, data.nearHospital)
-      .input("nearSchool", sql.Bit, data.nearSchool)
-      .input("hasElectricity", sql.Bit, data.hasElectricity)
-      .input("hasWater", sql.Bit, data.hasWater)
-      .input("isFenced", sql.Bit, data.isFenced)
-      .input("isCleared", sql.Bit, data.isCleared)
-      .input("isPopular", sql.Bit, data.isPopular)
+      .input("Accessibility", sql.Bit, stringToBoolean(data.Accessibility))
+      .input("nearShops", sql.Bit, stringToBoolean(data.nearShops))
+      .input("nearHospital", sql.Bit, stringToBoolean(data.nearHospital))
+      // .input("nearSchool", sql.Bit, stringToBoolean(data.nearSchool))
+      .input("hasElectricity", sql.Bit, stringToBoolean(data.hasElectricity))
+      .input("hasWater", sql.Bit, stringToBoolean(data.hasWater))
+      .input("isFenced", sql.Bit, stringToBoolean(data.isFenced))
+      .input("isCleared", sql.Bit, stringToBoolean(data.isCleared))
+      .input("isPopular", sql.Bit, stringToBoolean(data.isPopular))
       .input("Lng", sql.Decimal(9, 6), data.Lng)
       .input("Lat", sql.Decimal(9, 6), data.Lat)
       .input(
@@ -143,11 +149,7 @@ module.exports = class Land {
       .input("City", sql.VarChar(10), data.City)
       .input("LGA", sql.VarChar(50), data.LGA)
       .input("Size", sql.Decimal, data.Size)
-      .input(
-        "LandBoundaries",
-        sql.NVarChar(500),
-        JSON.stringify(data.LandBoundaries)
-      )
+      .input("LandBoundaries", sql.NVarChar(500), data.LandBoundaries)
       .input("Price", sql.Money, data.Price)
       .input("Allocated", sql.Bit, data.Allocated)
       .input("DateCreated", sql.Date, getCurrentDate())
@@ -175,5 +177,18 @@ module.exports = class Land {
     }
 
     return result.recordset;
+  }
+  async deleteOneFlag(Id, LastChanged) {
+    await conn.connect();
+
+    const result = await conn
+      .request()
+      .input("Id", Id)
+      .input("DelFlag", 1)
+      .input("LastChanged", sql.VarBinary, Buffer.from(LastChanged))
+      .output("NewLastChanged", sql.VarBinary, undefined)
+      .execute(`dbo.${process.env.UNIQUE_PREFIX}_Land_DeleteFlag`);
+
+    return result.output;
   }
 };

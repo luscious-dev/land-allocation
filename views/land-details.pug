@@ -29,7 +29,7 @@ block content
                             .property-imgs
                                 .property-main-img
                                     .property-img
-                                        img(src=`/img/listing/${land.image}` alt='')
+                                        img(src=`/img/land/home/${land.image}` alt='')
                                     // property-img end
 
 
@@ -99,10 +99,10 @@ block content
                                 svg#map(style="height:600px;" data-land-bounds=land.LandBoundaries)
 
 
-                            .map-dv
-                                h3 Location
-                                #map-container.fullwidth-home-map
-                                    #map(data-map-zoom='9')
+                            //- .map-dv
+                            //-     h3 Location
+                            //-     #map-container.fullwidth-home-map
+                            //-         #map(data-map-zoom='9')
                             // map-dv end
                             
                                                     
@@ -142,7 +142,7 @@ block content
                                             .wd-posts
                                                 .ps-img
                                                     a(href=`/land/${land2.Slug}` title='')
-                                                        img(src='/img/resources/p-img2.png' alt='')
+                                                        img(src=`/img/land/mini/${land2.image}` alt='')
                                                 // ps-img end
                                                 .ps-info
                                                     h3

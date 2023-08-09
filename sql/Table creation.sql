@@ -10,6 +10,7 @@ CREATE TABLE [User](
 	[Role] VARCHAR(20) NOT NULL,
 	Phone VARCHAR(20) NOT NULL,
 	[Password] VARCHAR(60) NOT NULL,
+	[DelFlag] [bit] DEFAULT 0 NOT NULL, 
 	PasswordChangedAt DATETIME,
 	DateCreated DATETIME DEFAULT GETDATE(),
 	LastChanged TIMESTAMP
@@ -39,6 +40,7 @@ CREATE TABLE Land(
 	[isFenced] [bit] DEFAULT 0 NOT NULL,
 	[isCleared] [bit] DEFAULT 0 NOT NULL,
 	[isPopular] [bit] DEFAULT 0 NOT NULL,
+	[DelFlag] [bit] DEFAULT 0 NOT NULL,
 	[Lng] [decimal](9, 6) NOT NULL,
 	[Lat] [decimal](9, 6) NOT NULL,
 	[Slug] [varchar](60) NOT NULL,

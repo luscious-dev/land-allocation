@@ -80,11 +80,11 @@ block content
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     label State
                                                     select.custom-select-box(name="State")
+                                                        - states = ["Abia", "Abuja", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benu", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto","Taraba", "Yobe", "Zamfara"]
                                                         option(value="") -- Select --
-                                                        option(value="") New York
-                                                        option(value="") Los Angeles
-                                                        option(value="") Chicago
-                                                        option(value="") Houston
+                                                        each state of states
+                                                            option(value=state)= state
+                                                        
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     label City
@@ -122,37 +122,38 @@ block content
                                             .title
                                                 h3 Features (optional)
                                             .row
+                                                - console.log(land)
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-1(type='checkbox' name='shipping-option')
+                                                        input#service-1(type='checkbox' name='Accessibility')
                                                         label(for='service-1') Accessibility
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-2(type='checkbox' name='shipping-option')
+                                                        input#service-2(type='checkbox' name='nearShops')
                                                         label(for='service-2') Near Shops
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-3(type='checkbox' name='shipping-option')
+                                                        input#service-3(type='checkbox' name='nearHospital')
                                                         label(for='service-3') Near Hospital
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-4(type='checkbox' name='shipping-option')
+                                                        input#service-4(type='checkbox' name='hasElectricity')
                                                         label(for='service-4') Has Electricity
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-5(type='checkbox' name='shipping-option')
+                                                        input#service-5(type='checkbox' name='hasWater')
                                                         label(for='service-5') Has Water
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-6(type='checkbox' name='shipping-option')
+                                                        input#service-6(type='checkbox' name='isFenced')
                                                         label(for='service-6') Is Fenced
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-7(type='checkbox' name='shipping-option')
+                                                        input#service-7(type='checkbox' name='isCleared')
                                                         label(for='service-7') Is Cleared
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-8(type='checkbox' name='shipping-option')
+                                                        input#service-8(type='checkbox' name='isPopular')
                                                         label(for='service-8') Is Popular
                                                 
                                             .title

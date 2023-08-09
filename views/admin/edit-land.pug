@@ -13,10 +13,10 @@ block content
                                 .breadcrumb-nav
                                     ul
                                         li
-                                            a(href='../index-2.html') Index
+                                            a(href='/') Index
                                         li
-                                            a(href='dashboard.html') Dashboard
-                                        li.active Submit Property
+                                            a(href='/dashboard') Dashboard
+                                        li.active Edit Land
                     .row
                         .column.col-lg-12
                             .properties-box
@@ -28,99 +28,84 @@ block content
                                             .row
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    label Property Title
-                                                    input(type='text' name='text' placeholder='Property Title' required='')
+                                                    label Land Name
+                                                    input(type='text' name='LandName' placeholder='Property Title' value=land.LandName required='')
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    label Property Type
-                                                    select.custom-select-box
-                                                        option Property Type
-                                                        option Residential
-                                                        option Commercial
-                                                        option Industrial
-                                                        option Apartments
+                                                    label Zonining Regulation
+                                                    select.custom-select-box(name="ZoningReg" value=land.ZoningReg)
+                                                        option(value="Residential" selected=land.ZoningReg == "Residential") Residential
+                                                        option(value="Commercial" selected=land.ZoningReg == "Commercial") Commercial
+                                                        option(value="Industrial" selected=land.ZoningReg == "Industrial") Industrial
+                                                        option(value="Apartments" selected=land.ZoningReg == "Apartments") Apartments
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    label country
-                                                    select.custom-select-box
-                                                        option Country
-                                                        option California
-                                                        option Florida
-                                                        option Georgia
-                                                        option New York
-                                                        option Texas
-                                                // Form Group
-                                                .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    label Status
-                                                    select.custom-select-box
-                                                        option Rent
-                                                        option Sale
+                                                    label Topography
+                                                    select.custom-select-box(name="Topography" value=land.Topography)
+                                                        
+                                                        option(value="Plain" selected=land.Topography == "Plain") Plain
+                                                        option(value="Hilly" selected=land.Topography == "Hilly") Hilly
+                                                        option(value="Rocky" selected=land.Topography == "Rocky") Rocky
+                                                        option(value="Swampy" selected=land.Topography == "Swampy") Swampy
+                                                        option(value="Sandy" selected=land.Topography == "Sandy") Sandy
+                                                
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .range-slider-one.clearfix
                                                         label Area
-                                                        input(type='text' name='text' placeholder='SqFt' required='')
+                                                        input(type='number' name='Size' placeholder='SqFt' value=land.Size required='')
+
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .range-slider-one.clearfix
-                                                        label Kitchen
-                                                        select.custom-select-box
-                                                            option Kitchen
-                                                            option 01 Kitchen
-                                                            option 02 Kitchen
-                                                            option 03 Kitchen
-                                                            option 04 Kitchen
-                                                            option 05 Kitchen
+                                                        label Land Shape
+                                                        input(type='text' name='LandBoundaries' placeholder='Shape' value=land.LandBoundaries required='')
+
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .range-slider-one.clearfix
-                                                        label Bed Room
-                                                        select.custom-select-box
-                                                            option Bed Room
-                                                            option 01 Bed Room
-                                                            option 02 Bed Room
-                                                            option 03 Bed Room
-                                                            option 04 Bed Room
-                                                            option 05 Bed Room
-                                                // Form Group
-                                                .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    .range-slider-one.clearfix
-                                                        label Bathroom
-                                                        select.custom-select-box
-                                                            option Bathroom
-                                                            option 01 Bathroom
-                                                            option 02 Bathroom
-                                                            option 03 Bathroom
-                                                            option 04 Bathroom
-                                                            option 05 Bathroom
+                                                        label Price
+                                                        input(type='number' name='Price' placeholder='₦' value=land.Price required='')
+                                                
                                             .title
                                                 h3 Address
                                             .row
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    label Address
-                                                    input(type='text' name='text' placeholder='Property Title' required='')
+                                                    label Location
+                                                    input(type='text' name='Location' placeholder='Address' value=land.Location required='')
+
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     label State
-                                                    select.custom-select-box
-                                                        option State
-                                                        option New York
-                                                        option Los Angeles
-                                                        option Chicago
-                                                        option Houston
+                                                    select.custom-select-box(name="State")
+                                                        - states = ["Abia", "Abuja", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi", "Bayelsa", "Benu", "Borno", "Cross River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto","Taraba", "Yobe", "Zamfara"]
+                                                        option(value="") -- Select --
+                                                        each state of states
+                                                            option(value=state selected=land.State == state)= state
+                                                        
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    label Postal Code
-                                                    input(type='text' name='text' placeholder='Location' required='')
+                                                    label City
+                                                    input(type='text' name='City' placeholder='City' value=land.City required='')
+
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    label Status
-                                                    select.custom-select-box
-                                                        option Rent
-                                                        option Sale
+                                                    label LGA
+                                                    input(type='text' name='LGA' placeholder='Local Government Area' value=land.LGA required='')
+
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .range-slider-one.clearfix
+                                                        label Longitude
+                                                        input(type='number' step="0.000001" name='Lng' placeholder='Lng' value=land.Lng required='')
+                                                // Form Group
+                                                .form-group.col-lg-3.col-md-6.col-sm-12
+                                                    .range-slider-one.clearfix
+                                                        label Latitude
+                                                        input(type='number' step="0.000001" name='Lat' placeholder='Lat' value=land.Lat required='')
                                             .title
-                                                h3 Property Gallery
+                                                h3 Land Gallery
                                             .row
                                                 // Form Group
                                                 .form-group.col-lg-12
@@ -132,76 +117,63 @@ block content
                                             .row
                                                 // Form Group
                                                 .form-group.col-lg-12
-                                                    textarea(name='detail' placeholder='Detailed Information')
+                                                    textarea(name='Description' placeholder='Land Information')
+                                                        | #{land.Description}
                                             .title
                                                 h3 Features (optional)
                                             .row
+                                                - console.log(land)
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-1(type='checkbox' name='shipping-option')
-                                                        label(for='service-1') Air Conditioning
+                                                        input#service-1(type='checkbox' name='Accessibility' checked=land.Accessibility)
+                                                        label(for='service-1') Accessibility
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-2(type='checkbox' name='shipping-option')
-                                                        label(for='service-2') Alarm System
+                                                        input#service-2(type='checkbox' name='nearShops' checked=land.nearShops)
+                                                        label(for='service-2') Near Shops
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-3(type='checkbox' name='shipping-option')
-                                                        label(for='service-3') Doorman
+                                                        input#service-3(type='checkbox' name='nearHospital'  checked=land.nearHospital)
+                                                        label(for='service-3') Near Hospital
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-4(type='checkbox' name='shipping-option')
-                                                        label(for='service-4') Fireplace
+                                                        input#service-4(type='checkbox' name='hasElectricity' checked=land.hasElectricity)
+                                                        label(for='service-4') Has Electricity
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-5(type='checkbox' name='shipping-option')
-                                                        label(for='service-5') Garden
+                                                        input#service-5(type='checkbox' name='hasWater' checked=land.hasWater)
+                                                        label(for='service-5') Has Water
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-6(type='checkbox' name='shipping-option')
-                                                        label(for='service-6') Heating System
+                                                        input#service-6(type='checkbox' name='isFenced' checked=land.isFenced)
+                                                        label(for='service-6') Is Fenced
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-7(type='checkbox' name='shipping-option')
-                                                        label(for='service-7') High Ceiling
+                                                        input#service-7(type='checkbox' name='isCleared' checked=land.isCleared)
+                                                        label(for='service-7') Is Cleared
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     .check-box
-                                                        input#service-8(type='checkbox' name='shipping-option')
-                                                        label(for='service-8') Car Parking
-                                                .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    .check-box
-                                                        input#service-9(type='checkbox' name='shipping-option')
-                                                        label(for='service-9') Swimming Pool
-                                                .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    .check-box
-                                                        input#service-10(type='checkbox' name='shipping-option')
-                                                        label(for='service-10') Laundry Room
-                                                .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    .check-box
-                                                        input#service-11(type='checkbox' name='shipping-option')
-                                                        label(for='service-11') Places to seat
-                                                .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    .check-box
-                                                        input#service-12(type='checkbox' name='shipping-option')
-                                                        label(for='service-12') Window Covering
+                                                        input#service-8(type='checkbox' name='isPopular' checked=land.isPopular)
+                                                        label(for='service-8') Is Popular
+                                                input#lastchanged(type="hidden", value=JSON.stringify(land.LastChanged) name="LastChanged")
                                             .title
                                                 h3 Contact Info
                                             .row
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     label Name
-                                                    input(type='text' name='name' placeholder='Name' required='')
+                                                    input(type='text' name='Name' placeholder='Name' required='')
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     label Email
-                                                    input(type='email' name='email' placeholder='Email' required='')
+                                                    input(type='email' name='Email' placeholder='Email' required='')
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
                                                     label Phone
-                                                    input(type='text' name='phone' placeholder='Phone' required='')
+                                                    input(type='text' name='Phone' placeholder='Phone' required='')
                                                 // Form Group
                                                 .form-group.col-lg-3.col-md-6.col-sm-12
-                                                    button.theme-btn.btn-style-one(type='submit')  Submit Property
+                                                    button.theme-btn.btn-style-one#update-land(type='submit' data-land-id=land.Id)  Update Land
                 p.copyright-text
                     | © 2018 
                     a(href='#') Expert Themes

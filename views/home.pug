@@ -6,7 +6,7 @@ mixin landCard(land)
             a(href=`/land/${land.Slug}` title='')
                 .img-block
                     .overlay
-                    img.img-fluid(src=`/img/listing/${land.image}` alt='')
+                    img.img-fluid(src=`/img/land/home/${land.image}` alt='')
                     .rate-info
                         h5 &#x20A6;#{land.Price.toLocaleString()}
                         span= land.Allocated ? "Unvavailable":"Available"
@@ -82,32 +82,32 @@ block content
                             a.btn.btn-outline-primary(href='#')
                                 i.la.la-search
                                 span Search
-    section.intro.section-padding
-        .container
-            .row
-                .col-xl-6.col-lg-6.pl-0
-                    .intro-content
-                        h3 Homes around the world
-                        p
-                            | Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit.
-                        a.btn.btn-outline-primary.view-btn(href='#')
-                            i.icon-arrow-right-circle
-                            | View for rent
-                .col-xl-6.col-lg-6.pr-0
-                    .intro-img
-                        img.img-fluid(src='/img/intro/1.jpg' alt='')
-            .intro-thumb-row
-                a.intro-thumb(href='#')
-                    img(src='/img/intro/thumb1.jpg' alt='')
-                    h6 Homes
-                a.intro-thumb(href='#')
-                    img(src='/img/intro/thumb2.jpg' alt='')
-                    h6 Appartments
-                a.intro-thumb(href='#')
-                    img(src='/img/intro/thumb3.jpg' alt='')
-                    h6 Garages
+    //- section.intro.section-padding
+    //-     .container
+    //-         .row
+    //-             .col-xl-6.col-lg-6.pl-0
+    //-                 .intro-content
+    //-                     h3 Homes around the world
+    //-                     p
+    //-                         | Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit.
+    //-                     a.btn.btn-outline-primary.view-btn(href='#')
+    //-                         i.icon-arrow-right-circle
+    //-                         | View for rent
+    //-             .col-xl-6.col-lg-6.pr-0
+    //-                 .intro-img
+    //-                     img.img-fluid(src='/img/intro/1.jpg' alt='')
+    //-         .intro-thumb-row
+    //-             a.intro-thumb(href='#')
+    //-                 img(src='/img/intro/thumb1.jpg' alt='')
+    //-                 h6 Homes
+    //-             a.intro-thumb(href='#')
+    //-                 img(src='/img/intro/thumb2.jpg' alt='')
+    //-                 h6 Appartments
+    //-             a.intro-thumb(href='#')
+    //-                 img(src='/img/intro/thumb3.jpg' alt='')
+    //-                 h6 Garages
     section.popular-listing.section-padding
-        .container
+        .container.pt-5
             .row.justify-content-center
                 .col-xl-6
                     .section-heading
@@ -116,84 +116,9 @@ block content
             .row
                 each land in lands
                     +landCard(land)
-                //- .col-lg-4.col-md-6
-                //-     .card
-                //-         a(href='24_Property_Single.html' title='')
-                //-             .img-block
-                //-                 .overlay
-                //-                 img.img-fluid(src='/img/listing/1.jpg' alt='')
-                //-                 .rate-info
-                //-                     h5 $550.000
-                //-                     span For Rent
-                //-         .card-body
-                //-             a(href='24_Property_Single.html' title='')
-                //-                 h3 Traditional Apartments
-                //-                 p
-                //-                     i.la.la-map-marker
-                //-                     | 212 5th Ave, New York
-                //-             ul
-                //-                 li 3 Bathrooms
-                //-                 li 2 Beds
-                //-                 li Area 555 Sq Ft
-                //-         .card-footer
-                //-             a.pull-left(href='#')
-                //-                 i.la.la-heart-o
-                //-             a.pull-right(href='#')
-                //-                 i.la.la-calendar-check-o
-                //-                 |  25 Days Ago
-                //-         a.ext-link(href='24_Property_Single.html' title='')
-                //- .col-lg-4.col-md-6
-                //-     .card
-                //-         a(href='24_Property_Single.html' title='')
-                //-             .img-block
-                //-                 .overlay
-                //-                 img.img-fluid(src='/img/listing/2.jpg' alt='')
-                //-                 .rate-info
-                //-                     h5 $550.000
-                //-                     span For Rent
-                //-         .card-body
-                //-             a(href='24_Property_Single.html' title='')
-                //-                 h3 Traditional Apartments
-                //-                 p
-                //-                     i.la.la-map-marker
-                //-                     | 212 5th Ave, New York
-                //-             ul
-                //-                 li 3 Bathrooms
-                //-                 li 2 Beds
-                //-                 li Area 555 Sq Ft
-                //-         .card-footer
-                //-             a.pull-left(href='#')
-                //-                 i.la.la-heart-o
-                //-             a.pull-right(href='#')
-                //-                 i.la.la-calendar-check-o
-                //-                 |  25 Days Ago
-                //-         a.ext-link(href='24_Property_Single.html' title='')
-                //- .col-lg-4.col-md-6
-                //-     .card
-                //-         a(href='24_Property_Single.html' title='')
-                //-             .img-block
-                //-                 .overlay
-                //-                 img.img-fluid(src='/img/listing/3.jpg' alt='')
-                //-                 .rate-info
-                //-                     h5 $550.000
-                //-                     span For Rent
-                //-         .card-body
-                //-             a(href='24_Property_Single.html' title='')
-                //-                 h3 Traditional Apartments
-                //-                 p
-                //-                     i.la.la-map-marker
-                //-                     | 212 5th Ave, New York
-                //-             ul
-                //-                 li 3 Bathrooms
-                //-                 li 2 Beds
-                //-                 li Area 555 Sq Ft
-                //-         .card-footer
-                //-             a.pull-left(href='#')
-                //-                 i.la.la-heart-o
-                //-             a.pull-right(href='#')
-                //-                 i.la.la-calendar-check-o
-                //-                 |  25 Days Ago
-                //-         a.ext-link(href='24_Property_Single.html' title='')
+                - if(lands.length == 0)
+                    h3 No Land available for display
+                
         .alert.alert-success(role='alert')
             strong Added to Favourites
             |  You can check your favourite items here 
