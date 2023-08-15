@@ -28,14 +28,27 @@ html(lang='en')
             include _header
 
             block content
-            
-        script(src='/js/vendor/jquery.js')
-        script(src='/js/external/popper.min.js')
-        script(src='/js/external/bootstrap.min.js')
-        script(src='/js/vendor/jquery-ui.js')
-        script(src='/js/vendor/wow.min.js')
-        //- script(src='/js/vendor/dropzone.js')
-        script(src='/js/vendor/appear.js')
-        script(src='/js/admin/script.js')
-        script(src='/js/bundle.js')
+
+        // Bootstrap modal for full version display
+        #documentModal.modal.fade(tabindex='-1' aria-labelledby='documentModalLabel' aria-hidden='true')
+            .modal-dialog.modal-lg
+                .modal-content
+                    .modal-header
+                        h5#documentModalLabel.modal-title Document Preview
+                        button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                    .modal-body
+                        // Document content will be loaded dynamically here
+
+
+        block scripts 
+            script(src='/js/vendor/jquery.js')
+            script(src='/js/external/popper.min.js')
+            script(src='/js/external/bootstrap.min.js')
+            script(src='/js/vendor/jquery-ui.js')
+            script(src='/js/vendor/wow.min.js')
+            //- script(src='/js/vendor/dropzone.js')
+            script(src='/js/vendor/appear.js')
+            script(src='/js/admin/script.js')
+            script(src='/js/admin/pdf.min.js')
+            script(src='/js/bundle.js')
     // Mirrored from expert-themes.com/html/willies/admin/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 11 Dec 2018 11:39:13 GMT

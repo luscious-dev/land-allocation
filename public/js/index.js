@@ -1,6 +1,14 @@
 import { login, logout, signUp } from "./login";
 import { buyLand } from "./stripe";
-import { addLand, updateLand, deleteLand, applyForCofo } from "./land";
+import {
+  addLand,
+  updateLand,
+  deleteLand,
+  applyForCofo,
+  printCofo,
+  approveCofo,
+  rejectCofo,
+} from "./land";
 import Dropzone from "dropzone";
 
 const signInPopup = document.getElementById("sign-popup");
@@ -269,6 +277,15 @@ for (let btn of deleteLandButtons) {
   });
 }
 
+const printCofoBtn = document.querySelector("#print-cofo");
+if (printCofoBtn) {
+  printCofoBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const applicationId = printCofoBtn.dataset.cofoId;
+    if (applicationId) printCofo(applicationId);
+  });
+}
+
 const applyForCofoBtn = document.querySelector("#apply-cofo");
 if (applyForCofoBtn) {
   applyForCofoBtn.addEventListener("click", (e) => {
@@ -302,4 +319,32 @@ if (applyForCofoBtn) {
 
     applyForCofo(cofoApplicationFormData);
   });
+}
+
+const applicationPage = document.querySelector(".applications");
+
+if (applicationPage) {
+  const acceptBtns = document.querySelectorAll(".accept");
+  const rejectBtns = document.querySelectorAll(".reject");
+
+  for (let acceptBtn of acceptBtns) {
+    acceptBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const applicationId = acceptBtn.dataset.applicationId;
+      const lastChanged = JSON.parse(acceptBtn.dataset.lastChanged);
+      const articleCard = acceptBtn.closest("article");
+      if (confirm("Do you really wish to approve this application?"))
+        approveCofo(applicationId, lastChanged, articleCard);
+    });
+  }
+  for (let rejectBtn of rejectBtns) {
+    rejectBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const applicationId = rejectBtn.dataset.applicationId;
+      const lastChanged = JSON.parse(rejectBtn.dataset.lastChanged);
+      const articleCard = rejectBtn.closest("article");
+      if (confirm("Do you really wish to reject this application?"))
+        rejectCofo(applicationId, lastChanged, articleCard);
+    });
+  }
 }

@@ -5553,7 +5553,7 @@ exports.buyLand = buyLand;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateLand = exports.deleteLand = exports.applyForCofo = exports.addLand = void 0;
+exports.updateLand = exports.rejectCofo = exports.printCofo = exports.deleteLand = exports.approveCofo = exports.applyForCofo = exports.addLand = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 var _alerts = require("./alerts");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -5603,6 +5603,41 @@ var applyForCofo = function applyForCofo(data) {
   });
 };
 exports.applyForCofo = applyForCofo;
+var printCofo = function printCofo(id) {
+  _axios.default.get("/api/v1/certificate-of-ownership/print-certficate/".concat(id)).then(function (res) {
+    (0, _alerts.showAlert)("success", "Success!");
+  }).catch(function (err) {
+    console.log(err);
+    (0, _alerts.showAlert)("failure", err.response.data.message);
+  });
+};
+exports.printCofo = printCofo;
+var approveCofo = function approveCofo(id, lastChanged, articleCard) {
+  _axios.default.patch("/api/v1/certificate-of-ownership/".concat(id), {
+    Approved: 1,
+    LastChanged: lastChanged
+  }).then(function (res) {
+    (0, _alerts.showAlert)("success", "Application Approved Successfully!");
+    articleCard.remove();
+  }).catch(function (err) {
+    console.log(err);
+    (0, _alerts.showAlert)("failure", err.response.data.message);
+  });
+};
+exports.approveCofo = approveCofo;
+var rejectCofo = function rejectCofo(id, lastChanged, articleCard) {
+  _axios.default.patch("/api/v1/certificate-of-ownership/".concat(id), {
+    DelFlag: 1,
+    LastChanged: lastChanged
+  }).then(function (res) {
+    (0, _alerts.showAlert)("success", "Application Rejected Successfully!");
+    articleCard.remove();
+  }).catch(function (err) {
+    console.log(err);
+    (0, _alerts.showAlert)("failure", err.response.data.message);
+  });
+};
+exports.rejectCofo = rejectCofo;
 },{"axios":"../../node_modules/axios/index.js","./alerts":"alerts.js"}],"../../node_modules/just-extend/index.esm.js":[function(require,module,exports) {
 "use strict";
 
@@ -7968,7 +8003,7 @@ var deleteLandButtons = document.querySelectorAll(".delete-land a");
 var _iterator4 = _createForOfIteratorHelper(deleteLandButtons),
   _step4;
 try {
-  var _loop2 = function _loop2() {
+  var _loop4 = function _loop4() {
     var btn = _step4.value;
     btn.addEventListener("click", function (e) {
       e.preventDefault();
@@ -7982,12 +8017,20 @@ try {
     });
   };
   for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-    _loop2();
+    _loop4();
   }
 } catch (err) {
   _iterator4.e(err);
 } finally {
   _iterator4.f();
+}
+var printCofoBtn = document.querySelector("#print-cofo");
+if (printCofoBtn) {
+  printCofoBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    var applicationId = printCofoBtn.dataset.cofoId;
+    if (applicationId) (0, _land.printCofo)(applicationId);
+  });
 }
 var applyForCofoBtn = document.querySelector("#apply-cofo");
 if (applyForCofoBtn) {
@@ -8003,6 +8046,53 @@ if (applyForCofoBtn) {
     cofoApplicationFormData.set("LandId", applyForCofoBtn.dataset.landId);
     (0, _land.applyForCofo)(cofoApplicationFormData);
   });
+}
+var applicationPage = document.querySelector(".applications");
+if (applicationPage) {
+  var acceptBtns = document.querySelectorAll(".accept");
+  var rejectBtns = document.querySelectorAll(".reject");
+  var _iterator5 = _createForOfIteratorHelper(acceptBtns),
+    _step5;
+  try {
+    var _loop2 = function _loop2() {
+      var acceptBtn = _step5.value;
+      acceptBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        var applicationId = acceptBtn.dataset.applicationId;
+        var lastChanged = JSON.parse(acceptBtn.dataset.lastChanged);
+        var articleCard = acceptBtn.closest("article");
+        if (confirm("Do you really wish to approve this application?")) (0, _land.approveCofo)(applicationId, lastChanged, articleCard);
+      });
+    };
+    for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+      _loop2();
+    }
+  } catch (err) {
+    _iterator5.e(err);
+  } finally {
+    _iterator5.f();
+  }
+  var _iterator6 = _createForOfIteratorHelper(rejectBtns),
+    _step6;
+  try {
+    var _loop3 = function _loop3() {
+      var rejectBtn = _step6.value;
+      rejectBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        var applicationId = rejectBtn.dataset.applicationId;
+        var lastChanged = JSON.parse(rejectBtn.dataset.lastChanged);
+        var articleCard = rejectBtn.closest("article");
+        if (confirm("Do you really wish to reject this application?")) (0, _land.rejectCofo)(applicationId, lastChanged, articleCard);
+      });
+    };
+    for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+      _loop3();
+    }
+  } catch (err) {
+    _iterator6.e(err);
+  } finally {
+    _iterator6.f();
+  }
 }
 },{"./login":"login.js","./stripe":"stripe.js","./land":"land.js","dropzone":"../../node_modules/dropzone/dist/dropzone.mjs"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -8029,7 +8119,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59097" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64301" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

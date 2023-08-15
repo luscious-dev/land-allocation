@@ -1,0 +1,66 @@
+extends base
+
+mixin applicationItem (application)
+    article.message-box
+        .thumb-box
+            figure.thumb
+                img(src='/img/resource/avatar.jpg' alt='')
+        .content-box
+            .name #{application.FirstName} #{application.LastName}
+            span.date
+                i.la.la-calendar
+                |  #{application.ApplicationDate.toLocaleString()}
+            ul.booking-info
+                li
+                    strong Item 
+                    |  #{application.LandName}
+                
+                li
+                    strong Mail 
+                    a(href='mailto:info@expert-themes.com')= application.Email
+                li
+                    strong Phone 
+                    a(href='tel:+79617036705')= application.Phone
+            .btn-box
+                a(href=`/cofo-applications/${application.Id}`)
+                    | View 
+                    
+                a.accept(href=`#` data-application-id = application.Id data-last-changed = JSON.stringify(application.LastChanged))
+                    | Accept 
+                    i.pe-7s-check
+                a.reject(href='#' data-application-id = application.Id data-last-changed = JSON.stringify(application.LastChanged))
+                    | Reject 
+                    i.pe-7s-close-circle
+
+block content
+    .dashboard.applications
+        .container-fluid
+            .content-area
+                .dashboard-content
+                    .dashboard-header.clearfix
+                        .row
+                            .col-md-6.col-sm-12
+                                h4 Applications For CofO
+                            .col-md-6.col-sm-12
+                                .breadcrumb-nav
+                                    ul
+                                        li
+                                            a(href='../index-2.html') Index
+                                        li
+                                            a(href='dashboard.html') Dashboard
+                                        li.active Applications
+                    .row
+                        .column.col-lg-12
+                            .messages-box
+                                .title
+                                    h3 Applications List
+                                .inner-box
+                                    - if(applications.length == 0)
+                                        | No Applications at the moment
+                                    each application of applications
+                                        +applicationItem(application)
+                                    
+                p.copyright-text
+                    | © 2018 
+                    a(href='#') Expert Themes
+                    |  All right reserved.

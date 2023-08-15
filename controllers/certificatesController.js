@@ -5,6 +5,8 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const multer = require("multer");
 const fs = require("fs");
+const puppeteer = require("puppeteer");
+const path = require("path");
 
 function deleteImages(filesObject) {
   let keys = Object.keys(filesObject);
@@ -204,4 +206,91 @@ exports.updateCertifcate = catchAsync(async (req, res, next) => {
       application,
     },
   });
+});
+
+exports.printCertifcate = catchAsync(async (req, res, next) => {
+  const application = await new CofOApplication().readOne(req.params.id);
+
+  if (!application)
+    return next(new AppError("Certificate does not exist", 404));
+  if (application.UserId != req.user.Id)
+    return next(
+      new AppError("The Ownership right does not belong to you!", 403)
+    );
+  if (!application.Approved)
+    return next(new AppError("You have not yet been given a certificate", 400));
+
+  const land = await new Land().readOne(application.LandId);
+  if (!land) return next(new AppError("Something went wrong!", 500));
+
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const content = `
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Certificate of Ownership</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+            }
+            .certificate {
+                border: 2px solid #000;
+                padding: 20px;
+                text-align: center;
+                width: 70%;
+                margin: 0 auto;
+            }
+            .logo {
+                width: 100px;
+                height: auto;
+            }
+            h1 {
+                margin-bottom: 10px;
+            }
+            p {
+                margin: 10px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="certificate">
+            <img class="logo" src="https://th.bing.com/th/id/OIP.YyBCjNC4AkVogJUMIiVvMwAAAA?pid=ImgDet&rs=1" alt="Nigeria National Emblem">
+            <h1>Certificate of Ownership</h1>
+            <p>This is to certify that</p>
+            <p><strong>${req.user.FirstName} ${req.user.LastName}</strong></p>
+            <p>is the rightful owner of the land described below:</p>
+            <p><strong>Land Parcel:</strong> ${land.LandName}</p>
+            <p><strong>Location:</strong> ${land.Location}</p>
+            <p><strong>Certificate ID:</strong> ${application.Id}</p>
+            <p>This certificate is issued under the laws of Nigeria to confirm the ownership of the above-mentioned land.</p>
+            <p>Date of Issue: ${new Date(
+              application.ApplicationDate
+            ).toLocaleDateString()}</p>
+            <p>This certificate is non-transferable and serves as proof of ownership.</p>
+        </div>
+    </body>
+    </html>
+    `;
+  await page.setContent(content);
+  // await page.addStyleTag({ path: path.join(__dirname, "../custom.css") });
+  const pdfBuffer = await page.pdf();
+
+  await browser.close();
+
+  if (!pdfBuffer)
+    return next(
+      new AppError("Something went wrong while downloading the file", 500)
+    );
+
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader(
+    "Content-Disposition",
+    `attachment; filename="certifcate_of_ownership-${req.params.id}.pdf"`
+  );
+  res.send(pdfBuffer);
 });

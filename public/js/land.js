@@ -58,3 +58,46 @@ export const applyForCofo = function (data) {
       showAlert("failure", err.response.data.message);
     });
 };
+
+export const printCofo = function (id) {
+  axios
+    .get(`/api/v1/certificate-of-ownership/print-certficate/${id}`)
+    .then((res) => {
+      showAlert("success", "Success!");
+    })
+    .catch((err) => {
+      console.log(err);
+      showAlert("failure", err.response.data.message);
+    });
+};
+
+export const approveCofo = function (id, lastChanged, articleCard) {
+  axios
+    .patch(`/api/v1/certificate-of-ownership/${id}`, {
+      Approved: 1,
+      LastChanged: lastChanged,
+    })
+    .then((res) => {
+      showAlert("success", "Application Approved Successfully!");
+      articleCard.remove();
+    })
+    .catch((err) => {
+      console.log(err);
+      showAlert("failure", err.response.data.message);
+    });
+};
+export const rejectCofo = function (id, lastChanged, articleCard) {
+  axios
+    .patch(`/api/v1/certificate-of-ownership/${id}`, {
+      DelFlag: 1,
+      LastChanged: lastChanged,
+    })
+    .then((res) => {
+      showAlert("success", "Application Rejected Successfully!");
+      articleCard.remove();
+    })
+    .catch((err) => {
+      console.log(err);
+      showAlert("failure", err.response.data.message);
+    });
+};

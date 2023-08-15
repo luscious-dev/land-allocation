@@ -1,0 +1,176 @@
+extends base
+
+block content
+    .dashboard
+        .container-fluid
+            .content-area
+                .dashboard-content
+                    .dashboard-header.clearfix
+                        .row
+                            .col-md-6.col-sm-12
+                                h4 Application Detail
+                            .col-md-6.col-sm-12
+                                .breadcrumb-nav
+                                    ul
+                                        li
+                                            a(href='../index-2.html') Index
+                                        li
+                                            a(href='dashboard.html') Dashboard
+                                        li.active Cofo Application
+                    .row
+                        .column.col-lg-12
+                            .my-invoices
+                                .title
+                                    h3 Application Details
+                                .inner-container.clearfix
+                                    .logo
+                                        a(href='#')
+                                            img(src='images/logo-small.png' alt='')
+                                    .order-num Application # #{application.Id}
+                                    .invoice-box
+                                        .row
+                                            .column.col-lg-3.col-md-6.col-sm-12
+                                                h3 Applicant Details:
+                                                ul.invoice-info
+                                                    li #{application.FirstName} #{application.LastName}
+                                                    li= application.Email
+                                                    li= application.Phone
+
+                                            .column.col-lg-3.col-md-6.col-sm-12
+                                                h3 Land Details:
+                                                ul.invoice-info
+                                                    li= application.LandName
+                                                    li= application.Location
+                                                    li= application.ZoningReg
+                                                    
+
+
+                                            .column.col-lg-3.col-md-6.col-sm-12
+                                                h3 Application Date:
+                                                ul.invoice-info
+                                                    //- li August 3,2018
+                                                    -
+                                                        formattedDate = application.ApplicationDate.toLocaleDateString("en-US",{
+                                                        day: 'numeric',
+                                                        year: 'numeric',
+                                                        month: "long"
+                                                        })
+                                                    li= formattedDate
+
+        .container.mt-5
+            .row
+                // Display document previews using Bootstrap cards
+                - if(application.SiteLayout)
+                    - if(!application.SiteLayout.endsWith(".pdf"))
+                        .col-md-4.mb-3
+                            .card
+                                img.card-img-top(src=`/img/cofo/sitelayout/${application.SiteLayout}` alt='Document Image')
+                                .card-body
+                                    h5.card-title Site Layout
+                    - else
+                        .col-md-4.mb-3
+                            .card
+                                .embed-responsive.embed-responsive-16by9
+                                    object.embed-responsive-item(type="application/pdf" data=`/img/cofo/sitelayout/${application.SiteLayout}`)
+                                .card-body
+                                    h5.card-title Site Layout
+
+                - if(application.BusinessProposal)
+                    - if(!application.BusinessProposal.endsWith(".pdf"))
+                        .col-md-4.mb-3
+                            .card
+                                img.card-img-top(src=`/img/cofo/proposal/${application.BusinessProposal}` alt='Document Image')
+                                .card-body
+                                    h5.card-title Business Proposal
+                    - else
+                        .col-md-4.mb-3
+                            .card
+                                .embed-responsive.embed-responsive-16by9
+                                    embed.embed-responsive-item(type="application/pdf" src=`/img/cofo/proposal/${application.BusinessProposal}`)
+                                .card-body
+                                    h5.card-title Business Proposal
+                - if(application.ProposedBuildingPlan)
+                    - if(!application.ProposedBuildingPlan.endsWith(".pdf"))
+                        .col-md-4.mb-3
+                            .card
+                                img.card-img-top(src=`/img/cofo/buildingplan/${application.ProposedBuildingPlan}` alt='Document Image')
+                                .card-body
+                                    h5.card-title Proposed Building Plan
+                    - else
+                        .col-md-4.mb-3
+                            .card
+                                .embed-responsive.embed-responsive-16by9
+                                    object.embed-responsive-item(type="application/pdf" data=`/img/cofo/buildingplan/${application.ProposedBuildingPlan}`)
+                                .card-body
+                                    h5.card-title Proposed Building Plan
+                - if(application.PassportPhoto)
+                    - if(!application.PassportPhoto.endsWith(".pdf"))
+                        .col-md-4.mb-3
+                            .card
+                                img.card-img-top(src=`/img/cofo/passport/${application.PassportPhoto}` alt='Document Image')
+                                .card-body
+                                    h5.card-title Passport Photo
+                    - else
+                        .col-md-4.mb-3
+                            .card
+                                .embed-responsive.embed-responsive-16by9
+                                    object.embed-responsive-item(type="application/pdf" data=`/img/cofo/passport/${application.PassportPhoto}`)
+                                .card-body
+                                    h5.card-title Passport Photo
+                - if(application.AffidavitOfLandUse)
+                    - if(!application.AffidavitOfLandUse.endsWith(".pdf"))
+                        .col-md-4.mb-3
+                            .card
+                                img.card-img-top(src=`/img/cofo/affidavit/${application.AffidavitOfLandUse}` alt='Document Image')
+                                .card-body
+                                        h5.card-title Affidavit Of Land Use
+                    - else
+                        .col-md-4.mb-3
+                            .card
+                                .embed-responsive.embed-responsive-16by9
+                                    object.embed-responsive-item(type="application/pdf" data=`/img/cofo/affidavit/${application.AffidavitOfLandUse}`)
+                                .card-body
+                                    h5.card-title Affidavit Of Land Use
+                // Add more document previews as needed
+
+
+                                        
+            p.copyright-text
+                | © 2018 
+                a(href='#') Expert Themes
+                |  All right reserved.
+
+block append scripts
+    script.
+        document.addEventListener('DOMContentLoaded', () => {
+            const documentPreviews = document.querySelectorAll('.card');
+
+            documentPreviews.forEach(preview => {
+                preview.addEventListener('click', () => {
+                    openDocumentModal(preview);
+                });
+            });
+        });
+
+        function openDocumentModal(preview) {
+            const modal = new bootstrap.Modal(document.getElementById('documentModal'));
+            const modalBody = modal._element.querySelector('.modal-body');
+
+            modal.show();
+            
+            // Clear previous content
+            modalBody.innerHTML = '';
+
+            if (preview.querySelector('img')) {
+                // Clone the clicked image and add to modal
+                const imgClone = preview.querySelector('img').cloneNode(true);
+                imgClone.classList.remove('card-img-top');
+                modalBody.appendChild(imgClone);
+            } else if (preview.querySelector('iframe')) {
+                // Clone the clicked iframe and add to modal
+                const iframeClone = preview.querySelector('iframe').cloneNode(true);
+                iframeClone.classList.remove('embed-responsive-item');
+                modalBody.appendChild(iframeClone);
+            }
+        }
+

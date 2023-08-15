@@ -38,5 +38,4 @@ app.get("*", (req, res, next) => {
 });
 // ERROR HANDLING
 app.use(errorController);
-
 module.exports = app;

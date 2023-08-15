@@ -27,9 +27,13 @@ router.get(
 router.get(
   "/cofo-applications",
   authController.restrict("admin"),
-  catchAsync(async (req, res, next) => {
-    res.render("admin/bookings");
-  })
+  viewControllers.getCofoApplications
+);
+
+router.get(
+  "/cofo-applications/:id",
+  authController.restrict("admin"),
+  viewControllers.viewCofoApplication
 );
 
 router.get("/profile", viewControllers.getProfile);

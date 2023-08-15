@@ -1,6 +1,7 @@
 const Land = require("../models/Land");
 const LandImage = require("../models/LandImage");
 const CofOApplication = require("../models/CofOApplication");
+const User = require("../models/User");
 const AllocatedTo = require("../models/AllocatedTo");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
@@ -154,8 +155,12 @@ exports.myLands = async (req, res, next) => {
       const cofoApplication = await new CofOApplication().readConditional(
         `UserId = ${req.user.Id} AND LandId = ${land.Id} AND Approved = 1`
       );
-      if (cofoApplication.length > 0) land.hasCofo = true;
+      if (cofoApplication.length > 0) {
+        land.hasCofo = true;
+        land.cofoId = cofoApplication[0].Id;
+      }
       land.Image = landImage.ImageName;
+
       // console.log(land);
       myLands.push(land);
     }
@@ -195,3 +200,51 @@ exports.applyCofo = async (req, res, next) => {
     .status(200)
     .render("admin/apply-cofo", { title: "CofO Application Form", land });
 };
+
+exports.getCofoApplications = catchAsync(async (req, res, next) => {
+  const applications = await new CofOApplication().readConditional(
+    "Approved = 0 AND DelFlag = 0"
+  );
+  for (let application of applications) {
+    const land = await new Land().readOne(application.LandId);
+    const user = await new User().readOne(application.UserId);
+    application.LandName = land.LandName;
+    application.FirstName = user.FirstName;
+    application.LastName = user.LastName;
+    application.Email = user.Email;
+    application.Phone = user.Phone;
+  }
+
+  console.log(applications);
+  res.render("admin/cofo-applications", {
+    page: "cofo",
+    title: "CofO Applications",
+    applications,
+  });
+});
+exports.viewCofoApplication = catchAsync(async (req, res, next) => {
+  const application = (
+    await new CofOApplication().readConditional(
+      `Id = ${req.params.id} AND DelFlag = 0`
+    )
+  )[0];
+
+  if (!application)
+    return next(new AppError("Application does not exist!", 404));
+  const land = await new Land().readOne(application.LandId);
+  const user = await new User().readOne(application.UserId);
+  application.FirstName = user.FirstName;
+  application.LastName = user.LastName;
+  application.Email = user.Email;
+  application.Phone = user.Phone;
+  application.LandName = land.LandName;
+  application.Location = land.Location;
+  application.ZoningReg = land.ZoningReg;
+
+  console.log(application);
+  res.render("admin/cofo-application-info", {
+    page: "cofo",
+    title: "CofO Applications",
+    application,
+  });
+});

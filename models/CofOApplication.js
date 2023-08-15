@@ -28,6 +28,7 @@ module.exports = class CofOApplication {
       .input("ApplicationFee", sql.Money, ApplicationFee)
       .input("ApplicationDate", sql.Date, getCurrentDate())
       // Change this
+      .input("DelFlag", sql.Bit, 0)
       .input("PassportPhoto", sql.VarChar(50), PassportPhoto)
       .input("NIN", sql.Char(11), NIN)
       .input("Approved", sql.Bit, 0)
@@ -90,8 +91,8 @@ module.exports = class CofOApplication {
       .input("ApplicationDate", sql.Date, data.ApplicationDate)
       .input("PassportPhoto", sql.VarChar(50), data.PassportPhoto)
       .input("NIN", sql.Char(11), data.NIN)
-      .input("Approved", sql.Bit, 0)
-      .input("DelFag", sql.Bit, data.DelFlag)
+      .input("Approved", sql.Bit, data.Approved)
+      .input("DelFlag", sql.Bit, data.DelFlag)
       .input("LastChanged", sql.VarBinary, Buffer.from(LastChanged))
       .output("NewLastChanged", sql.VarBinary, undefined)
       .execute(`dbo.${process.env.UNIQUE_PREFIX}_CofOApplication_Update`);
