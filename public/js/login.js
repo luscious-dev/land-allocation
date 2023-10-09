@@ -45,3 +45,23 @@ export const signUp = function (data) {
       showAlert("failure", err.response.data.message);
     });
 };
+
+export const updateProfile = async function (data) {
+  try {
+    const res = await axios.patch("/api/v1/user/updateMe", data);
+    showAlert("success", "Profile updated successfully");
+    return res.data;
+  } catch (err) {
+    showAlert("failure", err.response.data.message);
+  }
+};
+
+export const updatePassword = async function (data) {
+  try {
+    const res = await axios.patch("/api/v1/user/updatePassword", data);
+    showAlert("success", "Password updated successfully");
+    return res.data;
+  } catch (err) {
+    showAlert("failure", err.response.data.message);
+  }
+};

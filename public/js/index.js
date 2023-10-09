@@ -1,4 +1,4 @@
-import { login, logout, signUp } from "./login";
+import { login, logout, signUp, updatePassword, updateProfile } from "./login";
 import { buyLand } from "./stripe";
 import {
   addLand,
@@ -277,12 +277,14 @@ for (let btn of deleteLandButtons) {
   });
 }
 
-const printCofoBtn = document.querySelector("#print-cofo");
-if (printCofoBtn) {
-  printCofoBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    const applicationId = printCofoBtn.dataset.cofoId;
-    if (applicationId) printCofo(applicationId);
+const printCofoBtns = document.querySelectorAll(".print-cofo");
+if (printCofoBtns.length > 0) {
+  printCofoBtns.forEach((printCofoBtn) => {
+    printCofoBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const applicationId = printCofoBtn.dataset.cofoId;
+      if (applicationId) printCofo(applicationId);
+    });
   });
 }
 
@@ -347,4 +349,59 @@ if (applicationPage) {
         rejectCofo(applicationId, lastChanged, articleCard);
     });
   }
+}
+
+const updateProfileBtn = document.querySelector("#update-profile");
+const updatePasswordBtn = document.querySelector("#update-password");
+
+if (updateProfileBtn) {
+  updateProfileBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const data = {
+      LastChanged: JSON.parse(document.querySelector("#LastChanged").value),
+      FirstName:
+        document.querySelector("#firstName").value == ""
+          ? undefined
+          : document.querySelector("#firstName").value,
+      LastName:
+        document.querySelector("#lastName").value == ""
+          ? undefined
+          : document.querySelector("#lastName").value,
+      MiddleName:
+        document.querySelector("#middleName").value == ""
+          ? undefined
+          : document.querySelector("#middleName").value,
+
+      Phone:
+        document.querySelector("#phone").value == ""
+          ? undefined
+          : document.querySelector("#phone").value,
+    };
+
+    updateProfile(data).then((res) => {
+      document.querySelector("#LastChanged").value = JSON.stringify(
+        res.data.user.LastChanged
+      );
+      console.log(res);
+    });
+  });
+}
+
+if (updatePasswordBtn) {
+  updatePasswordBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    const data = {
+      LastChanged: JSON.parse(document.querySelector("#LastChanged").value),
+      currentPassword: document.querySelector("#currentPassword").value,
+      newPassword: document.querySelector("#newPassword").value,
+      confirmPassword: document.querySelector("#confirmPassword").value,
+    };
+
+    updatePassword(data).then((res) => {
+      document.querySelector("#LastChanged").value = JSON.stringify(
+        res.data.user.LastChanged
+      );
+      console.log(res);
+    });
+  });
 }

@@ -11,9 +11,10 @@ exports.getHome = catchAsync(async (req, res, next) => {
     "isPopular = 1 AND DelFlag = 0"
   );
   for (let land of lands) {
-    const landImage = (
-      await new LandImage().readConditional(`LandId = ${land.Id}`)
-    )[0];
+    const landImages = await new LandImage().readConditional(
+      `LandId = ${land.Id}`
+    );
+    const landImage = landImages[landImages.length - 1];
     if (landImage) land.image = landImage.ImageName;
   }
   res.status(200).render("home", { lands, title: "Home", page: "home" });
@@ -26,9 +27,10 @@ exports.getAbout = (req, res, next) => {
 exports.getListings = catchAsync(async (req, res, next) => {
   const lands = await new Land().readAll();
   for (let land of lands) {
-    const landImage = (
-      await new LandImage().readConditional(`LandId = ${land.Id}`)
-    )[0];
+    const landImages = await new LandImage().readConditional(
+      `LandId = ${land.Id}`
+    );
+    const landImage = landImages[landImages.length - 1];
     land.image = landImage.ImageName;
   }
 
@@ -47,9 +49,10 @@ exports.getListings = catchAsync(async (req, res, next) => {
 exports.getOneLand = catchAsync(async (req, res, next) => {
   const lands = await new Land().readConditional(`DelFlag = 0`);
   for (let land of lands) {
-    const landImage = (
-      await new LandImage().readConditional(`LandId = ${land.Id}`)
-    )[0];
+    const landImages = await new LandImage().readConditional(
+      `LandId = ${land.Id}`
+    );
+    const landImage = landImages[landImages.length - 1];
     if (landImage) land.image = landImage.ImageName;
   }
 
@@ -112,9 +115,10 @@ exports.addLand = (req, res, next) => {
 exports.allLands = catchAsync(async (req, res, next) => {
   const lands = await new Land().readConditional(`DelFlag = 0`);
   for (let land of lands) {
-    const landImage = (
-      await new LandImage().readConditional(`LandId = ${land.Id}`)
-    )[0];
+    const landImages = await new LandImage().readConditional(
+      `LandId = ${land.Id}`
+    );
+    const landImage = landImages[landImages.length - 1];
     if (landImage) land.Image = landImage.ImageName;
   }
   lands.sort((a, b) => {
@@ -132,9 +136,10 @@ exports.editLand = catchAsync(async (req, res, next) => {
     )
   )[0];
 
-  const landImage = (
-    await new LandImage().readConditional(`LandId = ${land.Id}`)
-  )[0];
+  const landImages = await new LandImage().readConditional(
+    `LandId = ${land.Id}`
+  );
+  const landImage = landImages[landImages.length - 1];
   land.Image = landImage.ImageName;
   res.status(200).render("admin/edit-land", { title: "Edit Land", land });
 });
@@ -149,9 +154,10 @@ exports.myLands = async (req, res, next) => {
     land.hasCofo = false;
 
     if (land) {
-      const landImage = (
-        await new LandImage().readConditional(`LandId = ${land.Id}`)
-      )[0];
+      const landImages = await new LandImage().readConditional(
+        `LandId = ${land.Id}`
+      );
+      const landImage = landImages[landImages.length - 1];
       const cofoApplication = await new CofOApplication().readConditional(
         `UserId = ${req.user.Id} AND LandId = ${land.Id} AND Approved = 1`
       );

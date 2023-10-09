@@ -10,7 +10,12 @@ router.get("/logout", authController.logout);
 
 router.use(authController.protect);
 router.get("/me", userController.getMe, userController.getOne);
-router.post("/updateMe", userController.updateMe, userController.updateOne);
+router.patch("/updateMe", userController.updateMe, userController.updateOne);
+router.patch(
+  "/updatePassword",
+  userController.updateMe,
+  userController.updatePassword
+);
 
 router.use(authController.restrict("admin"));
 

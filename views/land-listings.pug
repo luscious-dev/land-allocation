@@ -40,7 +40,7 @@ mixin landItem2(land)
                 .overlay
                 img.img-fluid(src=`/img/land/home/${land.image}` alt='')
                 .rate-info
-                    h5 $#{land.Price.toLocaleString()}
+                    h5 &#x20A6;#{land.Price.toLocaleString()}
                     span= land.Allocated ? "Unvavailable":"Available"
         .card_bod_full
             .card-body
@@ -74,12 +74,8 @@ block content
     section.pager-sec.bfr
         .container
             .pager-sec-details
-                h3 List Layout
-                ul
-                    li
-                        a(href='#' title='') Home
-                    li
-                        span List Layout
+                h3 Land List
+                
             // pager-sec-details end
     section.listing-main-sec.section-padding2
         .container
@@ -88,17 +84,9 @@ block content
                     .col-lg-8
                         .listing-directs
                             .list-head
-                                .sortby
-                                    span Sort by:
-                                    .drop-menu
-                                        .select
-                                            span Relevant
-                                            i.la.la-caret-down
-                                        input(type='hidden' name='gender')
-                                        ul.dropeddown
-                                            li For Sale
-                                            li For Rent
-                                // sortby end
+                                
+                                        
+                                
                                 .view-change
                                     ul#myTab.nav.nav-tabs(role='tablist')
                                         li.nav-item
@@ -124,17 +112,17 @@ block content
                                             
                                             // list-products end
                                             // tab-content end
-                                            nav(aria-label='Page navigation example')
-                                                ul.pagination
-                                                    li.page-item.active
-                                                        a.page-link(href='#') 1
-                                                    li.page-item
-                                                        a.page-link(href='#') 2
-                                                    li.page-item
-                                                        a.page-link(href='#' aria-label='Next')
-                                                            span(aria-hidden='true')
-                                                                i.la.la-arrow-right
-                                                            span.sr-only Next
+                                            //- nav(aria-label='Page navigation example')
+                                            //-     ul.pagination
+                                            //-         li.page-item.active
+                                            //-             a.page-link(href='#') 1
+                                            //-         li.page-item
+                                            //-             a.page-link(href='#') 2
+                                            //-         li.page-item
+                                            //-             a.page-link(href='#' aria-label='Next')
+                                            //-                 span(aria-hidden='true')
+                                            //-                     i.la.la-arrow-right
+                                            //-                 span.sr-only Next
                                             // pagination end
                                             // listing-directs end
                     .col-lg-4
@@ -152,7 +140,7 @@ block content
                                                 .ps-info
                                                     h3
                                                         a(href=`/land/${land.Slug}` title='') #{land.LandName}
-                                                    strong $#{land.Price.toLocaleString()}
+                                                    strong &#x20A6;#{land.Price.toLocaleString()}
                                                     span
                                                         i.la.la-map-marker
                                                         | #{land.Location}
@@ -165,27 +153,4 @@ block content
                 .col-xl-12
                     .cta-text
                         h2 Discover a home you&apos;ll love to stay
-    section.bottom.section-padding
-        .container
-            .row
-                .col-xl-4.col-sm-6.col-md-4
-                    .bottom-logo
-                        img.img-fluid(src='/img/logo.png' alt='')
-                .col-xl-3.col-sm-6.col-md-3
-                    .bottom-list
-                        h3 Helpful Links
-                        ul
-                            li
-                                a(href='18_Half_Map.html' title='') Half Map
-                            li
-                                a(href='#' title='') Register
-                            li
-                                a(href='#' title='') Pricing
-                            li
-                                a(href='#' title='') Add Listing
-                    // bottom-list end
-                .col-xl-5.col-sm-12.col-md-5.pl-0
-                    .bottom-desc
-                        h3 Aditional Information
-                        p
-                            | Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos.
+    

@@ -7,6 +7,9 @@ const multer = require("multer");
 const fs = require("fs");
 const puppeteer = require("puppeteer");
 const path = require("path");
+const pug = require("pug");
+
+const htmlPDF = require("puppeteer-html-pdf");
 
 function deleteImages(filesObject) {
   let keys = Object.keys(filesObject);
@@ -223,74 +226,37 @@ exports.printCertifcate = catchAsync(async (req, res, next) => {
   const land = await new Land().readOne(application.LandId);
   if (!land) return next(new AppError("Something went wrong!", 500));
 
+  const data = {
+    firstName: req.user.FirstName,
+    lastName: req.user.LastName,
+    location: `${land.Location.trim()}, ${land.City.trim()}, ${land.State.trim()}`,
+    size: land.Size,
+    date: application.ApplicationDate.toLocaleDateString(),
+    topography: land.Topography,
+    price: land.Price.toLocaleString(),
+  };
+
+  const invoiceString = pug.renderFile(
+    path.join(__dirname, "../certificate/template.pug"),
+    data
+  );
+
+  // Launch a headless browser
   const browser = await puppeteer.launch();
+
+  // Create a new page
   const page = await browser.newPage();
 
-  const content = `
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Certificate of Ownership</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 20px;
-            }
-            .certificate {
-                border: 2px solid #000;
-                padding: 20px;
-                text-align: center;
-                width: 70%;
-                margin: 0 auto;
-            }
-            .logo {
-                width: 100px;
-                height: auto;
-            }
-            h1 {
-                margin-bottom: 10px;
-            }
-            p {
-                margin: 10px 0;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="certificate">
-            <img class="logo" src="https://th.bing.com/th/id/OIP.YyBCjNC4AkVogJUMIiVvMwAAAA?pid=ImgDet&rs=1" alt="Nigeria National Emblem">
-            <h1>Certificate of Ownership</h1>
-            <p>This is to certify that</p>
-            <p><strong>${req.user.FirstName} ${req.user.LastName}</strong></p>
-            <p>is the rightful owner of the land described below:</p>
-            <p><strong>Land Parcel:</strong> ${land.LandName}</p>
-            <p><strong>Location:</strong> ${land.Location}</p>
-            <p><strong>Certificate ID:</strong> ${application.Id}</p>
-            <p>This certificate is issued under the laws of Nigeria to confirm the ownership of the above-mentioned land.</p>
-            <p>Date of Issue: ${new Date(
-              application.ApplicationDate
-            ).toLocaleDateString()}</p>
-            <p>This certificate is non-transferable and serves as proof of ownership.</p>
-        </div>
-    </body>
-    </html>
-    `;
-  await page.setContent(content);
-  // await page.addStyleTag({ path: path.join(__dirname, "../custom.css") });
-  const pdfBuffer = await page.pdf();
+  await page.setContent(invoiceString, { waitUntil: "networkidle0" });
 
-  await browser.close();
+  pdfOption = {
+    width: "12in",
+    height: "8.5in",
+  };
 
-  if (!pdfBuffer)
-    return next(
-      new AppError("Something went wrong while downloading the file", 500)
-    );
-
-  res.setHeader("Content-Type", "application/pdf");
-  res.setHeader(
-    "Content-Disposition",
-    `attachment; filename="certifcate_of_ownership-${req.params.id}.pdf"`
-  );
-  res.send(pdfBuffer);
+  // const buffer = await htmlPDF.create(invoiceString, pdfOption);
+  const buffer = await page.pdf(pdfOption);
+  browser.close();
+  res.attachment("certificate.pdf");
+  return res.end(buffer);
 });

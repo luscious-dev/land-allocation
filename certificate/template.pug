@@ -1,0 +1,61 @@
+doctype html
+html
+    head
+        title Land Certificate of Ownership
+
+    body(style='font-family: Roboto;')
+
+        .certificate-container(style='padding: 50px; width: 1024px;')
+            .certificate(style='border: 20px solid #0C5280; padding: 25px; height: 600px; position: relative;')
+                
+
+                .certificate-header
+                    img.logo(src='https://rnmastersreview.com/img/logo.png', class='logo', alt='')
+
+                .certificate-body(style='text-align: center;')
+                    p.certificate-title(style='text-align: center;') 
+                        strong Mama Land Ownership Certificate
+
+                    h1(style='font-weight: 400; font-size: 48px; color: #0C5280;') Certificate of Ownership
+
+                    p.student-name(style='font-size: 24px;') #{firstName} #{lastName}
+
+                    .certificate-content(style='margin: 0 auto; width: 750px;')
+                        .about-certificate(style='width: 380px; margin: 0 auto;')
+                            p(style='text-align: center;')
+                                | #{firstName} #{lastName} is the rightful owner of the land located at #{location}. The land spans #{size}sqft and has been officially recognized as his property on #{date}.
+
+                            p.topic-description(style='text-align: center;') The details of the land and its ownership are as follows:
+
+                            h2(style='margin-top: 20px; font-size: 24px; color: #0C5280;') Land Properties
+
+                            ul(style='list-style-type: none; padding: 0; text-align: center;')
+                                li(style='margin-bottom: 10px;') 
+                                    strong Land Area: 
+                                    span(style='font-style: italic; color: #555;') #{size}
+                                li(style='margin-bottom: 10px;') 
+                                    strong Land Price: 
+                                    span(style='font-style: italic; color: #555;') &#x20A6;#{price}
+                                li(style='margin-bottom: 10px;') 
+                                    strong Location: 
+                                    span(style='font-style: italic; color: #555;') #{location}
+                                li(style='margin-bottom: 10px;') 
+                                    strong Terrain: 
+                                    span(style='font-style: italic; color: #555;') #{topography}
+                                li(style='margin-bottom: 10px;') 
+                                    strong Ownership Start Date: 
+                                    span(style='font-style: italic; color: #555;') #{date}
+                                //- li Land Price: #{price}
+                                //- li Location: #{location}
+                                //- li Terrain: #{topography}
+                                //- li Ownership Start Date: #{date}
+
+                .certificate-footer.text-muted(style='text-align: center; margin-top: 20px; color: #555;')
+                    .row
+                        .col-md-6
+                            .row
+                                .col-md-6
+                                    p Accredited by Mama Lands
+                                .col-md-6
+                                    p Endorsed by The Federal Ministry of Lands and Housing
+

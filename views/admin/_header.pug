@@ -14,14 +14,15 @@ header.main-header
                         img.thumb(src='/img/resource/thumb-1.jpg' alt='avatar')
                         | My Account
                     .dropdown-menu
-                        - if(user.role == "admin")
+                        - if(user.Role == "admin")
                             a.dropdown-item(href='/dashboard') Dashboard
                         a.dropdown-item(href='/profile') My profile
                         a.dropdown-item#log-out(href='javascript:void(0)') Log out
-                li.submit-property
-                    a.theme-btn.btn-style-one(href='/add-land')
-                        | Add Land 
-                        i.pe-7s-up-arrow
+                - if(user.Role == "admin")
+                    li.submit-property
+                        a.theme-btn.btn-style-one(href='/add-land')
+                            | Add Land 
+                            i.pe-7s-up-arrow
                 li.nav-toggler
                     button.toggler-btn.nav-btn
                         span.bar.bar-one

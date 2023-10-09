@@ -43,15 +43,15 @@ header.pb .header .navbar-nav .nav-item .nav-link:hover,
 .map-city-links ul li a:hover,
 a.link,
 .selected,
-.dropdown-item.active, 
+.dropdown-item.active,
 .dropdown-item:active,
 .post-share > a:hover,
 .h-card-body .title,
 .h-page-card .title a:hover,
 .blog-single-post:hover .post_info > a {
-	color: #6a7be7;
+  /* color: #6a7be7; */
+  color: rgba(0, 200, 100, 0.8);
 }
-
 
 .banner-search .btn,
 .explore-feature .card .card-body i,
@@ -77,16 +77,16 @@ a.link,
 .card .card-footer a .la-heart-o:hover,
 .footer-social a:hover,
 .signin-btn b:before,
-.success-message, 
+.success-message,
 .error-message,
 .error,
 .btn.btn-local-primary,
 .block-header,
 .model-item .title:hover,
 .language-selector .drop-menu .dropeddown li:hover {
-	background-color: #6a7be7;
+  /* background-color: #6a7be7; */
+  background-color: rgba(0, 200, 100, 0.8);
 }
-
 
 .header .navbar-nav .submit-btn a,
 .view-btn,
@@ -98,5 +98,6 @@ a.link,
 .btn-default,
 .btn.btn-local-primary,
 .language-selector .drop-menu .dropeddown li:hover {
-	border-color: #6a7be7;
+  /* border-color: #6a7be7; */
+  border-color: rgba(0, 200, 100, 0.8);
 }

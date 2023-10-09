@@ -30,7 +30,7 @@ mixin landItem(land)
                 ul.action-list
                     - if(land.hasCofo)
                         li
-                            a#print-cofo(href="javascript:void(0)" data-cofo-id=land.cofoId)
+                            a.print-cofo(href="javascript:void(0)" data-cofo-id=land.cofoId)
                                 i.la.la-edit
                                 |  Print Your CofO
                     

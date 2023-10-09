@@ -8,13 +8,13 @@ block content
                     .dashboard-header.clearfix
                         .row
                             .col-md-6.col-sm-12
-                                h4 Submit Property
+                                h4 Profile
                             .col-md-6.col-sm-12
                                 .breadcrumb-nav
                                     ul
                                         li
                                             a(href='/') Index
-                                        - if(user.role == "admin")
+                                        - if(user.Role == "admin")
                                             li
                                                 a(href='/dashboard') Dashboard
                                         li.active Profile
@@ -24,6 +24,7 @@ block content
                                 .inner-container
                                     .title
                                         h3 Profile Details
+                                        input#LastChanged(type="hidden", name="LastChanged", value=user.LastChanged)
                                     .profile-form
                                         .row
                                             .col-lg-4.col-md-12.col-sm-12
@@ -36,87 +37,56 @@ block content
                                                                 i.la.la-cloud-upload
                                                             input.upload(type='file')
                                             .col-lg-8.col-md-12.col-sm-12
-                                                form(method='post' action='http://expert-themes.com/html/willies/admin/index.html')
+                                                form
                                                     .row
                                                         // Form Group
                                                         .form-group.col-lg-6.col-md-6.col-sm-12
                                                             label Your First Name
-                                                            input(type='text' name='name' placeholder='John' value=user.FirstName required='')
+                                                            input#firstName(type='text' name='name' placeholder='First Name' value=user.FirstName required='')
                                                         // Form Group
                                                         .form-group.col-lg-6.col-md-6.col-sm-12
                                                             label Your Middle Name
-                                                            input(type='text' name='name' placeholder='Landino' value=user.MiddleName required='')
+                                                            input#middleName(type='text' name='name' placeholder='Middle Name' value=user.MiddleName required='')
                                                         // Form Group
                                                         .form-group.col-lg-6.col-md-6.col-sm-12
                                                             label Your Last Name
-                                                            input(type='text' name='name' placeholder='Doe' value=user.LastName required='')
-                                                        // Form Group
-                                                        .form-group.col-lg-6.col-md-6.col-sm-12
-                                                            label Your Title
-                                                            input(type='text' name='title' placeholder='Your Title' required='')
+                                                            input#lastName(type='text' name='name' placeholder='Last Name' value=user.LastName required='')
+                                                        
                                                         // Form Group
                                                         .form-group.col-lg-6.col-md-6.col-sm-12
                                                             label Phone #
-                                                            input(type='text' name='phone' placeholder='Phone' value=user.Phone required='')
+                                                            input#phone(type='text' name='phone' placeholder='Phone' value=user.Phone required='')
                                                         // Form Group
                                                         .form-group.col-lg-6.col-md-6.col-sm-12
                                                             label Your Email
-                                                            input(type='email' name='email' placeholder='Your Email' value=user.Email required='')
+                                                            input#email(type='email' name='email' placeholder='Your Email' disabled value=user.Email required='')
                                                         // Form Group
                                                         .form-group.text-right.col-lg-12.col-md-12.col-sm-12
-                                                            button.theme-btn.btn-style-one(type='submit') Update Profile
+                                                            button.theme-btn.btn-style-one#update-profile Update Profile
                         .column.col-lg-6.col-md-12
                             .properties-box
                                 .inner-container
                                     .title
                                         h3 Change Password
                                     .profile-form
-                                        form(method='post' action='http://expert-themes.com/html/willies/admin/index.html')
+                                        form
                                             .row
                                                 // Form Group
                                                 .form-group.col-lg-12
                                                     label Current Password
-                                                    input(type='text' name='name' placeholder='Current Password' required='')
+                                                    input#currentPassword(type='password' name='name' placeholder='Current Password' required='')
                                                 // Form Group
                                                 .form-group.col-lg-12
                                                     label New Password
-                                                    input(type='text' name='title' placeholder='New Password' required='')
+                                                    input#newPassword(type='password' name='title' placeholder='New Password' required='')
                                                 // Form Group
                                                 .form-group.col-lg-12
                                                     label Confirm New Password
-                                                    input(type='text' name='phone' placeholder='Confirm New Password' required='')
+                                                    input#confirmPassword(type='password' name='phone' placeholder='Confirm New Password' required='')
                                                 // Form Group
                                                 .form-group.col-lg-12
-                                                    button.theme-btn.btn-style-one(type='submit') Update Password
-                        .column.col-lg-6.col-md-12
-                            .properties-box
-                                .inner-container
-                                    .title
-                                        h3 Socials Links
-                                    .profile-form
-                                        form(method='post' action='http://expert-themes.com/html/willies/admin/index.html')
-                                            .row
-                                                // Form Group
-                                                .form-group.col-lg-12
-                                                    label
-                                                        i.la.la-facebook
-                                                        | Facebook
-                                                    input(type='text' name='name' placeholder='Facebook' required='')
-                                                // Form Group
-                                                .form-group.col-lg-12
-                                                    label
-                                                        i.la.la-twitter
-                                                        | Twitter
-                                                    input(type='text' name='name' placeholder='Twitter' required='')
-                                                // Form Group
-                                                .form-group.col-lg-12
-                                                    label
-                                                        i.la.la-instagram
-                                                        | Instagram
-                                                    input(type='text' name='name' placeholder='Instagram' required='')
-                                                // Form Group
-                                                .form-group.col-lg-12
-                                                    button.theme-btn.btn-style-one(type='submit') Save Changes
+                                                    button.theme-btn.btn-style-one#update-password Update Password
+                        
                 p.copyright-text
                     | © 2018 
                     a(href='#') Expert Themes
